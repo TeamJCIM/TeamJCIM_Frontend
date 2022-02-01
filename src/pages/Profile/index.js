@@ -20,12 +20,6 @@ class Profile extends Component {
         document.getElementById('body').className = 'page-top';
     }
 
-    componentDidMount() {
-        this.setState({
-            title: '프로필설정',
-        });
-    }
-
     render() {
         return (
             <div>
@@ -37,7 +31,49 @@ class Profile extends Component {
                             <div className="container-fluid">
                                 <PageHeading title="Profile" />
                             </div>
-                            <CardBasic />
+                            <div className="container-fluid">
+                                <CardBasic title="프로필설정">
+                                    <div class="small mb-1">Name</div>
+                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+                                        <span class="navbar-brand">홍명헌</span>
+                                    </nav>
+
+                                    <div class="small mb-1">Phone</div>
+                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+                                        <span class="navbar-brand">
+                                            010-0000-0000
+                                        </span>
+                                    </nav>
+
+                                    <div class="small mb-1">이메일</div>
+                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+                                        <span class="navbar-brand">
+                                            yes7076@naver.com
+                                        </span>
+                                    </nav>
+
+                                    <div class="small mb-1">Location</div>
+                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+                                        <span class="navbar-brand">
+                                            동대문구 망우로100-111
+                                        </span>
+                                    </nav>
+
+                                    <div class="small mb-1">IoT Number</div>
+                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+                                        <span class="navbar-brand">
+                                            90087247182
+                                        </span>
+                                    </nav>
+
+                                    <button
+                                        class="btn btn-secondary"
+                                        type="button"
+                                    >
+                                        프로필변경
+                                    </button>
+                                </CardBasic>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -4,15 +4,15 @@ class CardBasic extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
+            title: props.title,
         };
     }
 
-    componentDidMount() {
-        this.setState({
-            title: this.props.title ? this.props.title : 'Basic Card Example',
-        });
-    }
+    // componentDidMount() {
+    //     this.setState({
+    //         title: this.props.title ? this.props.title : 'Basic Card Example',
+    //     });
+    // }
 
     render() {
         return (
