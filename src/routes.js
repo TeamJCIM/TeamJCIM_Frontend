@@ -9,6 +9,9 @@ import NotFound from './pages/NotFound';
 import Cards from './pages/Cards';
 import Charts from './pages/Charts';
 import Predict from './pages/Predict';
+import TodayUsage from './pages/TodayUsage';
+import MonthUsage from './pages/MonthUsage';
+import YearUsage from './pages/YearUsage'
 // import Profile from './pages/Profile';
 // import ResetPassword from './pages/ResetPassword';
 // import Safety from './pages/Safety';
@@ -25,6 +28,9 @@ const Routes = () => (
             <Route path="/cards" component={Cards} />
             <Route path="/charts" component={Charts} />
             <Route path="/predict" component={Predict} />
+            <Route path="/todayusage" component={TodayUsage}/>
+            <Route path="/monthusage" component={MonthUsage}/>
+            <Route path="/yearusage" component={YearUsage}/>
             <Route path="*" component={NotFound} />
         </Switch>
     </BrowserRouter>
