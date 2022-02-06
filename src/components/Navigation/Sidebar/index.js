@@ -80,16 +80,27 @@ class Sidebar extends Component {
                         aria-labelledby="headingTwo"
                         data-parent="#accordionSidebar"
                     >
-                        <div className="bg-white py-2 collapse-inner rounded">
-                            <a className="collapse-item" href="today.html">
+                        <div className="bg-white  collapse-inner rounded">
+                            <Link className="collapse-item" to="/todayusage">
                                 당일 전력 조회
-                            </a>
-                            <a className="collapse-item" href="month.html">
+                            </Link>
+                            
+                            
+                            <Link className="collapse-item" to="/monthusage">
                                 당월/전월 전력 조회
-                            </a>
-                            <a className="collapse-item" href="year.html">
+                            </Link>
+
+                            <Link className="collapse-item" to="/yearusage">
                                 연간 전력 조회
-                            </a>
+                            </Link>
+                            {/*
+                            <div className="collapse-item" href="month.html">
+                                당월/전월 전력 조회
+                            </div>
+                            <div className="collapse-item" href="year.html">
+                                연간 전력 조회
+                            </div>
+                            */}
                         </div>
                     </div>
                 </li>
