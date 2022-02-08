@@ -18,26 +18,24 @@ class ChartLine extends Component {
         new Chart(myChartRef, {
             type: 'line',
             data: {
-                labels: ["0h", "2h", "4h", "6h", "8h", "10h", "12h", "14h", "16h", "18h", "20h", "22h", "24h"],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
                     label: "Earnings",
                     lineTension: 0.3,
                     backgroundColor: "rgba(78, 115, 223, 0.05)",
                     borderColor: "rgba(78, 115, 223, 1)",
-                    pointRadius: 1,
+                    pointRadius: 3,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHoverRadius: 1,
+                    pointHoverRadius: 3,
                     pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    fill: true,
-                    data: [20000, 15000, 25000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 25000, 40000],
+                    data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
                 }],
             },
             options: {
-                responsive: true,
                 maintainAspectRatio: false,
                 layout: {
                     padding: {
@@ -57,15 +55,10 @@ class ChartLine extends Component {
                             drawBorder: false
                         },
                         ticks: {
-                            maxTicksLimit: 12
+                            maxTicksLimit: 7
                         }
                     }],
                     yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            fontColor: 'blue',
-                            labelString: '사용량',
-                        },
                         ticks: {
                             maxTicksLimit: 5,
                             padding: 10,
@@ -81,7 +74,7 @@ class ChartLine extends Component {
                     }],
                 },
                 legend: {
-                    display: false,
+                    display: false
                 },
                 tooltips: {
                     backgroundColor: "rgb(255,255,255)",
@@ -110,13 +103,12 @@ class ChartLine extends Component {
 
     render() {
         return (
-            <CardBasic title="실시간 사용량">
+            <CardBasic title="Area Chart">
                 <div className="chart-area">
                     <canvas id="myAreaChart" ref={this.chartRef}></canvas>
                 </div>
-                {/*
                 <hr />
-                Styling for the area chart can be found in the <code>/Components/Charts/Line/Index.js</code> file. */}
+                Styling for the area chart can be found in the <code>/Components/Charts/Line/Index.js</code> file.
             </CardBasic>
         )
     }

@@ -39,39 +39,38 @@ class Dashboard extends Component {
 
                 {/* <!-- Page Heading --> */}
 
-                <PageHeading title="OverView" />
+                <PageHeading title="Dashboard" />
 
                 {/* <!-- Content Row --> */}
                 <div className="row">
-                  <CardInfo title="전력 조회(요금액)"
-                    icon="bolt"
-                    color="info"
-                    value="100kw" />
+                  <CardInfo title="Earnings (Monthly)"
+                    icon="calendar"
+                    color="primary"
+                    value="$40,000" />
 
-                  <CardInfo title="전력 예측"
-                    icon="chart-bar"
+                  <CardInfo title="Earnings (Annual)"
+                    icon="calendar"
+                    color="success"
+                    value="215,000" />
+
+                  <CardInfo title="Tasks"
+                    icon="clipboard"
+                    color="info"
+                    value="50%" />
+
+                  <CardInfo title="Pending Requests"
+                    icon="comments"
                     color="warning"
-                    value="초과 예상" />
-
-                  <CardInfo title="안전 지수"
-                    icon="exclamation-circle"
-                    color="danger"
-                    value="위 험" />
-
-                  <CardInfo title="IOT"
-                    icon="mobile-alt"
-                    color="info"
-                    value="IOT" />
+                    value="18" />
                 </div>
                 <div className="row">
-                  <div className="col-xl col-lg">
+                  <div className="col-xl-8 col-lg-6">
                     <ChartLine />
                   </div>
-                  {/*
                   <div className="col-xl-4 col-lg-6">
                     <ChartDonut />
                   </div>
-                  */}
+
                 </div>
 
               </div>
