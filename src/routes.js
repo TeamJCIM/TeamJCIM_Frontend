@@ -10,7 +10,7 @@ import Cards from './pages/Cards';
 import Charts from './pages/Charts';
 import Predict from './pages/Predict';
 import Profile from './pages/Profile';
-// import ResetPassword from './pages/ResetPassword';
+import ResetPassword from './pages/ResetPassword';
 // import Safety from './pages/Safety';
 // import LookUp_Today from './pages/LookUp';
 // import LookUp_Year from './pages/LookUp';
@@ -21,6 +21,7 @@ const Routes = () => (
         <Switch>
             <Route exact path="/" component={SignIn} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route path="/ResetPassword" component={ResetPassword} />
             <Route path="/profile" component={Profile} />
             <Route path="/signup" component={SignUp} />
             <Route path="/cards" component={Cards} />

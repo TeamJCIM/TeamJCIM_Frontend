@@ -66,12 +66,21 @@ class Profile extends Component {
                                         </span>
                                     </nav>
 
-                                    <button
-                                        class="btn btn-secondary"
-                                        type="button"
-                                    >
-                                        프로필변경
-                                    </button>
+                                    <div>
+                                        <Link
+                                            className="btn btn-secondary"
+                                            to="ResetProfile"
+                                        >
+                                            프로필변경
+                                        </Link>
+
+                                        <Link
+                                            className="btn btn-secondary"
+                                            to="/ResetPassword"
+                                        >
+                                            비밀번호변경
+                                        </Link>
+                                    </div>
                                 </CardBasic>
                             </div>
                         </div>
