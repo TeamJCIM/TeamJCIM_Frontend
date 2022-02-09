@@ -43,7 +43,7 @@ class ResetPassword extends Component {
                                         className="btn btn-secondary"
                                         to="ResetProfile"
                                     >
-                                        프로필변경
+                                        확인
                                     </Link>
                                 </div>
                             </CardBasic>
