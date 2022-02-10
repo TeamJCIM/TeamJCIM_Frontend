@@ -36,6 +36,9 @@ class Profile extends Component {
                                     <div class="small mb-1">Name</div>
                                     <nav class="navbar navbar-expand navbar-light bg-light mb-4">
                                         <span class="navbar-brand">홍명헌</span>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user"></i>
+                                        </div>
                                     </nav>
 
                                     <div class="small mb-1">Phone</div>
@@ -43,6 +46,9 @@ class Profile extends Component {
                                         <span class="navbar-brand">
                                             010-0000-0000
                                         </span>
+                                        <div class="col-auto">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
                                     </nav>
 
                                     <div class="small mb-1">이메일</div>
@@ -50,6 +56,9 @@ class Profile extends Component {
                                         <span class="navbar-brand">
                                             yes7076@naver.com
                                         </span>
+                                        <div class="col-auto">
+                                            <i class="fas fa-envelope-o"></i>
+                                        </div>
                                     </nav>
 
                                     <div class="small mb-1">Location</div>
@@ -57,6 +66,9 @@ class Profile extends Component {
                                         <span class="navbar-brand">
                                             동대문구 망우로100-111
                                         </span>
+                                        <div class="col-auto">
+                                            <i class="fas fa-location-arrow"></i>
+                                        </div>
                                     </nav>
 
                                     <div class="small mb-1">IoT Number</div>
@@ -64,6 +76,9 @@ class Profile extends Component {
                                         <span class="navbar-brand">
                                             90087247182
                                         </span>
+                                        <div class="col-auto">
+                                            <i class="fas fa-tablet"></i>
+                                        </div>
                                     </nav>
 
                                     <div>
