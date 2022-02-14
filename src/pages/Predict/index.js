@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ResponsivieLine } from '@nivo/line';
 
 //Navigation
 import Sidebar from '../../components/Navigation/Sidebar';
