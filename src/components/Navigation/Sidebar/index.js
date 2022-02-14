@@ -100,10 +100,6 @@ class Sidebar extends Component {
                         <i className="fas fa-fw fa-chart-area"></i>
                         <span>전력예측</span>
                     </Link>
-                    <a className="nav-link" href="predict.html">
-                        <i className="fas fa-fw fa-chart-area"></i>
-                        <span>전력예측</span>
-                    </a>
                 </li>
 
                 {/* <!-- Nav Item - Tables --> */}
