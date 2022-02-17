@@ -9,6 +9,7 @@ import Predict from './pages/Predict';
 import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
 import TodayUsage from './pages/TodayUsage';
+import MonthUsage from './pages/MonthUsage';
 import YearUsage from './pages/YearUsage';
 
 const Routes = () => (
@@ -20,6 +21,7 @@ const Routes = () => (
             <Route path="/profile" component={Profile} />
             <Route path="/predict" component={Predict} />
             <Route path="/todayusage" component={TodayUsage} />
+            <Route path="/monthusage" component={MonthUsage} />
             <Route path="/yearusage" component={YearUsage} />
             <Route path="*" component={NotFound} />
         </Switch>
