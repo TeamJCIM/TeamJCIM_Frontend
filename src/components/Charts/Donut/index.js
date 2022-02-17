@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Chart from "chart.js";
+import { Chart } from 'chart.js';
 
 import CardBasic from '../../Cards/Basic';
 
@@ -7,8 +7,7 @@ class ChartDonut extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
-
-        const myPieChart = this.chartRef.current.getContext("2d");
+        const myPieChart = this.chartRef.current.getContext('2d');
         console.log(this.chartRef);
 
         new Chart(myPieChart, {
@@ -33,8 +32,8 @@ class ChartDonut extends Component {
 
                 maintainAspectRatio: false,
                 tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
+                    backgroundColor: 'rgb(255,255,255)',
+                    bodyFontColor: '#858796',
                     borderColor: '#dddfeb',
                     borderWidth: 1,
                     xPadding: 15,
@@ -43,7 +42,7 @@ class ChartDonut extends Component {
                     caretPadding: 10,
                 },
                 legend: {
-                    display: false
+                    display: false,
                 },
                 cutoutPercentage: 80,
                 showMarkers: true,
@@ -59,7 +58,7 @@ class ChartDonut extends Component {
                         <p className='percent'> Safety </p>
                 </div>
             </CardBasic>
-        )
+        );
     }
 }
 

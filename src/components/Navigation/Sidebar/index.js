@@ -80,37 +80,26 @@ class Sidebar extends Component {
                         aria-labelledby="headingTwo"
                         data-parent="#accordionSidebar"
                     >
-                        <div className="bg-white  collapse-inner rounded">
-                            <Link className="collapse-item" to="/todayusage">
+                        <div className="bg-white py-2 collapse-inner rounded">
+                            <a className="collapse-item" href="today.html">
                                 당일 전력 조회
-                            </Link>
-                            
-                            
-                            <Link className="collapse-item" to="/monthusage">
+                            </a>
+                            <a className="collapse-item" href="month.html">
                                 당월/전월 전력 조회
-                            </Link>
-
-                            <Link className="collapse-item" to="/yearusage">
+                            </a>
+                            <a className="collapse-item" href="year.html">
                                 연간 전력 조회
-                            </Link>
-                            {/*
-                            <div className="collapse-item" href="month.html">
-                                당월/전월 전력 조회
-                            </div>
-                            <div className="collapse-item" href="year.html">
-                                연간 전력 조회
-                            </div>
-                            */}
+                            </a>
                         </div>
                     </div>
                 </li>
 
                 {/* <!-- Nav Item - Charts --> */}
                 <li className="nav-item">
-                    <a className="nav-link" href="predict.html">
+                    <Link className="nav-link" to="/predict">
                         <i className="fas fa-fw fa-chart-area"></i>
                         <span>전력예측</span>
-                    </a>
+                    </Link>
                 </li>
 
                 {/* <!-- Nav Item - Tables --> */}

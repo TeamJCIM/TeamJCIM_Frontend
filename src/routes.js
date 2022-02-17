@@ -9,11 +9,8 @@ import NotFound from './pages/NotFound';
 import Cards from './pages/Cards';
 import Charts from './pages/Charts';
 import Predict from './pages/Predict';
-import TodayUsage from './pages/TodayUsage';
-import MonthUsage from './pages/MonthUsage';
-import YearUsage from './pages/YearUsage'
-// import Profile from './pages/Profile';
-// import ResetPassword from './pages/ResetPassword';
+import Profile from './pages/Profile';
+import ResetPassword from './pages/ResetPassword';
 // import Safety from './pages/Safety';
 // import LookUp_Today from './pages/LookUp';
 // import LookUp_Year from './pages/LookUp';
@@ -24,13 +21,12 @@ const Routes = () => (
         <Switch>
             <Route exact path="/" component={SignIn} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route path="/ResetPassword" component={ResetPassword} />
+            <Route path="/profile" component={Profile} />
             <Route path="/signup" component={SignUp} />
             <Route path="/cards" component={Cards} />
             <Route path="/charts" component={Charts} />
             <Route path="/predict" component={Predict} />
-            <Route path="/todayusage" component={TodayUsage}/>
-            <Route path="/monthusage" component={MonthUsage}/>
-            <Route path="/yearusage" component={YearUsage}/>
             <Route path="*" component={NotFound} />
         </Switch>
     </BrowserRouter>

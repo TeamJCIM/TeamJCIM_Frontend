@@ -39,7 +39,7 @@ class Dashboard extends Component {
 
                 {/* <!-- Page Heading --> */}
 
-                <PageHeading title="OverView" />
+                <PageHeading title="Dashboard" />
 
                 {/* <!-- Content Row --> */}
                 <div className="row">
@@ -72,14 +72,10 @@ class Dashboard extends Component {
                   </Link>
                 </div>
                 <div className="row">
-                  <div className="col-xl col-lg">
+                  <div className="col-xl-8 col-lg-6">
                     <ChartLine />
                   </div>
-                  {/*
-                  <div className="col-xl-4 col-lg-6">
-                    <ChartDonut />
-                  </div>
-                  */}
+
                 </div>
 
               </div>
