@@ -17,7 +17,7 @@ class ChartYear extends Component {
         const data = {
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             datasets: [{
-                label: 'My First Dataset',
+                label: '연간 전력 사용량',
                 data: [65, 59, 80, 81, 56, 55, 40, 35, 65, 14, 53, 93],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -50,16 +50,19 @@ class ChartYear extends Component {
                 borderWidth: 1
             }]
         };
+
+        const options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                }
+            },
+        }
+
         new Chart(myChartRef, {
             type: 'bar',
             data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                    }
-                }
-            }
+            options: options,
         });
     }
 

@@ -14,15 +14,23 @@ class ChartDonut extends Component {
         new Chart(myPieChart, {
             type: 'doughnut',
             data: {
-                labels: ["Direct", "Referral", "Social"],
+                labels: ["Red", "Orange", "Green"],
                 datasets: [{
-                    data: [55, 30, 15],
-                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                    data: [30, 30, 30],
+                    backgroundColor: [
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(255, 164, 46, 1)',
+                        'rgba(231, 76, 60, 1)',
+                        ],
                     hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
                     hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    borderWidth: 20,
                 }],
             },
             options: {
+                rotation : 1 * Math.PI,
+                circumference: 1 * Math.PI,
+
                 maintainAspectRatio: false,
                 tooltips: {
                     backgroundColor: "rgb(255,255,255)",
@@ -38,18 +46,18 @@ class ChartDonut extends Component {
                     display: false
                 },
                 cutoutPercentage: 80,
+                showMarkers: true,
             },
         });
     }
 
     render() {
         return (
-            <CardBasic title="Donut Chart">
-                 <div className="chart-pie pt-4">
+            <CardBasic title="Iot">
+                <div className="chart-pie pt-4">
                         <canvas id="myPieChart" ref={this.chartRef}></canvas>
-                    </div>
-                    <hr />
-                    Styling for the donut chart can be found in the <code>/Components/Charts/Donut/index.js</code> file.
+                        <p className='percent'> Safety </p>
+                </div>
             </CardBasic>
         )
     }

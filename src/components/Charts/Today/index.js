@@ -36,19 +36,21 @@ class ChartToday extends Component {
             }]
         };
 
+        const options = {
+            backgroundColor: '#fff',
+        }
+
         new Chart(myChartRef, {
             type: 'polarArea',
             data: data,
-            options: {
-                backgroundColor: '#fff',
-            }
+            options: options,
         });
     }
 
     render() {
         return (
             <CardBasic title="당일 전력 사용량">
-                <div className="chart-body ">
+                <div className="chart-body">
                     <canvas id="ChartToday" ref={this.chartRef}></canvas>
                 </div>
             </CardBasic>

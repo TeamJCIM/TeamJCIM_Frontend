@@ -21,7 +21,7 @@ class CardInfo extends Component {
 
     render() {
         return (
-            <div className="col-xl-3 col-md-6 mb-4">
+            <div>
                 <div className={this.state.titleClass}>{this.state.title}</div>
                 
                 <div className={this.state.cardClass}>

@@ -5,6 +5,7 @@ import Topbar from '../../components/Navigation/Topbar';
 import PageHeading from '../../components/PageHeading';
 
 import ChartToday from '../../components/Charts/Today';
+import CardInfo from '../../components/Cards/Info';
 
 class TodayUsage extends Component {
     render() {
@@ -37,7 +38,18 @@ class TodayUsage extends Component {
                                 {/* <!-- Content Row --> */}
                                 
                                 <div className="row">
-                                    <div className="col-xl col-lg">
+                                    <div className='col-xl-4 col-lg align-self-center'>
+                                        <CardInfo title=""
+                                            icon="coins"
+                                            color="primary"
+                                            value="W 10,000"/>
+                                        
+                                        <CardInfo title=""
+                                            icon="bolt"
+                                            color="primary"
+                                            value="100 Kw" />
+                                    </div>
+                                    <div className="col-xl-8 col-lg">
                                         <ChartToday />
                                     </div>
                                 </div>

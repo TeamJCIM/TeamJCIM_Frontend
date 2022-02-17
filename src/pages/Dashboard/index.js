@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 //Navigation
 import Sidebar from '../../components/Navigation/Sidebar';
 import Topbar from '../../components/Navigation/Topbar';
 
 import CardInfo from '../../components/Cards/Info';
-import ChartDonut from '../../components/Charts/Donut';
 import ChartLine from '../../components/Charts/Line';
 import PageHeading from '../../components/PageHeading';
 
@@ -43,25 +43,33 @@ class Dashboard extends Component {
 
                 {/* <!-- Content Row --> */}
                 <div className="row">
-                  <CardInfo title="전력 조회(요금액)"
-                    icon="bolt"
-                    color="info"
-                    value="100kw" />
+                  <Link className='ol-xl-3 col-md-3 mb-4' to='/TodayUsage'>
+                    <CardInfo title="전력 조회(요금액)"
+                      icon="bolt"
+                      color="info"
+                      value="100kw" />
+                  </Link>
 
-                  <CardInfo title="전력 예측"
-                    icon="chart-bar"
-                    color="warning"
-                    value="초과 예상" />
+                  <Link className='ol-xl-3 col-md-3 mb-4' to='/MonthUsage'>
+                    <CardInfo title="전력 예측"
+                      icon="chart-bar"
+                      color="warning"
+                      value="초과 예상" />
+                  </Link>
 
-                  <CardInfo title="안전 지수"
-                    icon="exclamation-circle"
-                    color="danger"
-                    value="위 험" />
+                  <Link className='ol-xl-3 col-md-3 mb-4' to='/YearUsage'>
+                    <CardInfo title="안전 지수"
+                      icon="exclamation-circle"
+                      color="danger"
+                      value="위 험" />
+                  </Link>
 
-                  <CardInfo title="IOT"
-                    icon="mobile-alt"
-                    color="info"
-                    value="IOT" />
+                  <Link className='ol-xl-3 col-md-3 mb-4' to='TodayUsage'>
+                    <CardInfo title="IOT"
+                      icon="mobile-alt"
+                      color="info"
+                      value="IOT" />
+                  </Link>
                 </div>
                 <div className="row">
                   <div className="col-xl col-lg">
