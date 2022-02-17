@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -174,10 +175,10 @@ class Topbar extends Component {
                             className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown"
                         >
-                            <a className="dropdown-item" href="profile.html">
+                            <Link className="dropdown-item" to="/profile">
                                 <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
-                            </a>
+                            </Link>
                             <div className="dropdown-divider"></div>
                             <a
                                 className="dropdown-item"
