@@ -49,6 +49,7 @@ class Predict extends Component {
 
                         <div className="container-fluid">
                             <NextMonth title="다음달 전력예측"></NextMonth>
+                            <div></div>
                         </div>
                     </div>
                 </div>
