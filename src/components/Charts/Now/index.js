@@ -67,6 +67,7 @@ class ChartNow extends Component {
                             labelString: '',
                         },
                         ticks: {
+                            beginAtZero: true,
                             maxTicksLimit: 5,
                             padding: 10,
                             // Include a dollar sign in the ticks

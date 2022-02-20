@@ -17,31 +17,13 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        {/* <!-- Page Wrapper --> */}
         <div id="wrapper">
-
-          {/* <!-- Sidebar --> */}
           <Sidebar />
-          {/* <!-- End of Sidebar --> */}
-
-          {/* <!-- Content Wrapper --> */}
           <div id="content-wrapper" className="d-flex flex-column">
-
-            {/* <!-- Main Content --> */}
             <div id="content">
-
-              {/* <!-- Topbar --> */}
               <Topbar />
-              {/* <!-- End of Topbar --> */}
-
-              {/* <!-- Begin Page Content --> */}
               <div className="container-fluid">
-
-                {/* <!-- Page Heading --> */}
-
                 <PageHeading title="Dashboard" />
-
-                {/* <!-- Content Row --> */}
                 <div className="row">
                   <Link className='ol-xl-3 col-md-3 mb-4' to='/TodayUsage'>
                     <CardInfo title="전력 조회(요금액)"
@@ -72,7 +54,7 @@ class Dashboard extends Component {
                   </Link>
                 </div>
                 <div className="row">
-                  <div className="col-xl-8 col-lg-6">
+                  <div className="col-xl col-lg">
                     <ChartNow />
                   </div>
 
@@ -80,11 +62,9 @@ class Dashboard extends Component {
 
               </div>
               {/* <!-- /.container-fluid --> */}
-
             </div>
             {/* <!-- End of Main Content --> */}
 
-            {/* <!-- Footer --> */}
             <footer className="sticky-footer bg-white">
               <div className="container my-auto">
                 <div className="copyright text-center my-auto">
