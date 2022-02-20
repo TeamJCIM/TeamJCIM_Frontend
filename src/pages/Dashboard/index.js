@@ -25,28 +25,28 @@ class Dashboard extends Component {
               <div className="container-fluid">
                 <PageHeading title="Dashboard" />
                 <div className="row">
-                  <Link className='ol-xl-3 col-md-3 mb-4' to='/TodayUsage'>
+                  <Link className='col-xl-3 col-md-3 mb-4' to='/TodayUsage'>
                     <CardInfo title="전력 조회(요금액)"
                       icon="bolt"
                       color="info"
                       value="100kw" />
                   </Link>
 
-                  <Link className='ol-xl-3 col-md-3 mb-4' to='/MonthUsage'>
+                  <Link className='col-xl-3 col-md-3 mb-4' to='/MonthUsage'>
                     <CardInfo title="전력 예측"
                       icon="chart-bar"
                       color="warning"
                       value="초과 예상" />
                   </Link>
 
-                  <Link className='ol-xl-3 col-md-3 mb-4' to='/YearUsage'>
+                  <Link className='col-xl-3 col-md-3 mb-4' to='/YearUsage'>
                     <CardInfo title="안전 지수"
                       icon="exclamation-circle"
                       color="danger"
                       value="위 험" />
                   </Link>
 
-                  <Link className='ol-xl-3 col-md-3 mb-4' to='TodayUsage'>
+                  <Link className='col-xl-3 col-md-3 mb-4' to='/Safety'>
                     <CardInfo title="IOT"
                       icon="mobile-alt"
                       color="info"
