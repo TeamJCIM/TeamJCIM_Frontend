@@ -13,16 +13,14 @@ class ChartDonut extends Component {
         new Chart(myPieChart, {
             type: 'doughnut',
             data: {
-                labels: ["Red", "Orange", "Green"],
+                labels: ["Safety", "Caution", "Danger"],
                 datasets: [{
-                    data: [30, 30, 30],
+                    data: [1, 1, 1],
                     backgroundColor: [
                         'rgba(46, 204, 113, 1)',
                         'rgba(255, 164, 46, 1)',
                         'rgba(231, 76, 60, 1)',
                         ],
-                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-                    hoverBorderColor: "rgba(234, 236, 244, 1)",
                     borderWidth: 20,
                 }],
             },
