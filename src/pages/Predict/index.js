@@ -12,6 +12,7 @@ import CardBasic from '../../components/Cards/Basic';
 
 import ChartBar from '../../components/Charts/Bar';
 import NextMonth from '../../components/NextMonth';
+import PredictInfo from '../../components/Cards/PredictInfo';
 
 class Predict extends Component {
     render() {
@@ -30,14 +31,14 @@ class Predict extends Component {
 
                         <div className="container-fluid">
                             <div className="row">
-                                <CardInfo
+                                <PredictInfo
                                     title="예상요금액"
                                     icon="won"
                                     color="primary"
                                     value="15,821(원)"
                                 />
 
-                                <CardInfo
+                                <PredictInfo
                                     title="예상전력사용량"
                                     icon=""
                                     color="primary"
