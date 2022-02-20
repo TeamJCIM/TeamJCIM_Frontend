@@ -36,9 +36,9 @@ class Sidebar extends Component {
                 id="accordionSidebar"
             >
                 {/* <!-- Sidebar - Brand --> */}
-                <a
+                <Link
                     className="sidebar-brand d-flex align-items-center justify-content-center"
-                    href="index.html"
+                    to="/dashboard"
                 >
                     <div className="sidebar-brand-icon rotate-n-15">
                         <i className="fas fa-laugh-wink"></i>
@@ -46,7 +46,7 @@ class Sidebar extends Component {
                     <div className="sidebar-brand-text mx-3">
                         전력예측 프로그램
                     </div>
-                </a>
+                </Link>
 
                 {/* <!-- Divider --> */}
                 <hr className="sidebar-divider my-0" />
@@ -85,7 +85,6 @@ class Sidebar extends Component {
                                 당일 전력 조회
                             </Link>
 
-
                             <Link className="collapse-item" to="/monthusage">
                                 당월/전월 전력 조회
                             </Link>
@@ -115,10 +114,10 @@ class Sidebar extends Component {
 
                 {/* <!-- Nav Item - Tables --> */}
                 <li className="nav-item">
-                    <a className="nav-link" href="tables.html">
-                        <i className="fas fa-fw fa-table"></i>
+                    <Link className="nav-link" to="/safety">
+                        <i className="fas fa-fw fa-chart-area"></i>
                         <span>안전기능</span>
-                    </a>
+                    </Link>
                 </li>
 
                 {/* <!-- Divider --> */}
