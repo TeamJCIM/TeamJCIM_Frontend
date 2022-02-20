@@ -45,6 +45,26 @@ class ChartMonth extends Component {
                 }
             },
             scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontColor: 'blue',
+                        labelString: '',
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        maxTicksLimit: 5,
+                        padding: 10,
+                        // Include a dollar sign in the ticks
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }],
                 y: {
                     type: 'linear',
                     display: true,
