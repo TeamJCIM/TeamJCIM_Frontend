@@ -32,14 +32,14 @@ class Dashboard extends Component {
                       value="100kw" />
                   </Link>
 
-                  <Link className='col-xl-3 col-md-3 mb-4' to='/MonthUsage'>
+                  <Link className='col-xl-3 col-md-3 mb-4' to='/predict'>
                     <CardInfo title="전력 예측"
                       icon="chart-bar"
                       color="warning"
                       value="초과 예상" />
                   </Link>
 
-                  <Link className='col-xl-3 col-md-3 mb-4' to='/YearUsage'>
+                  <Link className='col-xl-3 col-md-3 mb-4' to='dashboard'>
                     <CardInfo title="안전 지수"
                       icon="exclamation-circle"
                       color="danger"
