@@ -11,6 +11,7 @@ import ResetPassword from './pages/ResetPassword';
 import TodayUsage from './pages/TodayUsage';
 import MonthUsage from './pages/MonthUsage';
 import YearUsage from './pages/YearUsage';
+import Safety from './pages/Safety';
 
 const Routes = () => (
     <BrowserRouter>
@@ -23,6 +24,7 @@ const Routes = () => (
             <Route path="/todayusage" component={TodayUsage} />
             <Route path="/monthusage" component={MonthUsage} />
             <Route path="/yearusage" component={YearUsage} />
+            <Route path="/safety" component={Safety} />
             <Route path="*" component={NotFound} />
         </Switch>
     </BrowserRouter>
