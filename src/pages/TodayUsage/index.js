@@ -38,16 +38,20 @@ class TodayUsage extends Component {
                                 {/* <!-- Content Row --> */}
                                 
                                 <div className="row">
-                                    <div className='col-xl-4 col-lg align-self-center'>
-                                        <CardInfo title=""
-                                            icon="coins"
-                                            color="primary"
-                                            value="W 10,000"/>
+                                    <div className='col-xl-4 col-lg'>
+                                        <div className='px-2 mb-5 pb-3'>
+                                            <CardInfo title="요금액"
+                                                icon="coins"
+                                                color="primary"
+                                                value="W 10,000" />
+                                        </div>
                                         
-                                        <CardInfo title=""
-                                            icon="bolt"
-                                            color="primary"
-                                            value="100 Kw" />
+                                        <div className='px-2'>
+                                            <CardInfo title="전력량"
+                                                icon="bolt"
+                                                color="primary"
+                                                value="100 Kw" />
+                                        </div>
                                     </div>
                                     <div className="col-xl-8 col-lg">
                                         <ChartToday />

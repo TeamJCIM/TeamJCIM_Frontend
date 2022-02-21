@@ -23,7 +23,6 @@ class CardInfo extends Component {
     render() {
         return (
             <div>
-                <div className={this.state.titleClass}>{this.state.title}</div>
 
                 <div className={this.state.cardClass}>
                     <div className="card-body">
