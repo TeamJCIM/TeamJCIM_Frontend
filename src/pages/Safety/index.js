@@ -42,11 +42,8 @@ class Safety extends Component {
                                     <div className="col-xl">
                                         <IotRecord />
                                     </div>
-
-                                    <div className="col-xl">
-                                        <AnalizeChart title="전력분석" />
-                                    </div>
                                 </div>
+                                <AnalizeChart title="전력분석" />
                             </div>
                             {/* <!-- /.container-fluid --> */}
                         </div>

@@ -29,25 +29,6 @@ class NextMonth extends Component {
             ],
             datasets: [
                 {
-                    label: '실제 전력 사용량',
-                    data: [3809, 2901, 2305, 4592, 5285],
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgb(75, 192, 192)',
-                        'rgb(75, 192, 192)',
-                        'rgb(75, 192, 192)',
-                        'rgb(75, 192, 192)',
-                        'rgb(75, 192, 192)',
-                    ],
-                    borderWidth: 1,
-                },
-                {
                     label: '예상 전력 사용량',
                     data: [3908, 3029, 2015, 3928, 4239],
                     backgroundColor: [
