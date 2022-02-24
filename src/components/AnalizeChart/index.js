@@ -6,12 +6,11 @@ import CardBasic from '../Cards/Basic';
 Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-class NextMonth extends Component {
+class AnalizeChart extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
         const myChartRef = this.chartRef.current.getContext('2d');
-        console.log(this.chartRef);
         const data = {
             labels: [
                 '1월',
@@ -30,7 +29,9 @@ class NextMonth extends Component {
             datasets: [
                 {
                     label: '실제 전력 사용량',
+                    axis: 'y',
                     data: [3809, 2901, 2305, 4592, 5285],
+                    fill: false,
                     backgroundColor: [
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
@@ -49,6 +50,8 @@ class NextMonth extends Component {
                 },
                 {
                     label: '예상 전력 사용량',
+                    axis: 'y',
+                    fill: false,
                     data: [3908, 3029, 2015, 3928, 4239],
                     backgroundColor: [
                         'rgba(54, 162, 235, 0.2)',
@@ -69,13 +72,11 @@ class NextMonth extends Component {
             ],
         };
         new Chart(myChartRef, {
-            type: 'bar',
+            type: 'horizontalBar',
             data: data,
             options: {
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                    },
+                    indexAxis: 'y',
                 },
             },
         });
@@ -92,4 +93,4 @@ class NextMonth extends Component {
     }
 }
 
-export default NextMonth;
+export default AnalizeChart;
