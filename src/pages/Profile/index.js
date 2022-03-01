@@ -35,67 +35,68 @@ class Profile extends Component {
                                 <CardBasic title="프로필설정">
                                     <div class="small mb-1">Name</div>
                                     <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">홍명헌</span>
                                         <div class="col-auto">
                                             <i class="fas fa-user"></i>
                                         </div>
+                                        <span class="navbar-brand">홍명헌</span>
                                     </nav>
 
                                     <div class="small mb-1">Phone</div>
                                     <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">
-                                            010-0000-0000
-                                        </span>
                                         <div class="col-auto">
                                             <i class="fas fa-phone"></i>
                                         </div>
+                                        <span class="navbar-brand">
+                                            010-0000-0000
+                                        </span>
                                     </nav>
 
                                     <div class="small mb-1">이메일</div>
                                     <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+                                        <div class="col-auto">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
                                         <span class="navbar-brand">
                                             yes7076@naver.com
                                         </span>
-                                        <div class="col-auto">
-                                            <i class="fas fa-envelope-o"></i>
-                                        </div>
                                     </nav>
 
                                     <div class="small mb-1">Location</div>
                                     <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">
-                                            동대문구 망우로100-111
-                                        </span>
                                         <div class="col-auto">
                                             <i class="fas fa-location-arrow"></i>
                                         </div>
+                                        <span class="navbar-brand">
+                                            동대문구 망우로100-111
+                                        </span>
                                     </nav>
 
                                     <div class="small mb-1">IoT Number</div>
                                     <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">
-                                            90087247182
-                                        </span>
                                         <div class="col-auto">
                                             <i class="fas fa-tablet"></i>
                                         </div>
+                                        <span class="navbar-brand">
+                                            90087247182
+                                        </span>
                                     </nav>
 
-                                    <div>
+                                    <span>
                                         <Link
                                             className="btn btn-secondary"
                                             to="ResetProfile"
                                         >
                                             프로필변경
                                         </Link>
-
+                                    </span>
+                                    <span class="col-auto">
                                         <Link
                                             className="btn btn-secondary"
                                             to="/ResetPassword"
                                         >
                                             비밀번호변경
                                         </Link>
-                                    </div>
+                                    </span>
                                 </CardBasic>
                             </div>
                         </div>
