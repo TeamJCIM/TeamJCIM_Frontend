@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 
 //Navigation
@@ -20,9 +20,12 @@ const Dashboard = () => {
   // 요금액, 예측액, 안전, IOT
   const [iotData, setIotData] = useState();
   const [predictData, setPredictData] = useState();
-  const [iotStatus, setIotStatus] = useState();
+  const [iotStatus, setIotStatus] = useState('');
+  const [stateName, setStateName] = useState()
 
-  const [_IotNum, setIotNum] = useState('');
+  const [_IotNum, setIotNum] = useState();
+
+  const [electricData, setElectricData] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
   // (String) 오늘 날짜 반환
   let today = new Date();
@@ -33,17 +36,9 @@ const Dashboard = () => {
   }
   let timestring = `${time.year}-${time.month}-${time.date}`;
   
-  let _postIot = {
-    IotNum: '1234',
-    Date: '2022-02-01',
-  }
-
-  let _postPredict = {
-    IotNum: 1227564000,
-  }
-
-  let _postIotStatus = {
-    iotNum: 1227564000,
+  let postIot = {
+    IotNum: '1227564000',
+    Date: '2021-09-09',
   }
 
   // 렌더링 될 때마다 실행
@@ -51,133 +46,145 @@ const Dashboard = () => {
     document.getElementById('body').className = 'page-top';
     console.log('useEffect');
 
-    axios.get('/api/overview/1227564000/2022-02-01',)
-    .then(function (response) {
-      console.log(_postIot)
-      console.log(response)
+    axios.get(`/api/overview/${postIot.IotNum}/${postIot.Date}`,)
+    .then((response) => {
+      console.log(postIot)
+      console.log('response data : ', response.data.data)
+      console.log(response.data.data[2].AlarmVoltage)
 
-      if (response.data["success"] === true) {
-        console.log('success', response.message)
-        setIotData(response.data["data"].IotData)
+      // 전력조회카드 데이터 GET
+      console.log(response.data.data[0][0])
+      if (response.data.data[0][0]) {
+        setIotData(response.data.data[0][0].IotData)
       } else {
-        console.log('err');
+        setIotData(0)
       }
-    })
 
-    
-    /*axios.get('/api/predict/predictThisMonth/1227564000')
-    .then(response => {
-      console.log(_postPredict)
-      console.log(response)
-      
-    })
-    .catch(error => {
-      console.log(error)
-    })*/
-
-    /*
-    axios.get('/api/overview/IotStatus', _postIotStatus)
-    .then(function (response) {
-      console.log(response)
-
-      if (response.data["success"] === true) {
-        console.log('success', response.message)
-
-        if (response.data["data"]["AlarmVoltage"]    === 4 
-        || response.data["data"]["AlarmElectric"]    === 2
-        || response.data["data"]["AlarmLeakage"]     === 2
-        || response.data["data"]["AlarmArc"]         === 1
-        || response.data["data"]["AlarmTemperature"] === 1) {
-          setIotStatus(2)
-        } elif (response.data["data"]["AlarmVoltage"] === 1
-          || response.data["data"]["AlarmVoltage"]    === 2
-          || response.data["data"]["AlarmElectric"]   === 1
-          || response.data["data"]["AlarmLeakage"]    === 1) {
-          setIotStatus(1)
-        } else {
-
+      // 전력예측카드 데이터 GET
+      // setPredictData(response.data.data[1])
+      const func = ((input) => {
+        let answer=''
+        for(let x of input) {
+          if (!isNaN(x)) answer += x
         }
+
+        return answer
+      })
+      setPredictData(func(response.data.data[1]))
+
+      // 안전지수카드 데이터 GET
+      if (response.data.data[2].AlarmVoltage === 4
+        || response.data.data[2].AlarmElectric === 2
+        || response.data.data[2].AlarmLeakage === 2
+        || response.data.data[2].AlarmArc === 1
+        || response.data.data[2].AlarmTemperature === 1) {
+        setIotStatus('danger')
+        setStateName('Danger')
+      } else if (response.data.data[2].AlarmVoltage === 1
+        || response.data.data[2].AlarmVoltage === 2
+        || response.data.data[2].AlarmElectric === 1
+        || response.data.data[2].AlarmLeakage === 1) {
+        setIotStatus('warning')
+        setStateName('Warning')
       } else {
-        console.log(response.message)
-        console.log('err');
+        setIotStatus('success')
+        setStateName('Safety')
       }
+      
+      // 실시간사용량 데이터 GET
+      // electricData
+      console.log('배열 수 : ', response.data.data[3].length)
+      console.log('실시간 사용량 : ', Number(response.data.data[3][44].Date.substr(11, 2)))
+      
+      for (let i = 0; i < response.data.data[3].length; i++) {
+        
+        // console.log((Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)))
+        
+        const newElectricData = electricData
+        
+        newElectricData[Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)] += response.data.data[3][i].VoltageAvg
+        
+        setElectricData(newElectricData)
+      }
+      console.log(electricData)
     })
-    */
+    
+    .catch((err)=>{console.log(err)})
+  })
 
-  });
+  return (
+    <div>
+      <div id="wrapper">
+        <Sidebar />
+        <div id="content-wrapper" className="d-flex flex-column">
+          <div id="content">
+            <Topbar />
+            <div className="container-fluid">
+              <PageHeading title="Dashboard" />
+              <div className="row">
+                <Link className='col-xl-3 col-md-3 mb-4' to='/TodayUsage'>
+                  <CardInfo title="전력 조회"
+                    icon="bolt"
+                    color="info"
+                    value= {iotData} />
+                </Link>
 
-  // render() {
-    return (
-      <div>
-        <div id="wrapper">
-          <Sidebar />
-          <div id="content-wrapper" className="d-flex flex-column">
-            <div id="content">
-              <Topbar />
-              <div className="container-fluid">
-                <PageHeading title="Dashboard" />
-                <div className="row">
-                  <Link className='col-xl-3 col-md-3 mb-4' to='/TodayUsage'>
-                    <CardInfo title="전력 조회(요금액)"
-                      icon="bolt"
-                      color="info"
-                      value= {iotData} />
-                  </Link>
+                <Link className='col-xl-3 col-md-3 mb-4' to='/predict'>
+                  <CardInfo title="전력 예측"
+                    icon="chart-bar"
+                    color="warning"
+                    value={predictData} />
+                </Link>
 
-                  <Link className='col-xl-3 col-md-3 mb-4' to='/predict'>
-                    <CardInfo title="전력 예측"
-                      icon="chart-bar"
-                      color="warning"
-                      value={predictData} />
-                  </Link>
+                <Link className='col-xl-3 col-md-3 mb-4' to='/Safety'>
+                  <CardInfo title="IOT"
+                    icon="mobile-alt"
+                    color="info"
+                    fontsize='6'
+                    value={postIot.IotNum} />
+                </Link>
 
-                  <Link className='col-xl-3 col-md-3 mb-4' to='dashboard'>
-                    <CardInfo title="안전 지수"
-                      icon="exclamation-circle"
-                      color="danger"
-                      value={iotStatus} />
-                  </Link>
+                <Link className='col-xl-3 col-md-3 mb-4' to='dashboard'>
+                  <CardInfo title="안전 지수"
+                    icon="exclamation-circle"
+                    color={iotStatus}
+                    value={stateName} />
+                </Link>
 
-                  <Link className='col-xl-3 col-md-3 mb-4' to='/Safety'>
-                    <CardInfo title="IOT"
-                      icon="mobile-alt"
-                      color="info"
-                      value="IOT" />
-                  </Link>
-                </div>
-                <div className="row">
-                  <div className="col-xl col-lg">
-                    <ChartNow />
-                  </div>
-
+                
+              </div>
+              <div className="row">
+                <div className="col-xl col-lg">
+                  <ChartNow electricData={electricData}/>
                 </div>
 
               </div>
-              {/* <!-- /.container-fluid --> */}
+
             </div>
-            {/* <!-- End of Main Content --> */}
-
-            <footer className="sticky-footer bg-white">
-              <div className="container my-auto">
-                <div className="copyright text-center my-auto">
-                  <span>Copyright &copy; Your Website 2019</span>
-                </div>
-              </div>
-            </footer>
-            {/* <!-- End of Footer --> */}
-
+            {/* <!-- /.container-fluid --> */}
           </div>
-          {/* <!-- End of Content Wrapper --> */}
+          {/* <!-- End of Main Content --> */}
+
+          <footer className="sticky-footer bg-white">
+            <div className="container my-auto">
+              <div className="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2019</span>
+              </div>
+            </div>
+          </footer>
+          {/* <!-- End of Footer --> */}
 
         </div>
-        {/* <!-- End of Page Wrapper --> */}
+        {/* <!-- End of Content Wrapper --> */}
 
-        {/* <!-- Scroll to Top Button--> */}
-        <a className="scroll-to-top rounded" href="#page-top">
-          <i className="fas fa-angle-up"></i>
-        </a></div>
-    )
-  // }
+      </div>
+      {/* <!-- End of Page Wrapper --> */}
+
+      {/* <!-- Scroll to Top Button--> */}
+      <a className="scroll-to-top rounded" href="#page-top">
+        <i className="fas fa-angle-up"></i>
+      </a></div>
+  )
 }
 
-export default Dashboard;
+export default Dashboard
