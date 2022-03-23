@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 
 //Navigation
@@ -9,12 +9,104 @@ import CardInfo from '../../components/Cards/Info';
 import ChartNow from '../../components/Charts/Now';
 import PageHeading from '../../components/PageHeading';
 
-class Dashboard extends Component {
-  componentWillMount() {
+// axios
+import axios from 'axios';
+
+// class Dashboard extend Component
+const Dashboard = () => {
+  /* componentWillMount() {
     document.getElementById('body').className = 'page-top'
+  } */
+  // 요금액, 예측액, 안전, IOT
+  const [iotData, setIotData] = useState();
+  const [predictData, setPredictData] = useState();
+  const [iotStatus, setIotStatus] = useState();
+
+  const [_IotNum, setIotNum] = useState('');
+
+  // (String) 오늘 날짜 반환
+  let today = new Date();
+  let time = {
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+    date: today.getDate(),
+  }
+  let timestring = `${time.year}-${time.month}-${time.date}`;
+  
+  let _postIot = {
+    IotNum: '1234',
+    Date: '2022-02-01',
   }
 
-  render() {
+  let _postPredict = {
+    IotNum: 1227564000,
+  }
+
+  let _postIotStatus = {
+    iotNum: 1227564000,
+  }
+
+  // 렌더링 될 때마다 실행
+  useEffect(() => {
+    document.getElementById('body').className = 'page-top';
+    console.log('useEffect');
+
+    axios.get('/api/overview/1227564000/2022-02-01',)
+    .then(function (response) {
+      console.log(_postIot)
+      console.log(response)
+
+      if (response.data["success"] === true) {
+        console.log('success', response.message)
+        setIotData(response.data["data"].IotData)
+      } else {
+        console.log('err');
+      }
+    })
+
+    
+    /*axios.get('/api/predict/predictThisMonth/1227564000')
+    .then(response => {
+      console.log(_postPredict)
+      console.log(response)
+      
+    })
+    .catch(error => {
+      console.log(error)
+    })*/
+
+    /*
+    axios.get('/api/overview/IotStatus', _postIotStatus)
+    .then(function (response) {
+      console.log(response)
+
+      if (response.data["success"] === true) {
+        console.log('success', response.message)
+
+        if (response.data["data"]["AlarmVoltage"]    === 4 
+        || response.data["data"]["AlarmElectric"]    === 2
+        || response.data["data"]["AlarmLeakage"]     === 2
+        || response.data["data"]["AlarmArc"]         === 1
+        || response.data["data"]["AlarmTemperature"] === 1) {
+          setIotStatus(2)
+        } elif (response.data["data"]["AlarmVoltage"] === 1
+          || response.data["data"]["AlarmVoltage"]    === 2
+          || response.data["data"]["AlarmElectric"]   === 1
+          || response.data["data"]["AlarmLeakage"]    === 1) {
+          setIotStatus(1)
+        } else {
+
+        }
+      } else {
+        console.log(response.message)
+        console.log('err');
+      }
+    })
+    */
+
+  });
+
+  // render() {
     return (
       <div>
         <div id="wrapper">
@@ -29,21 +121,21 @@ class Dashboard extends Component {
                     <CardInfo title="전력 조회(요금액)"
                       icon="bolt"
                       color="info"
-                      value="100kw" />
+                      value= {iotData} />
                   </Link>
 
                   <Link className='col-xl-3 col-md-3 mb-4' to='/predict'>
                     <CardInfo title="전력 예측"
                       icon="chart-bar"
                       color="warning"
-                      value="초과 예상" />
+                      value={predictData} />
                   </Link>
 
                   <Link className='col-xl-3 col-md-3 mb-4' to='dashboard'>
                     <CardInfo title="안전 지수"
                       icon="exclamation-circle"
                       color="danger"
-                      value="위 험" />
+                      value={iotStatus} />
                   </Link>
 
                   <Link className='col-xl-3 col-md-3 mb-4' to='/Safety'>
@@ -85,7 +177,7 @@ class Dashboard extends Component {
           <i className="fas fa-angle-up"></i>
         </a></div>
     )
-  }
+  // }
 }
 
 export default Dashboard;

@@ -13,10 +13,16 @@
     "dependencies": {
 
 
+        "axios": "^0.26.0",
+
+
         "bootstrap": "^4.3.1",
 
 
         "chart.js": "^2.8.0",
+
+
+        "http-proxy-middleware": "^2.0.3",
 
 
         "jquery": "^3.4.1",
@@ -131,7 +137,7 @@
 
 
     },
-
+    "proxy": "http://3.36.50.0:3000/",
 
     "devDependencies": {
 
