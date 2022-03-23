@@ -1,16 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import Chart from "chart.js";
 
 import CardBasic from '../../Cards/Basic';
+
+import axios from 'axios';
 
 Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
 
 
-class ChartMonth extends Component {
-    chartRef = React.createRef();
+const ChartMonth = () => {
+    // chartRef = React.createRef();
 
-    componentDidMount() {
+    useEffect(() => {
 
         const myChartRef = this.chartRef.current.getContext("2d");
         console.log(this.chartRef);
@@ -88,17 +90,17 @@ class ChartMonth extends Component {
             data: data,
             options: options,
         });
-    }
+    })
 
-    render() {
-        return (
-            <CardBasic title="당월/전월 전력 사용량">
-                <div className="chart-body ">
-                    <canvas id="ChartMonth" ref={this.chartRef}></canvas>
-                </div>
-            </CardBasic>
-        )
-    }
+    
+    return (
+        <CardBasic title="당월/전월 전력 사용량">
+            <div className="chart-body ">
+                <canvas id="ChartMonth" ref={this.chartRef}></canvas>
+            </div>
+        </CardBasic>
+    )
+    
 }
 
 export default ChartMonth;

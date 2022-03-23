@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-class CardInfo extends Component {
-    constructor(props) {
+function CardInfo (props) {
+    /*constructor(props) {
         super(props);
         this.state = {
             value: this.props.value,
@@ -11,39 +11,41 @@ class CardInfo extends Component {
             cardClass: '',
             titleClass: '',
         };
-    }
+    }*/
 
-    componentDidMount() {
+    // title, icon, color, value
+    const [cardClass, setCardClass] = useState()
+    const [icon, setIcon] = useState('fas fa-calendar fa-2x text-gray-300')
+    const [titleClass, setTitleClass] = useState()
 
-        this.setState({ cardClass: `card border-left-${this.props.color} shadow h-60 py-4` })
-        this.setState({ icon: `fas fa-${this.props.icon} fa-2x text-${this.props.color}` })
-        this.setState({ titleClass: `text-xs font-weight-bold text-${this.props.color} text-uppercase mb-1` })
-    }
+    useEffect(()=>{
+        setCardClass(`card border-left-${props.color} shadow h-60 py-4`)
+        setIcon(`fas fa-${props.icon} fa-2x text-${props.color}`)
+        setTitleClass(`text-xs font-weight-bold text-${props.color} text-uppercase mb-1`)
+        console.log(props)
+    })
 
-    render() {
-        return (
-            <div>
-
-                <div className={this.state.cardClass}>
-                    <div className="card-body">
-                        <div className="row no-gutters align-items-center">
-                            <div className="col mr-2">
-                                <div className={this.state.titleClass}>
-                                    {this.props.title}
-                                </div>
-                                <div className="h5 mb-0 font-weight-bold text-gray-800">
-                                    {this.state.value}
-                                </div>
+    return (
+        <div>
+            <div className={cardClass}>
+                <div className="card-body">
+                    <div className="row no-gutters align-items-center">
+                        <div className="col mr-2">
+                            <div className={titleClass}>
+                                {props.title}
                             </div>
-                            <div className="col-auto">
-                                <i className={this.state.icon}></i>
+                            <div className="h5 mb-0 font-weight-bold text-gray-800">
+                                {props.value}
                             </div>
+                        </div>
+                        <div className="col-auto">
+                            <i className={icon}></i>
                         </div>
                     </div>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default CardInfo;

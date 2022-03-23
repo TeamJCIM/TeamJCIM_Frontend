@@ -1,58 +1,85 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Sidebar from '../../components/Navigation/Sidebar';
 import Topbar from '../../components/Navigation/Topbar';
 import PageHeading from '../../components/PageHeading';
 
 import ChartYear from '../../components/Charts/Year';
-import ChartIot from '../../components/Charts/Iot';
-import ChartDonut from '../../components/Charts/Donut';
 
-class YearUsage extends Component {
-    render() {
-        return (
-            <div>
-                {/* <!-- Page Wrapper --> */}
-                <div id="wrapper" >
+import axios from 'axios'
 
-                    {/* <!-- Sidebar --> */}
-                    < Sidebar />
-                    {/* <!-- End of Sidebar --> */}
+function YearUsage () {
+    const [yearUsage, setYearUsage] = useState([])
 
-                    {/* <!-- Content Wrapper --> */}
-                    <div id="content-wrapper" className="d-flex flex-column">
+    useEffect(()=> {
+        axios.get('/api', {
+            params: {
+                iotNum: 0,
+            }
+        })
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
 
-                        {/* <!-- Main Content --> */}
-                        <div id="content">
+        })
+    })
 
-                            {/* <!-- Topbar --> */}
-                            <Topbar />
-                            {/* <!-- End of Topbar --> */}
+    /* axios.post('/api', _post)
+        .then(function (response) {
+            console.log(response)
+            console.log(response.data)
+            if (response.data["success"] === true) {
+                // 성공 창 출력
+                console.log(response.data)
+                history.push("/Mainpage")
+            } else {
+                // 오류 창 출력
+            }
+        }) */
 
-                            {/* <!-- Begin Page Content --> */}
-                            <div className="container-fluid">
+    return (
+        <div>
+            {/* <!-- Page Wrapper --> */}
+            <div id="wrapper" >
 
-                                {/* <!-- Page Heading --> */}
+                {/* <!-- Sidebar --> */}
+                < Sidebar />
+                {/* <!-- End of Sidebar --> */}
 
-                                <PageHeading title="전력 조회" />
+                {/* <!-- Content Wrapper --> */}
+                <div id="content-wrapper" className="d-flex flex-column">
 
-                                {/* <!-- Content Row --> */}
+                    {/* <!-- Main Content --> */}
+                    <div id="content">
 
-                                <div className="row">
-                                    <div className="col-xl col-lg">
-                                        <ChartYear />
-                                    </div>
+                        {/* <!-- Topbar --> */}
+                        <Topbar />
+                        {/* <!-- End of Topbar --> */}
+
+                        {/* <!-- Begin Page Content --> */}
+                        <div className="container-fluid">
+
+                            {/* <!-- Page Heading --> */}
+
+                            <PageHeading title="전력 조회" />
+
+                            {/* <!-- Content Row --> */}
+
+                            <div className="row">
+                                <div className="col-xl col-lg">
+                                    <ChartYear />
                                 </div>
-
                             </div>
-                            {/* <!-- /.container-fluid --> */}
+
                         </div>
+                        {/* <!-- /.container-fluid --> */}
                     </div>
                 </div>
             </div>
+        </div>
 
-        )
-    }
+    )
 }
 
 
