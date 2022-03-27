@@ -8,6 +8,9 @@ import Sidebar from '../../components/Navigation/Sidebar';
 import PageHeading from '../../components/PageHeading';
 import CardBasic from '../../components/Cards/Basic';
 
+import ChangeProfile from './ChangeProfile.js';
+import TextBox from './TextBox';
+
 export default function Profile() {
     const [profile, setProfile] = useState({
         name: '',
@@ -15,28 +18,28 @@ export default function Profile() {
         email: '',
         location: '',
         iotNum: '',
-        userid: '',
     });
 
-    function getProfile() {
-        const userid = {
-            userid: '10',
-        };
-        axios.post('auth/profile', userid).then(function (response) {
-            if (response.data['success'] === true) {
-                setProfile({
-                    name: response.data['data']['Name'],
-                    phone: response.data['data']['Phone'],
-                    email: response.data['data']['Email'],
-                    iotNum: response.data['data']['IotNum'],
-                });
-            }
-        });
-    }
+    const [modifiable, setModifiable] = useState({
+        state: 'false',
+    });
 
     useEffect(() => {
-        getProfile();
-    });
+        axios
+            .get(`api/auth/profile/3`)
+            .then(function (response) {
+                setProfile({
+                    name: response.data['data'][0]['Name'],
+                    phone: response.data['data'][0]['Phone'],
+                    email: response.data['data'][0]['Email'],
+                    location: response.data['data'][0]['Location'],
+                    iotNum: response.data['data'][0]['IotNum'],
+                });
+            })
+            .catch(function (error) {
+                console.log('error');
+            });
+    }, []);
 
     return (
         <div>
@@ -51,61 +54,49 @@ export default function Profile() {
                         <div className="container-fluid">
                             <CardBasic title="프로필설정">
                                 <div class="small mb-1">Name</div>
-                                <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                    <div class="col-auto">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <span class="navbar-brand">
-                                        {profile.name}
-                                    </span>
-                                </nav>
+                                <TextBox
+                                    img="fas fa-user"
+                                    text={profile.name}
+                                    state={modifiable.state}
+                                />
 
                                 <div class="small mb-1">Phone</div>
-                                <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                    <div class="col-auto">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <span class="navbar-brand">
-                                        {profile.phone}
-                                    </span>
-                                </nav>
+                                <TextBox
+                                    img="fas fa-phone"
+                                    text={profile.phone}
+                                    state={modifiable.state}
+                                />
 
                                 <div class="small mb-1">이메일</div>
-                                <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                    <div class="col-auto">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <span class="navbar-brand">
-                                        {profile.email}
-                                    </span>
-                                </nav>
+                                <TextBox
+                                    img="fas fa-envelope"
+                                    text={profile.email}
+                                    state={modifiable.state}
+                                />
 
                                 <div class="small mb-1">Location</div>
-                                <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                    <div class="col-auto">
-                                        <i class="fas fa-location-arrow"></i>
-                                    </div>
-                                    <span class="navbar-brand">
-                                        {profile.location}
-                                    </span>
-                                </nav>
+                                <TextBox
+                                    img="fas fa-location-arrow"
+                                    text={profile.location}
+                                    state={modifiable.state}
+                                />
 
                                 <div class="small mb-1">IoT Number</div>
-                                <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                    <div class="col-auto">
-                                        <i class="fas fa-tablet"></i>
-                                    </div>
-                                    <span class="navbar-brand">
-                                        {profile.iotNum}
-                                    </span>
-                                </nav>
+                                <TextBox
+                                    img="fas fa-tablet"
+                                    text={profile.iotNum}
+                                    state={modifiable.state}
+                                />
 
                                 <span>
                                     <Link
+                                        onClick={() =>
+                                            setModifiable({ state: '' })
+                                        }
                                         className="btn btn-secondary"
-                                        to="ResetProfile"
+                                        to="/ChangeProfile"
                                     >
-                                        프로필변경
+                                        프로필수정
                                     </Link>
                                 </span>
                                 <span class="col-auto">
