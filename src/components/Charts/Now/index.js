@@ -9,31 +9,28 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 function ChartNow (props) {
     const chartRef = useRef()
-
+    const data = props.electricData
+    console.log('data', data)
     useEffect(() => {
-
         const myChartRef = chartRef.current.getContext("2d");
-        console.log(chartRef);
-
+        console.log('chartRef', chartRef);
+        console.log('myChartRef', myChartRef)
+        console.log('electric data', props.electricData)
         new Chart(myChartRef, {
             type: 'line',
             data: {
                 labels: ["0h", "2h", "4h", "6h", "8h", "10h", "12h", "14h", "16h", "18h", "20h", "22h", "24h"],
                 datasets: [{
                     label: "Kwh",
-                    // lineTension: 0.3,
-                    backgroundColor: "rgba(78, 115, 223, 0.05)",
-                    borderColor: "rgba(78, 115, 223, 1)",
-                    pointRadius: 1,
+                    lineTension: 0.5, // 곡선의 장력
+                    backgroundColor: "rgba(78, 115, 223, 0.1)",
+                    borderColor: "rgba(78, 115, 223, 1)",   // 선 색상
+                    pointRadius: 0,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHoverRadius: 1,
-                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    // fill: true,
-                    data: props.electricData
+                    fill: true,
+                    data: data
                 }],
             },
             options: {
@@ -67,7 +64,7 @@ function ChartNow (props) {
                             labelString: '',
                         },
                         ticks: {
-                            beginAtZero: true,
+                            beginAtZero: false,
                             // maxTicksLimit: 5,
                             // padding: 10,
                             // Include a dollar sign in the ticks
@@ -81,10 +78,10 @@ function ChartNow (props) {
                         }
                     }],
                 },
-                legend: {
+                /*legend: {
                     display: false,
-                },
-                tooltips: {
+                },*/
+                /*tooltips: {
                     backgroundColor: "rgb(255,255,255)",
                     bodyFontColor: "#858796",
                     // titleMarginBottom: 10,
@@ -98,14 +95,15 @@ function ChartNow (props) {
                     intersect: false,
                     mode: 'index',
                     caretPadding: 10,
-                    /*callbacks: {
+                    callbacks: {
                         label: function (tooltipItem, chart) {
                             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
                             return datasetLabel + ':' + tooltipItem.yLabel;
                         }
-                    }*/
-                }
-            }
+                    }
+                },*/
+            },
+            
         });
     })
 

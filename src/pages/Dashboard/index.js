@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 
 //Navigation
@@ -17,13 +17,14 @@ const Dashboard = () => {
   /* componentWillMount() {
     document.getElementById('body').className = 'page-top'
   } */
-  // 요금액, 예측액, 안전, IOT
-  const [iotData, setIotData] = useState();
-  const [predictData, setPredictData] = useState();
-  const [iotStatus, setIotStatus] = useState('');
-  const [stateName, setStateName] = useState()
 
-  const [_IotNum, setIotNum] = useState();
+  // 요금액, 예측액, 안전, IOT
+  const [iotData, setIotData] = useState()          // 사용량
+  const [predictData, setPredictData] = useState()  // 예측량
+  const [iotStatus, setIotStatus] = useState()    // iot state
+  const [stateName, setStateName] = useState()      // iot state name (danger, warning)
+
+  
 
   const [electricData, setElectricData] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
@@ -36,9 +37,11 @@ const Dashboard = () => {
   }
   let timestring = `${time.year}-${time.month}-${time.date}`;
   
+  const [iotNum, setIotNum] = useState(1227564000)
+  const [date, setDate] = useState('2021-09-09')
   let postIot = {
-    IotNum: '1227564000',
-    Date: '2021-09-09',
+    IotNum: iotNum,
+    Date: date,
   }
 
   // 렌더링 될 때마다 실행
@@ -46,11 +49,12 @@ const Dashboard = () => {
     document.getElementById('body').className = 'page-top';
     console.log('useEffect');
 
+    // '/api/overview/1227564000/2021-09-09'
     axios.get(`/api/overview/${postIot.IotNum}/${postIot.Date}`,)
     .then((response) => {
-      console.log(postIot)
-      console.log('response data : ', response.data.data)
-      console.log(response.data.data[2].AlarmVoltage)
+      // console.log(postIot)
+      // console.log('response data : ', response.data.data)
+      // console.log(response.data.data[2].AlarmVoltage)
 
       // 전력조회카드 데이터 GET
       console.log(response.data.data[0][0])
@@ -93,25 +97,35 @@ const Dashboard = () => {
       
       // 실시간사용량 데이터 GET
       // electricData
-      console.log('배열 수 : ', response.data.data[3].length)
-      console.log('실시간 사용량 : ', Number(response.data.data[3][44].Date.substr(11, 2)))
       
+      const newElectricData = electricData
       for (let i = 0; i < response.data.data[3].length; i++) {
-        
         // console.log((Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)))
-        
-        const newElectricData = electricData
-        
-        newElectricData[Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)] += response.data.data[3][i].VoltageAvg
-        
-        setElectricData(newElectricData)
+        // console.log('배열 수 : ', response.data.data[3].length)
+        // console.log('실시간 사용량 : ', Number(response.data.data[3][44].Date.substr(11, 2)))
+        newElectricData[Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)] += Math.floor(response.data.data[3][i].VoltageAvg)
       }
-      console.log(electricData)
+      setElectricData(newElectricData)
+
     })
-    
     .catch((err)=>{console.log(err)})
   })
 
+  /*axios.get(`/api/overview/${postIot.IotNum}/${postIot.Date}`,)
+  .then(function (response) {
+    for (let i = 0; i < response.data.data[3].length; i++) {
+
+      // console.log((Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)))
+      const newElectricData = electricData
+
+      newElectricData[Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)] += Math.floor(response.data.data[3][i].VoltageAvg)
+      setElectricData(newElectricData)
+    }
+    console.log('push', electricData)
+  })
+  .catch(function (err) {console.log(err)})*/
+  
+  console.log('push out',electricData)
   return (
     <div>
       <div id="wrapper">
