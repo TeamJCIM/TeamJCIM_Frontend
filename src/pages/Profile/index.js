@@ -32,7 +32,7 @@ export default function Profile() {
                     phone: response.data['data'][0]['Phone'],
                     email: response.data['data'][0]['Email'],
                     location: response.data['data'][0]['Location'],
-                    iotNum: response.data['data'][0]['IotNum'],
+                    iotNum: response.data['data'][0]['Iotnum'],
                 });
             })
             .catch(function (error) {
