@@ -23,12 +23,14 @@ const ChartToday = (props) => {
     if (Math.max(...todayData) === 0) {
         maxValue = 1000
     } else {
-        maxValue = Math.max(...todayData)
+        maxValue = Math.max(... todayData)
         maxValue = maxValue / 100
         maxValue = Math.floor(maxValue)
         maxValue = 100 * maxValue
         
     }
+
+
     console.log(maxValue)
     useEffect(() => {
         const myChartRef = chartRef.current.getContext("2d");
@@ -96,7 +98,6 @@ const ChartToday = (props) => {
                 display: false,
                 position: 'bottom',
             },
-            animation: false,
         }
 
         new Chart(myChartRef, {

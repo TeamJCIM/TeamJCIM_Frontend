@@ -25,6 +25,7 @@ const TodayUsage = () => {
         .then((response) => {
             console.log(response.data.data)
 
+
             const newElectricData = electricData
             for (let i = 0; i < response.data.data[3].length; i++) {
                 // console.log((Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)))
