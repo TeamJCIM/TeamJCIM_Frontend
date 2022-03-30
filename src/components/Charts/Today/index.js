@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chart from "chart.js";
 
 import CardBasic from '../../Cards/Basic';
@@ -7,15 +7,34 @@ Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
 
 
-const ChartToday = () => {
+const ChartToday = (props) => {
     const chartRef = useRef(); // useRef : ref object( { current :  } )를 반환
     // When ? 저장공간으로 사용, No rendering
-    
+    const [count, setCount] = useState()
+
+    setInterval(function () {
+        setCount(count + 1)
+    }, 1000)
+
+
+    const todayData = props.electricData
+
+    let maxValue = 0
+    if (Math.max(...todayData) === 0) {
+        maxValue = 1000
+    } else {
+        maxValue = Math.max(...todayData)
+        maxValue = maxValue / 100
+        maxValue = Math.floor(maxValue)
+        maxValue = 100 * maxValue
+        
+    }
+    console.log(maxValue)
     useEffect(() => {
         const myChartRef = chartRef.current.getContext("2d");
         // console.log('myChartRef :', myChartRef);
         // console.log('charRef : ', chartRef)
-        
+        // todayData = props.electricData
         const data = {
             labels: [
                 '0-1h',
@@ -45,33 +64,9 @@ const ChartToday = () => {
             ],
             datasets: [{
                 label: 'My First Dataset',
-                data: [2000, 12, 16, 9, 0, 0, 19, 12, 1500, 9, 0, 0, 19, 12, 16, 9, 0, 0, 19, 12, 16, 9, 0, 2000,],
-                backgroundColor: [
-                    'rgb(54, 162, 235, 0.7)',
-                    'rgb(75, 192, 192, 0.7)',
-                    'rgb(255, 205, 86, 0.7)',
-                    'rgb(201, 203, 207, 0.7)',
-                    'rgb(54, 162, 235, 0.7)',
-                    'rgb(201, 203, 207, 0.7)',
-                    'rgb(54, 162, 235, 0.7)',
-                    'rgb(75, 192, 192, 0.7)',
-                    'rgb(255, 205, 86, 0.7)',
-                    'rgb(201, 203, 207, 0.7)',
-                    'rgb(54, 162, 235, 0.7)',
-                    'rgb(201, 203, 207, 0.7)',
-                    'rgb(54, 162, 235, 0.7)',
-                    'rgb(75, 192, 192, 0.7)',
-                    'rgb(255, 205, 86, 0.7)',
-                    'rgb(201, 203, 207, 0.7)',
-                    'rgb(54, 162, 235, 0.7)',
-                    'rgb(201, 203, 207, 0.7)',
-                    'rgb(54, 162, 235, 0.7)',
-                    'rgb(75, 192, 192, 0.7)',
-                    'rgb(255, 205, 86, 0.7)',
-                    'rgb(201, 203, 207, 0.7)',
-                    'rgb(54, 162, 235, 0.7)',
-                    'rgb(201, 203, 207, 0.7)',
-                ]
+                data: todayData,
+                backgroundColor: 'rgb(54, 162, 235, 0.5)',
+                
             }]
         };
 
@@ -82,32 +77,26 @@ const ChartToday = () => {
             scales: {
                 r: {
                     pointLabels: {
-                        display: true,
+                        display: false,
                         centerPointLabel: true,
                         font: {
                             size : 10,
                         },
                     },
                 },
-                angleLines: {
-                    display:true,
-                    center: true
-                }
             },
-            scale: { angleLines: { display: true, center: true } },
+            scale: { 
+                angleLines: { display: true, center: true },
+                ticks: {
+                    min: Math.min(... todayData),
+                    max: maxValue,
+                },
+            },
             legend: {
                 display: false,
                 position: 'bottom',
             },
-
-            title: {
-                display: false,
-                text: 'Chart.js Polar Area Chart With Centered Point Labels'
-            },
-            animation: {
-                animateRotate : false,
-                animateScale : false
-            },
+            animation: false,
         }
 
         new Chart(myChartRef, {

@@ -13,35 +13,37 @@ const ChartYear = (props) => {
     const chartRef = useRef();
     console.log('chart component', props.yearData);
     
+    const [count, setCount] = useState()
+
+    setInterval(function () {
+        setCount(count + 1)
+    }, 1000)
+
     useEffect(() => {
         const myChartRef = chartRef.current.getContext("2d");
         
         setYearData(props.yearData)
         console.log('chart component use effect ', props.yearData[5]);
 
-        const data = {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: '연간 전력 사용량',
-                data: yearData,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgb(54, 162, 235)',
-                borderWidth: 1,
-            }]
-        };
-
-        const options = {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                }
-            },
-        }
-
         new Chart(myChartRef, {
             type: 'bar',
-            data: data,
-            options: options,
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: '연간 전력 사용량',
+                    data: yearData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                },
+            },
         });
     })
 

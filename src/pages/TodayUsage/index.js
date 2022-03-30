@@ -10,17 +10,33 @@ import CardInfo from '../../components/Cards/Info';
 import axios from 'axios'
 
 const TodayUsage = () => {
-    const [todayUsage, setTodayUsage] = useState([])
+    const [electricData, setElectricData] = useState(Array.from({ length: 24 }, () => 0))
     // console.log(todayUsage, setTodayUsage)
 
-    const post = 1227564000
+    const [iotNum, setIotNum] = useState(1227564000)
+    const [date, setDate] = useState('2021-09-09')
+    let postIot = {
+        IotNum: iotNum,
+        Date: date,
+    }
 
     useEffect(()=>{
-        axios.get(`/api/lookup_elec/${post}`,)
-        .then((res) => {
-            console.log(res.data.data)
+        axios.get(`/api/overview/${postIot.IotNum}/${postIot.Date}`,)
+        .then((response) => {
+            console.log(response.data.data)
 
-            //
+            const newElectricData = electricData
+            for (let i = 0; i < response.data.data[3].length; i++) {
+                // console.log((Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)) / 2)))
+                // console.log('배열 수 : ', response.data.data[3].length)
+                // console.log('실시간 사용량 : ', Number(response.data.data[3][44].Date.substr(11, 2)))
+                newElectricData[Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)))] += Math.floor(response.data.data[3][i].VoltageAvg)
+                console.log(Number(response.data.data[3][i].Date.substr(11, 2)))
+                
+            }
+            console.log(newElectricData)
+            setElectricData(newElectricData)
+            console.log(electricData)
         })
         .catch((err) => {
             console.log(err)
@@ -57,7 +73,8 @@ const TodayUsage = () => {
                             
                             <div className="row">
                                 <div className="col-9">
-                                    <ChartToday />
+                                    <ChartToday 
+                                        electricData = {electricData}/>
                                 </div>
                                 <div className='col-3'>
                                     <div className='px-2'>

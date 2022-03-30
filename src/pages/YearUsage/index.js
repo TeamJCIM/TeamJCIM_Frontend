@@ -10,10 +10,11 @@ import axios from 'axios'
 
 const YearUsage = () => {
     const [yearData, setYearData] = useState(Array.from({length:12}, () => 0))
-    const newYearData = yearData
+    
     console.log('page component', yearData)
 
     const post = 1227564000
+    
     
     useEffect(()=> {
         console.log('page component use effect', yearData)
@@ -22,12 +23,14 @@ const YearUsage = () => {
             .then((res) => {
                 console.log(res.data.data[3])
 
+                const newYearData = yearData
                 for (let i = 0; i < res.data.data[3].length; i++) {
                     const day = res.data.data[3][i].Month - 1
                     newYearData[day] = Number(res.data.data[3][i].IotData)
-                    setYearData(newYearData)
+                    
 
                 }
+                setYearData(newYearData)
 
                 console.log('page year data', yearData)
             })
