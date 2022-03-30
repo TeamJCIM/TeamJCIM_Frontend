@@ -8,7 +8,6 @@ import Sidebar from '../../components/Navigation/Sidebar';
 import PageHeading from '../../components/PageHeading';
 import CardBasic from '../../components/Cards/Basic';
 
-import ChangeProfile from './ChangeProfile.js';
 import TextBox from './TextBox';
 
 export default function Profile() {
@@ -94,7 +93,7 @@ export default function Profile() {
                                             setModifiable({ state: '' })
                                         }
                                         className="btn btn-secondary"
-                                        to="/ChangeProfile"
+                                        to="/changeprofile"
                                     >
                                         프로필수정
                                     </Link>
@@ -102,7 +101,7 @@ export default function Profile() {
                                 <span class="col-auto">
                                     <Link
                                         className="btn btn-secondary"
-                                        to="/ResetPassword"
+                                        to="/changepassword"
                                     >
                                         비밀번호변경
                                     </Link>

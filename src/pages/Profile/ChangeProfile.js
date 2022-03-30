@@ -7,21 +7,15 @@ import Topbar from '../../components/Navigation/Topbar';
 import Sidebar from '../../components/Navigation/Sidebar';
 import PageHeading from '../../components/PageHeading';
 import CardBasic from '../../components/Cards/Basic';
-import TextBox from './TextBox';
 
 export default function ResetProfile() {
     const [profile, setProfile] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        address: '',
-        IotNum: '',
-        birth: '980926',
-        userid: '3',
-    });
-
-    const [modifiable, setModifiable] = useState({
-        state: '',
+        Name: '',
+        Phone: '',
+        Email: '',
+        Location: '',
+        Iotnum: '',
+        UserId: '',
     });
 
     function handleChange(event) {
@@ -31,13 +25,18 @@ export default function ResetProfile() {
             [name]: value,
         });
         console.log(value, name);
-        console.log(profile.name);
+        console.log(profile.Name);
     }
 
     function requestChange() {
         axios
             .post(`api/auth/ChangeProfile`, profile)
             .then(function (response) {
+                console.log(profile.Name);
+                console.log(profile.Phone);
+                console.log(profile.Email);
+                console.log(profile.Location);
+                console.log(profile.UserId);
                 console.log('success');
             })
             .catch(function (error) {
@@ -50,11 +49,12 @@ export default function ResetProfile() {
             .get(`api/auth/profile/3`)
             .then(function (response) {
                 setProfile({
-                    name: response.data['data'][0]['Name'],
-                    phone: response.data['data'][0]['Phone'],
-                    email: response.data['data'][0]['Email'],
-                    address: response.data['data'][0]['Location'],
+                    Name: response.data['data'][0]['Name'],
+                    Phone: response.data['data'][0]['Phone'],
+                    Email: response.data['data'][0]['Email'],
+                    Location: response.data['data'][0]['Location'],
                     Iotnum: response.data['data'][0]['IotNum'],
+                    UserId: 3,
                 });
             })
             .catch(function (error) {
@@ -82,10 +82,9 @@ export default function ResetProfile() {
                                     <input
                                         onChange={handleChange}
                                         type="text"
-                                        name="name"
+                                        name="Name"
                                         class="form-control bg-light border-0"
-                                        placeholder={profile.name}
-                                        disabled={modifiable.state}
+                                        placeholder={profile.Name}
                                     />
                                 </nav>
 
@@ -97,10 +96,9 @@ export default function ResetProfile() {
                                     <input
                                         onChange={handleChange}
                                         type="text"
-                                        name="phone"
+                                        name="Phone"
                                         class="form-control bg-light border-0"
-                                        placeholder={profile.phone}
-                                        disabled={modifiable.state}
+                                        placeholder={profile.Phone}
                                     />
                                 </nav>
 
@@ -112,10 +110,9 @@ export default function ResetProfile() {
                                     <input
                                         onChange={handleChange}
                                         type="text"
-                                        name="email"
+                                        name="Email"
                                         class="form-control bg-light border-0"
-                                        placeholder={profile.email}
-                                        disabled={modifiable.state}
+                                        placeholder={profile.Email}
                                     />
                                 </nav>
 
@@ -127,10 +124,9 @@ export default function ResetProfile() {
                                     <input
                                         onChange={handleChange}
                                         type="text"
-                                        name="address"
+                                        name="Location"
                                         class="form-control bg-light border-0"
-                                        placeholder={profile.address}
-                                        disabled={modifiable.state}
+                                        placeholder={profile.Location}
                                     />
                                 </nav>
 
@@ -145,21 +141,14 @@ export default function ResetProfile() {
                                         name="Iotnum"
                                         class="form-control bg-light border-0"
                                         placeholder={profile.Iotnum}
-                                        disabled={modifiable.state}
                                     />
                                 </nav>
 
                                 <span>
                                     <Link
-                                        onClick={
-                                            (() =>
-                                                setModifiable({
-                                                    state: 'false',
-                                                }),
-                                            requestChange)
-                                        }
+                                        onClick={requestChange}
                                         className="btn btn-secondary"
-                                        to="/ResetProfile"
+                                        to="/profile"
                                     >
                                         수정완료
                                     </Link>

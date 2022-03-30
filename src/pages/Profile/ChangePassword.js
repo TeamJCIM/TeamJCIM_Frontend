@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 //Navigation
 import Topbar from '../../components/Navigation/Topbar';
@@ -9,12 +10,36 @@ import CardBasic from '../../components/Cards/Basic';
 
 export default function ChangePassword() {
     const [data, setData] = useState({
-        password: '',
-        state: '',
+        curPassword: '',
+        getCurPassword: '',
+        changePassword: '',
+        confirmPassword: '',
+        curState: '',
+        changeState: '',
         confirmState: '',
+        checkState: '',
     });
+
+    const checkCurPassword = (e) => {
+        const { name, value } = e.target;
+        setData({
+            ...data,
+            [name]: value,
+        });
+
+        if (data.curPassword === data.getCurPassword) {
+            setData({
+                curState: 'true',
+            });
+        } else {
+            setData({
+                curState: 'false',
+            });
+        }
+    };
+
     //비밀번호 유효성 체크 함수
-    const checkPassword = (e) => {
+    const checkChangePassword = (e) => {
         const { name, value } = e.target;
         setData({
             ...data,
@@ -26,32 +51,74 @@ export default function ChangePassword() {
         // 맞는 형식이면 true를 리턴
         if (regExp.test(e.target.value)) {
             setData({
-                state: 'true',
+                changeState: 'true',
             });
         } else {
             setData({
-                state: 'false',
+                changeState: 'false',
             });
         }
-        console.log(data.password);
-        console.log(data.state);
     };
 
-    // const handleConfirmPassword = (e) => {
-    //     const { value, name } = e.target;
-    //     setInputs({
-    //         ...inputs,
-    //         [name]: value,
-    //     });
+    //비밀번호 확인 체크함수
+    const checkConfirmPassword = (e) => {
+        // const { value, name } = e.target;
+        // setInputs({
+        //     ...data,
+        //     [name]: value,
+        // });
 
-    //     if (e.target.value === inputs.password) {
-    //         console.log('비밀번호 일치');
-    //         checkState('cPasswordState', true);
-    //     } else {
-    //         console.log('비밀번호 불일치');
-    //         checkState('cPasswordState', false);
-    //     }
-    // };
+        if (e.target.value === data.changePassword) {
+            console.log('비밀번호 일치');
+            setData({
+                confirmState: 'true',
+            });
+        } else {
+            console.log('비밀번호 불일치');
+            setData({
+                confirmState: 'false',
+            });
+        }
+    };
+
+    const checkState = (e) => {
+        if (data.curState && data.changeState && data.confirmState) {
+            //     axios
+            //         .post(`api/auth/ChangePassword`)
+            //         .then(function (response) {
+            //             console.log('success');
+            //         })
+            //         .catch(function (error) {
+            //             console.log('error');
+            //         });
+            alert('비밀번호 변경 완료!');
+        }
+
+        if (!data.curState) {
+            alert('현재비밀번호를 확인해주세요!');
+        }
+
+        if (!data.changeState) {
+            alert('변경 비밀번호를 확인해주세요!');
+        }
+
+        if (!data.confirmState) {
+            alert('변경비밀번호와 변경비밀번호 확인이 일치하지 않습니다!');
+        }
+    };
+
+    useEffect(() => {
+        axios
+            .post(`api/auth/password`)
+            .then(function (response) {
+                setData({
+                    password: 1,
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
 
     return (
         <div>
@@ -68,27 +135,30 @@ export default function ChangePassword() {
                             <input
                                 class="form-control bg-light border-0 small"
                                 type="password"
+                                name="curPassword"
+                                onChange={checkCurPassword}
                             />
 
                             <div class="small mb-1">변경 비밀번호</div>
                             <input
                                 class="form-control bg-light border-0 small"
                                 type="password"
-                                name="password"
-                                onChange={checkPassword}
+                                name="changePassword"
+                                onChange={checkChangePassword}
                             />
 
                             <div class="small mb-1">변경 비밀번호확인</div>
                             <input
                                 class="form-control bg-light border-0 small"
                                 type="password"
-                                name="password"
+                                onChage={checkConfirmPassword}
                             />
 
                             <div>
                                 <Link
                                     className="btn btn-secondary"
-                                    to="ResetProfile"
+                                    onClick={checkState}
+                                    to="/profile"
                                 >
                                     확인
                                 </Link>

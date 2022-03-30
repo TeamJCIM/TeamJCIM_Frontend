@@ -7,7 +7,7 @@ import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Predict from './pages/Predict';
 import Profile from './pages/Profile';
-import ResetPassword from './pages/ResetPassword';
+import ChangePassword from './pages/Profile/ChangePassword';
 import ChangeProfile from './pages/Profile/ChangeProfile';
 import TodayUsage from './pages/TodayUsage';
 import MonthUsage from './pages/MonthUsage';
@@ -19,8 +19,8 @@ const Routes = () => (
         <Switch>
             <Route exact path="/" component={SignIn} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route path="/ResetPassword" component={ResetPassword} />
-            <Route path="/ChangeProfile" component={ChangeProfile} />
+            <Route path="/changepassword" component={ChangePassword} />
+            <Route path="/changeprofile" component={ChangeProfile} />
             <Route path="/profile" component={Profile} />
             <Route path="/predict" component={Predict} />
             <Route path="/todayusage" component={TodayUsage} />
