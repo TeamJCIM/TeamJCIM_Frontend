@@ -8,13 +8,14 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 
 const ChartToday = () => {
-    const chartRef = useRef(); // useRef : ref onject( { current :  } )를 반환
+    const chartRef = useRef(); // useRef : ref object( { current :  } )를 반환
     // When ? 저장공간으로 사용, No rendering
+    
     useEffect(() => {
-
         const myChartRef = chartRef.current.getContext("2d");
-        console.log('myChartRef :', myChartRef);
-        console.log('charRef : ', chartRef)
+        // console.log('myChartRef :', myChartRef);
+        // console.log('charRef : ', chartRef)
+        
         const data = {
             labels: [
                 '0-1h',
@@ -75,7 +76,9 @@ const ChartToday = () => {
         };
 
         const options = {
+            // responsive : 반응형
             responsive: true,
+            // Axes 축
             scales: {
                 r: {
                     pointLabels: {

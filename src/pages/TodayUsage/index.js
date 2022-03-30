@@ -13,32 +13,19 @@ const TodayUsage = () => {
     const [todayUsage, setTodayUsage] = useState([])
     // console.log(todayUsage, setTodayUsage)
 
+    const post = 1227564000
+
     useEffect(()=>{
-        axios.get('/api', {
-            params: {
-                iotNum: 1,
-            }
-        })
+        axios.get(`/api/lookup_elec/${post}`,)
         .then((res) => {
-            console.log(res)
+            console.log(res.data.data)
+
+            //
         })
         .catch((err) => {
             console.log(err)
         })
     })
-
-    /* axios.post('/api', _post)
-        .then(function (response) {
-            console.log(response)
-            console.log(response.data)
-            if (response.data["success"] === true) {
-                // 성공 창 출력
-                console.log(response.data)
-                history.push("/Mainpage")
-            } else {
-                // 오류 창 출력
-            }
-        }) */
         
     return (
         <div>

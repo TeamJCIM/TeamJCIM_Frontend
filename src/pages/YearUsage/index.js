@@ -8,35 +8,35 @@ import ChartYear from '../../components/Charts/Year';
 
 import axios from 'axios'
 
-function YearUsage () {
-    const [yearUsage, setYearUsage] = useState([])
+const YearUsage = () => {
+    const [yearData, setYearData] = useState(Array.from({length:12}, () => 0))
+    const newYearData = yearData
+    console.log('page component', yearData)
 
+    const post = 1227564000
+    
     useEffect(()=> {
-        axios.get('/api', {
-            params: {
-                iotNum: 0,
-            }
-        })
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((err) => {
+        console.log('page component use effect', yearData)
+        
+        axios.get(`/api/lookup_elec/${post}`,)
+            .then((res) => {
+                console.log(res.data.data[3])
 
-        })
+                for (let i = 0; i < res.data.data[3].length; i++) {
+                    const day = res.data.data[3][i].Month - 1
+                    newYearData[day] = Number(res.data.data[3][i].IotData)
+                    setYearData(newYearData)
+
+                }
+
+                console.log('page year data', yearData)
+            })
+            .catch((err) => {
+
+            })
+
     })
-
-    /* axios.post('/api', _post)
-        .then(function (response) {
-            console.log(response)
-            console.log(response.data)
-            if (response.data["success"] === true) {
-                // 성공 창 출력
-                console.log(response.data)
-                history.push("/Mainpage")
-            } else {
-                // 오류 창 출력
-            }
-        }) */
+        
 
     return (
         <div>
@@ -68,7 +68,8 @@ function YearUsage () {
 
                             <div className="row">
                                 <div className="col-xl col-lg">
-                                    <ChartYear />
+                                    <ChartYear 
+                                        yearData={yearData}/>
                                 </div>
                             </div>
 
