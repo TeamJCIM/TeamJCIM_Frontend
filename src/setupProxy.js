@@ -4,11 +4,11 @@ module.exports = function (app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: "http://3.36.50.0:3000",
+            target: 'http://3.36.50.0:3000',
             changeOrigin: true,
             pathRewrite: {
-                '^/api': ''
-            }
+                '^/api': '',
+            },
         })
     );
 };

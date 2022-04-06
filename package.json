@@ -46,6 +46,7 @@
         ]
     },
     "devDependencies": {
+        "http-proxy-middleware": "^2.0.4",
         "react-redux": "^7.0.3",
         "redux": "^4.0.1"
     }
