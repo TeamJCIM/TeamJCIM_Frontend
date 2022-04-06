@@ -1,40 +1,52 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chart } from 'chart.js';
 import CardBasic from '../../Cards/Basic';
+import axios from 'axios';
 
 Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-class ChartLine extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: this.props.title,
-        };
-    }
+export default function ChartLine(props) {
+    const chartRef = React.createRef();
 
-    chartRef = React.createRef();
+    const [thisData, setThisData] = useState({
+        predData: '',
+        iotData: '',
+    });
 
-    componentDidMount() {
-        const thisMonthChartLine = this.chartRef.current.getContext('2d');
-        console.log(thisMonthChartLine);
+    useEffect(() => {
+        axios
+            .get(`api/predict/predictThisMonth_test/1227564000`)
+            .then(function (response) {
+                setThisData({
+                    predData: response['data']['message'][1],
+                    iotData: response['data']['message'][2],
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
+        console.log(thisData.predData);
+        console.log(thisData.iotData);
+
+        const thisMonthChartLine = chartRef.current.getContext('2d');
         new Chart(thisMonthChartLine, {
             type: 'line',
             data: {
                 labels: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec',
+                    '1월',
+                    '2월',
+                    '3월',
+                    '4월',
+                    '5월',
+                    '6월',
+                    '7월',
+                    '8월',
+                    '9월',
+                    '10월',
+                    '11월',
+                    '12월',
                 ],
 
                 datasets: [
@@ -146,17 +158,13 @@ class ChartLine extends Component {
                 },
             },
         });
-    }
+    }, []);
 
-    render() {
-        return (
-            <CardBasic title={this.props.title}>
-                <div className="chart-area">
-                    <canvas id="myAreaChart" ref={this.chartRef}></canvas>
-                </div>
-            </CardBasic>
-        );
-    }
+    return (
+        <CardBasic title={props.title}>
+            <div className="chart-area">
+                <canvas id="myAreaChart" ref={chartRef}></canvas>
+            </div>
+        </CardBasic>
+    );
 }
-
-export default ChartLine;

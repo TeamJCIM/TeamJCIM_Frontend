@@ -1,17 +1,45 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js';
+import axios from 'axios';
 
 import CardBasic from '../Cards/Basic';
 
 Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-class NextMonth extends Component {
-    chartRef = React.createRef();
+export default function NextMonth(props) {
+    const chartRef = React.createRef();
 
-    componentDidMount() {
-        const myChartRef = this.chartRef.current.getContext('2d');
-        console.log(this.chartRef);
+    const [nextData, setNextData] = useState({
+        predData: '',
+        iotData: '',
+    });
+
+    var predData = [];
+    var iotData = [];
+
+    useEffect(() => {
+        axios
+            .get(`api/safety/PowerAnalysis/1227564000/2021`)
+            .then(function (response) {
+                response['data']['data'][0].forEach((element) => {
+                    const idx = element['Month'] - 1;
+                    predData[idx] = element['PredictData'];
+                });
+                response['data']['data'][1].forEach((element) => {
+                    const idx = element['Month'] - 1;
+                    iotData[idx] = element['IotData'];
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        console.log(predData);
+        console.log(iotData);
+
+        const nextMonthChartLine = chartRef.current.getContext('2d');
+
         const data = {
             labels: [
                 '1월',
@@ -49,7 +77,7 @@ class NextMonth extends Component {
                 },
             ],
         };
-        new Chart(myChartRef, {
+        new Chart(nextMonthChartLine, {
             type: 'bar',
             data: data,
             options: {
@@ -60,17 +88,13 @@ class NextMonth extends Component {
                 },
             },
         });
-    }
+    }, []);
 
-    render() {
-        return (
-            <CardBasic title={this.props.title}>
-                <div className="chart-body ">
-                    <canvas id="ChartToday" ref={this.chartRef}></canvas>
-                </div>
-            </CardBasic>
-        );
-    }
+    return (
+        <CardBasic title={props.title}>
+            <div className="chart-body ">
+                <canvas id="ChartToday" ref={chartRef}></canvas>
+            </div>
+        </CardBasic>
+    );
 }
-
-export default NextMonth;
