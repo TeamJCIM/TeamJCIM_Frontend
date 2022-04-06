@@ -5,8 +5,6 @@ import Topbar from '../../components/Navigation/Topbar';
 import PageHeading from '../../components/PageHeading';
 
 import ChartYear from '../../components/Charts/Year';
-import ChartIot from '../../components/Charts/Iot';
-import ChartDonut from '../../components/Charts/Donut';
 
 class YearUsage extends Component {
     render() {
