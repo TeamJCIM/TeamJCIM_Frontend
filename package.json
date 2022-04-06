@@ -13,6 +13,9 @@
     "dependencies": {
 
 
+        "axios": "^0.26.1",
+
+
         "bootstrap": "^4.3.1",
 
 
@@ -134,6 +137,9 @@
 
 
     "devDependencies": {
+
+
+        "http-proxy-middleware": "^2.0.4",
 
 
         "react-redux": "^7.0.3",
