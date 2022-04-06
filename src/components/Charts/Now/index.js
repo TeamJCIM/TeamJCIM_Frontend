@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Chart from "chart.js";
 
 import CardBasic from '../../Cards/Basic';
@@ -7,33 +7,30 @@ Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
 
 
-class ChartNow extends Component {
-    chartRef = React.createRef();
-
-    componentDidMount() {
-
-        const myChartRef = this.chartRef.current.getContext("2d");
-        console.log(this.chartRef);
-
+function ChartNow (props) {
+    const chartRef = useRef()
+    const data = props.electricData
+    console.log('data', data)
+    useEffect(() => {
+        const myChartRef = chartRef.current.getContext("2d");
+        console.log('chartRef', chartRef);
+        console.log('myChartRef', myChartRef)
+        console.log('electric data', props.electricData)
         new Chart(myChartRef, {
             type: 'line',
             data: {
                 labels: ["0h", "2h", "4h", "6h", "8h", "10h", "12h", "14h", "16h", "18h", "20h", "22h", "24h"],
                 datasets: [{
-                    label: "Earnings",
-                    lineTension: 0.3,
-                    backgroundColor: "rgba(78, 115, 223, 0.05)",
-                    borderColor: "rgba(78, 115, 223, 1)",
-                    pointRadius: 1,
+                    label: "Kwh",
+                    lineTension: 0.5, // 곡선의 장력
+                    backgroundColor: "rgba(78, 115, 223, 0.1)",
+                    borderColor: "rgba(78, 115, 223, 1)",   // 선 색상
+                    pointRadius: 0,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHoverRadius: 1,
-                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHitRadius: 10,
                     pointBorderWidth: 2,
                     fill: true,
-                    data: [20000, 15000, 25000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 25000, 40000],
+                    data: data
                 }],
             },
             options: {
@@ -62,14 +59,14 @@ class ChartNow extends Component {
                     }],
                     yAxes: [{
                         scaleLabel: {
-                            display: true,
+                            display: false,
                             fontColor: 'blue',
                             labelString: '',
                         },
                         ticks: {
-                            beginAtZero: true,
-                            maxTicksLimit: 5,
-                            padding: 10,
+                            beginAtZero: false,
+                            // maxTicksLimit: 5,
+                            // padding: 10,
                             // Include a dollar sign in the ticks
                         },
                         gridLines: {
@@ -81,13 +78,13 @@ class ChartNow extends Component {
                         }
                     }],
                 },
-                legend: {
+                /*legend: {
                     display: false,
-                },
-                tooltips: {
+                },*/
+                /*tooltips: {
                     backgroundColor: "rgb(255,255,255)",
                     bodyFontColor: "#858796",
-                    titleMarginBottom: 10,
+                    // titleMarginBottom: 10,
                     titleFontColor: '#6e707e',
                     titleFontSize: 14,
                     borderColor: '#dddfeb',
@@ -104,23 +101,20 @@ class ChartNow extends Component {
                             return datasetLabel + ':' + tooltipItem.yLabel;
                         }
                     }
-                }
-            }
+                },*/
+            },
+            
         });
-    }
+    })
 
-    render() {
-        return (
-            <CardBasic title="실시간 사용량">
-                <div className="chart-area">
-                    <canvas id="myAreaChart" ref={this.chartRef}></canvas>
-                </div>
-                {/*
-                <hr />
-                Styling for the area chart can be found in the <code>/Components/Charts/Line/Index.js</code> file. */}
-            </CardBasic>
-        )
-    }
+    return (
+        <CardBasic title="실시간 사용량">
+            <div className="chart-area">
+                <canvas id="myAreaChart" ref={chartRef}></canvas>
+            </div>
+        </CardBasic>
+    )
+    
 }
 
 export default ChartNow;
