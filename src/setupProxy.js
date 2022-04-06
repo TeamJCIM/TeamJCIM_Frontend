@@ -4,16 +4,6 @@ module.exports = function (app) {
     app.use(
         '/api',
         createProxyMiddleware({
-<<<<<<< HEAD
-            target: "http://3.36.50.0:3000",
-            changeOrigin: true,
-            pathRewrite: {
-                '^/api': ''
-            }
-        })
-    );
-};
-=======
             target: 'http://3.36.50.0:3000',
             changeOrigin: true,
             pathRewrite: {
@@ -22,4 +12,3 @@ module.exports = function (app) {
         })
     );
 };
->>>>>>> feature_profile
