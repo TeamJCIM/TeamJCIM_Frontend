@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Chart } from 'chart.js';
 
 import CardBasic from '../../Cards/Basic';
 
-class ChartDonut extends Component {
-    chartRef = React.createRef();
+const ChartDonut = () => {
+    const chartRef = useRef()
 
-    componentDidMount() {
-        const myPieChart = this.chartRef.current.getContext('2d');
-        console.log(this.chartRef);
+    useEffect(() => {
+        const myPieChart = chartRef.current
+        console.log(chartRef);
 
         new Chart(myPieChart, {
             type: 'doughnut',
@@ -17,15 +17,15 @@ class ChartDonut extends Component {
                 datasets: [{
                     data: [1, 1, 1],
                     backgroundColor: [
-                        'rgba(46, 204, 113, 1)',
-                        'rgba(255, 164, 46, 1)',
-                        'rgba(231, 76, 60, 1)',
-                        ],
+                        'rgba(0, 255, 0, 0.5)',
+                        'rgba(255, 155, 0, 0.5)',
+                        'rgba(255, 0, 0, 0.5)',
+                    ],
                     borderWidth: 20,
                 }],
             },
             options: {
-                rotation : 1 * Math.PI,
+                rotation: 1 * Math.PI,
                 circumference: 1 * Math.PI,
 
                 maintainAspectRatio: false,
@@ -46,18 +46,20 @@ class ChartDonut extends Component {
                 showMarkers: true,
             },
         });
-    }
+    })
+        
+    
 
-    render() {
+
         return (
-            <CardBasic title="Iot">
+            <CardBasic title="IOT">
                 <div className="chart-pie pt-4">
-                        <canvas id="myPieChart" ref={this.chartRef}></canvas>
+                        <canvas id="myPieChart" ref={chartRef}></canvas>
                         <p className='percent'> Safety </p>
                 </div>
             </CardBasic>
         );
-    }
+
 }
 
 export default ChartDonut;

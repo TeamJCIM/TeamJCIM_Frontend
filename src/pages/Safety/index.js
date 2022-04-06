@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 
+import axios from 'axios';
+
 import Sidebar from '../../components/Navigation/Sidebar';
 import Topbar from '../../components/Navigation/Topbar';
 import PageHeading from '../../components/PageHeading';
 
+import IotStateChart from '../../components/Charts/IotState';
 import ChartDonut from '../../components/Charts/Donut';
 import IotRecord from '../../components/Cards/IotRecord';
 import ChartMonth from '../../components/Charts/Month';
 import AnalizeChart from '../../components/AnalizeChart';
-class Safety extends Component {
-    render() {
+const Safety = () => {
+    axios.get()
         return (
             <div>
                 {/* <!-- Page Wrapper --> */}
@@ -36,7 +39,7 @@ class Safety extends Component {
 
                                 <div className="row">
                                     <div className="col-xl">
-                                        <ChartDonut />
+                                        <IotStateChart />
                                     </div>
 
                                     <div className="col-xl">
@@ -51,7 +54,6 @@ class Safety extends Component {
                 </div>
             </div>
         );
-    }
 }
 
 export default Safety;
