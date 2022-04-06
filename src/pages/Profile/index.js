@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 //Navigation
@@ -8,102 +8,109 @@ import Sidebar from '../../components/Navigation/Sidebar';
 import PageHeading from '../../components/PageHeading';
 import CardBasic from '../../components/Cards/Basic';
 
-class Profile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: '',
-        };
-    }
+import TextBox from './TextBox';
 
-    componentWillMount() {
-        document.getElementById('body').className = 'page-top';
-    }
+export default function Profile() {
+    const [profile, setProfile] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        location: '',
+        iotNum: '',
+    });
 
-    render() {
-        return (
-            <div>
-                <div id="wrapper">
-                    <Sidebar />
-                    <div id="content-wrapper" className="d-flex flex-column">
-                        <div id="content">
-                            <Topbar />
-                            <div className="container-fluid">
-                                <PageHeading title="Profile" />
-                            </div>
-                            <div className="container-fluid">
-                                <CardBasic title="프로필설정">
-                                    <div class="small mb-1">Name</div>
-                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">홍명헌</span>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user"></i>
-                                        </div>
-                                    </nav>
+    const [modifiable, setModifiable] = useState({
+        state: 'false',
+    });
 
-                                    <div class="small mb-1">Phone</div>
-                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">
-                                            010-0000-0000
-                                        </span>
-                                        <div class="col-auto">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                    </nav>
+    useEffect(() => {
+        axios
+            .get(`api/auth/profile/3`)
+            .then(function (response) {
+                setProfile({
+                    name: response.data['data'][0]['Name'],
+                    phone: response.data['data'][0]['Phone'],
+                    email: response.data['data'][0]['Email'],
+                    location: response.data['data'][0]['Location'],
+                    iotNum: response.data['data'][0]['Iotnum'],
+                });
+            })
+            .catch(function (error) {
+                console.log('error');
+            });
+    }, []);
 
-                                    <div class="small mb-1">이메일</div>
-                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">
-                                            yes7076@naver.com
-                                        </span>
-                                        <div class="col-auto">
-                                            <i class="fas fa-envelope-o"></i>
-                                        </div>
-                                    </nav>
+    return (
+        <div>
+            <div id="wrapper">
+                <Sidebar />
+                <div id="content-wrapper" className="d-flex flex-column">
+                    <div id="content">
+                        <Topbar />
+                        <div className="container-fluid">
+                            <PageHeading title="Profile" />
+                        </div>
+                        <div className="container-fluid">
+                            <CardBasic title="프로필설정">
+                                <div class="small mb-1">Name</div>
+                                <TextBox
+                                    img="fas fa-user"
+                                    text={profile.name}
+                                    state={modifiable.state}
+                                />
 
-                                    <div class="small mb-1">Location</div>
-                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">
-                                            동대문구 망우로100-111
-                                        </span>
-                                        <div class="col-auto">
-                                            <i class="fas fa-location-arrow"></i>
-                                        </div>
-                                    </nav>
+                                <div class="small mb-1">Phone</div>
+                                <TextBox
+                                    img="fas fa-phone"
+                                    text={profile.phone}
+                                    state={modifiable.state}
+                                />
 
-                                    <div class="small mb-1">IoT Number</div>
-                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <span class="navbar-brand">
-                                            90087247182
-                                        </span>
-                                        <div class="col-auto">
-                                            <i class="fas fa-tablet"></i>
-                                        </div>
-                                    </nav>
+                                <div class="small mb-1">이메일</div>
+                                <TextBox
+                                    img="fas fa-envelope"
+                                    text={profile.email}
+                                    state={modifiable.state}
+                                />
 
-                                    <div>
-                                        <Link
-                                            className="btn btn-secondary"
-                                            to="ResetProfile"
-                                        >
-                                            프로필변경
-                                        </Link>
+                                <div class="small mb-1">Location</div>
+                                <TextBox
+                                    img="fas fa-location-arrow"
+                                    text={profile.location}
+                                    state={modifiable.state}
+                                />
 
-                                        <Link
-                                            className="btn btn-secondary"
-                                            to="/ResetPassword"
-                                        >
-                                            비밀번호변경
-                                        </Link>
-                                    </div>
-                                </CardBasic>
-                            </div>
+                                <div class="small mb-1">IoT Number</div>
+                                <TextBox
+                                    img="fas fa-tablet"
+                                    text={profile.iotNum}
+                                    state={modifiable.state}
+                                />
+
+                                <span>
+                                    <Link
+                                        onClick={() =>
+                                            setModifiable({ state: '' })
+                                        }
+                                        className="btn btn-secondary"
+                                        to="/changeprofile"
+                                    >
+                                        프로필수정
+                                    </Link>
+                                </span>
+                                <span class="col-auto">
+                                    <Link
+                                        className="btn btn-secondary"
+                                        to="/changepassword"
+                                    >
+                                        비밀번호변경
+                                    </Link>
+                                </span>
+                            </CardBasic>
                         </div>
                     </div>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
-
-export default Profile;

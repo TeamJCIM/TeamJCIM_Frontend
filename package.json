@@ -1,6 +1,4 @@
 {
-
-
     "name": "sb-admin-2-react",
 
 
@@ -12,18 +10,14 @@
 
     "dependencies": {
 
-
-        "axios": "^0.26.0",
-
+        "axios": "^0.26.1",
 
         "bootstrap": "^4.3.1",
 
 
         "chart.js": "^2.8.0",
 
-
-        "http-proxy-middleware": "^2.0.3",
-
+        "http-proxy-middleware": "^2.0.4",
 
         "jquery": "^3.4.1",
 
@@ -36,9 +30,7 @@
 
         "popper.js": "^1.15.0",
 
-
         "process": "^0.11.10",
-
 
         "prop-types": "^15.7.2",
 
@@ -84,7 +76,6 @@
 
     },
 
-
     "resolutions": {
 
 
@@ -92,7 +83,6 @@
 
 
     },
-
 
     "eslintConfig": {
 
@@ -146,11 +136,5 @@
 
 
         "redux": "^4.0.1"
-
-
     }
-
-
 }
-
-
