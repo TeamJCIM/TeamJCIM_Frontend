@@ -4,7 +4,7 @@ import CardBasic from '../Basic';
 import { Table } from 'react-bootstrap';
 import { Button } from 'bootstrap';
 
-const IotRecord = () => {
+const IotRecord = (props) => {
     /*constructor(props) {
         super(props);
         this.state = {
@@ -62,7 +62,7 @@ const IotRecord = () => {
                             <td>55℃</td>
                             <td>2022/01/29</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm">
+                                <button type="button" class="btn btn-danger btn-sm">
                                     Danger
                                 </button>
                             </td>

@@ -15,7 +15,7 @@ class CardBasic extends Component {
     // //}
 
     render() {
-        console.log(this.props.children)
+        console.log('card basic')
         return (
             <div className="card shadow mb-4">
                 <div className="card-header py-4">

@@ -63,16 +63,21 @@ const IotStateChart = () => {
     }
 
     const [iotState, setIotState] = ''
+    let radius = 0
+    /*
     const [radius, setRadius] = useState()
 
     async function change(radius) {
-        setRadius(() => radius)
-    }
+        setRadius((current) => radius)
+    }*/
 
     useEffect(() => {
+
+        const myPieChart = chartRef.current
+
         const getData = async () => {
-            console.log('start')
-            await axios.get(`/api/overview/1227564000/2021-09-09`,)
+            console.log('getdata1 start')
+            await axios.get(`/api/overview/${post.IotNum}/${post.Date}`,)
                 .then((response) => {
                     console.log('IotState response :', response)
                     console.log('response data :', response.data.data[2].AlarmVoltage)
@@ -83,20 +88,21 @@ const IotStateChart = () => {
                         || response.data.data[2].AlarmLeakage === 2
                         || response.data.data[2].AlarmArc === 1
                         || response.data.data[2].AlarmTemperature === 1) {
-                        change(-150)
+                        radius = -30
 //                        setIotState('danger')
                         console.log('1')
                     } else if (response.data.data[2].AlarmVoltage === 1
                         || response.data.data[2].AlarmVoltage === 2
                         || response.data.data[2].AlarmElectric === 1
                         || response.data.data[2].AlarmLeakage === 1) {
-                        setRadius(-90)
+                        radius = -90
 //                            setIotState('warning')
                         console.log('2')
                     } else {
-                        change(-30)
+                        radius = -150
 //                        setIotState('safety')
                         console.log('3')
+                        console.log('radius', radius)
                     }
 
 
@@ -110,7 +116,7 @@ const IotStateChart = () => {
         }
         
         const getData2 = async () => {
-            const myPieChart = chartRef.current
+            console.log('get data2 start')
             await getData()
             if (radius === -30) {
                 new Chart(myPieChart, {
@@ -165,7 +171,7 @@ const IotStateChart = () => {
                                 console.log('1', radius)
                                 console.log('2', Math.PI / 180)
                                 console.log('3', radius * Math.PI / 180)
-                                drawNeedle(-150 * Math.PI / 180)
+                                drawNeedle(-30 * Math.PI / 180)
                             },
                             animateRotate: false,
                         },
