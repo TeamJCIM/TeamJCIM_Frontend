@@ -4,8 +4,8 @@ import CardBasic from '../Basic';
 import { Table } from 'react-bootstrap';
 import { Button } from 'bootstrap';
 
-class IotRecord extends Component {
-    constructor(props) {
+const IotRecord = (props) => {
+    /*constructor(props) {
         super(props);
         this.state = {
             value: this.props.value,
@@ -15,16 +15,16 @@ class IotRecord extends Component {
             cardClass: '',
             titleClass: '',
         };
-    }
+    }*/
 
-    componentDidMount() {
+    /* componentDidMount() {
 
         this.setState({ cardClass: `card border-left-${this.props.color} shadow h-60 py-4` })
         this.setState({ icon: `fas fa-${this.props.icon} fa-2x text-${this.props.color}` })
         this.setState({ titleClass: `text-xs font-weight-bold text-${this.props.color} text-uppercase mb-1` })
-    }
+    } */
 
-    render() {
+
         return (
             <CardBasic  title="IOT Record">
                 <Table striped bordered hover>
@@ -62,7 +62,7 @@ class IotRecord extends Component {
                             <td>55℃</td>
                             <td>2022/01/29</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm">
+                                <button type="button" class="btn btn-danger btn-sm">
                                     Danger
                                 </button>
                             </td>
@@ -72,7 +72,6 @@ class IotRecord extends Component {
 
             </CardBasic>
         );
-    }
 }
 
 export default IotRecord;

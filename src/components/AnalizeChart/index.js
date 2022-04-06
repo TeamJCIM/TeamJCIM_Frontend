@@ -1,16 +1,39 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js';
+import axios from 'axios';
 
 import CardBasic from '../Cards/Basic';
 
 Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-class AnalizeChart extends Component {
-    chartRef = React.createRef();
+export default function AnalizeChart(props) {
+    const chartRef = React.createRef();
+    const test = [3000, 3500, 4000, 4592, 5285];
 
-    componentDidMount() {
-        const myChartRef = this.chartRef.current.getContext('2d');
+    const [iotData, setIotData] = useState([]);
+    const [predData, setPredData] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get(`/api/safety/PowerAnalysis/1227564000/2021`)
+            .then(function (response) {
+                response['data']['data'][0].forEach((element) => {
+                    const idx = element['Month'] - 1;
+                    setPredData((predData[idx] = element['PredictData']));
+                });
+                response['data']['data'][1].forEach((element) => {
+                    const idx = element['Month'] - 1;
+                    setIotData((iotData[idx] = element['IotData']));
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        console.log(iotData);
+
+        const myChartRef = chartRef.current.getContext('2d');
         const data = {
             labels: [
                 '1월',
@@ -30,7 +53,7 @@ class AnalizeChart extends Component {
                 {
                     label: '실제 전력 사용량',
                     axis: 'y',
-                    data: [3809, 2901, 2305, 4592, 5285],
+                    data: iotData,
                     fill: false,
                     backgroundColor: [
                         'rgba(75, 192, 192, 0.2)',
@@ -73,24 +96,25 @@ class AnalizeChart extends Component {
         };
         new Chart(myChartRef, {
             type: 'horizontalBar',
-            data: data,
+            data: predData,
             options: {
                 scales: {
                     indexAxis: 'y',
                 },
             },
         });
-    }
+    }, []);
 
-    render() {
-        return (
-            <CardBasic title={this.props.title}>
-                <div className="chart-body ">
-                    <canvas id="ChartToday" ref={this.chartRef}></canvas>
-                </div>
-            </CardBasic>
-        );
-    }
+    return (
+        <CardBasic title={props.title}>
+            <div className="chart-body">
+                <canvas id="ChartTody" ref={chartRef}></canvas>
+            </div>
+        </CardBasic>
+        // <CardBasic title={this.props.title}>
+        //     <div className="chart-body ">
+        //         <canvas id="ChartToday" ref={this.chartRef}></canvas>
+        //     </div>
+        // </CardBasic>
+    );
 }
-
-export default AnalizeChart;
