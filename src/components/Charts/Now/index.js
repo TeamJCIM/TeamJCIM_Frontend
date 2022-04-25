@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Chart from "chart.js";
 
 import CardBasic from '../../Cards/Basic';
@@ -10,12 +10,9 @@ Chart.defaults.global.defaultFontColor = '#858796';
 function ChartNow (props) {
     const chartRef = useRef()
     const data = props.electricData
-    console.log('data', data)
+    
     useEffect(() => {
         const myChartRef = chartRef.current.getContext("2d");
-        console.log('chartRef', chartRef);
-        console.log('myChartRef', myChartRef)
-        console.log('electric data', props.electricData)
         new Chart(myChartRef, {
             type: 'line',
             data: {

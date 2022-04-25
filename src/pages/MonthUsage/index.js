@@ -20,7 +20,7 @@ const MonthUsage = () => {
             .then((res) => {
                 // res.data.data[1] : 이번 달 사용량
                 // res.data.data[2] : 저번 달 사용량
-                console.log(res.data.data)
+                // console.log(res.data.data)
 
                 const newThisMonth = thisMonthData
                 for (let i = 0; i < res.data.data[1].length; i++) {

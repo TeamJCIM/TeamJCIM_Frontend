@@ -11,7 +11,7 @@ import axios from 'axios'
 const YearUsage = () => {
     const [yearData, setYearData] = useState(Array.from({length:12}, () => 0))
     
-    console.log('page component', yearData)
+    // console.log('page component', yearData)
 
     const post = 1227564000
     
@@ -21,7 +21,7 @@ const YearUsage = () => {
         
         axios.get(`/api/lookup_elec/${post}`,)
             .then((res) => {
-                console.log(res.data.data[3])
+                // console.log(res.data.data[3])
 
                 const newYearData = yearData
                 for (let i = 0; i < res.data.data[3].length; i++) {
@@ -32,7 +32,7 @@ const YearUsage = () => {
                 }
                 setYearData(newYearData)
 
-                console.log('page year data', yearData)
+                // console.log('page year data', yearData)
             })
             .catch((err) => {
 
