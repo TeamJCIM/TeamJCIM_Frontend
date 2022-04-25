@@ -15,6 +15,10 @@ const TodayUsage = () => {
 
     const [iotNum, setIotNum] = useState(1227564000)
     const [date, setDate] = useState('2021-09-09')
+    
+    // setIotNum(1227564000)
+    // setDate('2021-09-09')
+
     let postIot = {
         IotNum: iotNum,
         Date: date,
@@ -23,7 +27,6 @@ const TodayUsage = () => {
     useEffect(()=>{
         axios.get(`/api/overview/${postIot.IotNum}/${postIot.Date}`,)
         .then((response) => {
-            console.log(response.data.data)
 
 
             const newElectricData = electricData
@@ -32,12 +35,10 @@ const TodayUsage = () => {
                 // console.log('배열 수 : ', response.data.data[3].length)
                 // console.log('실시간 사용량 : ', Number(response.data.data[3][44].Date.substr(11, 2)))
                 newElectricData[Math.floor(Number(response.data.data[3][i].Date.substr(11, 2)))] += Math.floor(response.data.data[3][i].VoltageAvg)
-                console.log(Number(response.data.data[3][i].Date.substr(11, 2)))
+                // console.log(Number(response.data.data[3][i].Date.substr(11, 2)))
                 
             }
-            console.log(newElectricData)
             setElectricData(newElectricData)
-            console.log(electricData)
         })
         .catch((err) => {
             console.log(err)

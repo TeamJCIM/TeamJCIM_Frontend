@@ -26,17 +26,11 @@ const ChartMonth = (props) => {
     }, 1000)
 
     useEffect(() => {
-        console.log('rendering')
 
         setThisData(props.thisMonthData)
         setLastData(props.lastMonthData)
 
-        console.log('this month data ', thisData)
-        console.log('last month data ', lastData)
         const myChartRef = chartRef.current.getContext("2d");
-
-        console.log('this month data effect', thisData)
-        console.log('last month data effect', lastData)
 
         new Chart(myChartRef, {
             type: 'line',

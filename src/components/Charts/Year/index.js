@@ -11,7 +11,7 @@ Chart.defaults.global.defaultFontColor = '#858796';
 const ChartYear = (props) => {
     const [yearData, setYearData] = useState([])
     const chartRef = useRef();
-    console.log('chart component', props.yearData);
+    // console.log('chart component', props.yearData);
     
     const [count, setCount] = useState()
 
@@ -23,7 +23,7 @@ const ChartYear = (props) => {
         const myChartRef = chartRef.current.getContext("2d");
         
         setYearData(props.yearData)
-        console.log('chart component use effect ', props.yearData[5]);
+        // console.log('chart component use effect ', props.yearData[5]);
 
         new Chart(myChartRef, {
             type: 'bar',
@@ -45,7 +45,7 @@ const ChartYear = (props) => {
                 },
             },
         });
-    })
+    }, )
 
     
 

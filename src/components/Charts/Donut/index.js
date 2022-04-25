@@ -8,7 +8,6 @@ const ChartDonut = () => {
 
     useEffect(() => {
         const myPieChart = chartRef.current
-        console.log(chartRef);
 
         new Chart(myPieChart, {
             type: 'doughnut',

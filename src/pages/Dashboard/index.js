@@ -47,7 +47,6 @@ const Dashboard = () => {
   // 렌더링 될 때마다 실행
   useEffect(() => {
     document.getElementById('body').className = 'page-top';
-    console.log('useEffect');
 
     // '/api/overview/1227564000/2021-09-09'
     axios.get(`/api/overview/${postIot.IotNum}/${postIot.Date}`,)
@@ -57,7 +56,6 @@ const Dashboard = () => {
       // console.log(response.data.data[2].AlarmVoltage)
 
       // 전력조회카드 데이터 GET
-      console.log(response.data.data[0][0])
       if (response.data.data[0][0]) {
         setIotData(response.data.data[0][0].IotData)
       } else {
@@ -125,7 +123,6 @@ const Dashboard = () => {
   })
   .catch(function (err) {console.log(err)})*/
   
-  console.log('push out',electricData)
   return (
     <div>
       <div id="wrapper">

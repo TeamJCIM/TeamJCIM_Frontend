@@ -1,29 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import CardBasic from '../Basic';
 import { Table } from 'react-bootstrap';
-import { Button } from 'bootstrap';
 
 const IotRecord = (props) => {
-    /*constructor(props) {
-        super(props);
-        this.state = {
-            value: this.props.value,
-            title: this.props.title,
-            icon: 'fas fa-calendar fa-2x text-gray-300',
-            color: 'primary',
-            cardClass: '',
-            titleClass: '',
-        };
-    }*/
-
-    /* componentDidMount() {
-
-        this.setState({ cardClass: `card border-left-${this.props.color} shadow h-60 py-4` })
-        this.setState({ icon: `fas fa-${this.props.icon} fa-2x text-${this.props.color}` })
-        this.setState({ titleClass: `text-xs font-weight-bold text-${this.props.color} text-uppercase mb-1` })
-    } */
-
 
         return (
             <CardBasic  title="IOT Record">

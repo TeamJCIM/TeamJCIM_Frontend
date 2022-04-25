@@ -22,23 +22,18 @@ const ChartToday = (props) => {
     let maxValue = 0
     if (Math.max(...todayData) === 0) {
         maxValue = 1000
-    } else {
-        maxValue = Math.max(... todayData)
+    } else { maxValue = Math.max(... todayData)
         maxValue = maxValue / 100
         maxValue = Math.floor(maxValue)
         maxValue = 100 * maxValue
-        
     }
 
-
-    console.log(maxValue)
     useEffect(() => {
         const myChartRef = chartRef.current.getContext("2d");
         // console.log('myChartRef :', myChartRef);
         // console.log('charRef : ', chartRef)
         // todayData = props.electricData
-        const data = {
-            labels: [
+        const data = { labels: [
                 '0-1h',
                 '1-2h',
                 '2-3h',
