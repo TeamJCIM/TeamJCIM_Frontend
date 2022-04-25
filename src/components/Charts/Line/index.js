@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Chart } from 'chart.js';
 import CardBasic from '../../Cards/Basic';
 import axios from 'axios';
@@ -9,26 +9,13 @@ Chart.defaults.global.defaultFontColor = '#858796';
 export default function ChartLine(props) {
     const chartRef = React.createRef();
 
-    const [thisData, setThisData] = useState({
-        predData: '',
-        iotData: '',
-    });
-
     useEffect(() => {
         axios
             .get(`api/predict/predictThisMonth_test/1227564000`)
-            .then(function (response) {
-                setThisData({
-                    predData: response['data']['message'][1],
-                    iotData: response['data']['message'][2],
-                });
-            })
+            .then(function (response) {})
             .catch(function (error) {
                 console.log(error);
             });
-
-        console.log(thisData.predData);
-        console.log(thisData.iotData);
 
         const thisMonthChartLine = chartRef.current.getContext('2d');
         new Chart(thisMonthChartLine, {
@@ -158,7 +145,7 @@ export default function ChartLine(props) {
                 },
             },
         });
-    }, []);
+    });
 
     return (
         <CardBasic title={props.title}>

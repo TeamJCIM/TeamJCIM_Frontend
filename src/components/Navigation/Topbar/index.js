@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +12,6 @@ class Topbar extends Component {
 
         return (
             <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                {/* <!-- Sidebar Toggle (Topbar) --> */}
                 <button
                     onClick={() => {
                         clickMenuOpen();
@@ -22,9 +22,7 @@ class Topbar extends Component {
                     <i className="fa fa-bars"></i>
                 </button>
 
-                {/* <!-- Topbar Navbar --> */}
                 <ul className="navbar-nav ml-auto">
-                    {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
                     <li className="nav-item dropdown no-arrow d-sm-none">
                         <a
                             className="nav-link dropdown-toggle"
@@ -37,7 +35,7 @@ class Topbar extends Component {
                         >
                             <i className="fas fa-search fa-fw"></i>
                         </a>
-                        {/* <!-- Dropdown - Messages --> */}
+
                         <div
                             className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                             aria-labelledby="searchDropdown"
@@ -64,7 +62,6 @@ class Topbar extends Component {
                         </div>
                     </li>
 
-                    {/* <!-- Nav Item - Alerts --> */}
                     <li className="nav-item dropdown no-arrow mx-1">
                         <a
                             className="nav-link dropdown-toggle"
@@ -81,7 +78,7 @@ class Topbar extends Component {
                                 3+
                             </span>
                         </a>
-                        {/* <!-- Dropdown - Alerts --> */}
+
                         <div
                             className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="alertsDropdown"
@@ -151,7 +148,6 @@ class Topbar extends Component {
 
                     <div className="topbar-divider d-none d-sm-block"></div>
 
-                    {/* <!-- Nav Item - User Information --> */}
                     <li className="nav-item dropdown no-arrow">
                         <a
                             className="nav-link dropdown-toggle"
@@ -170,7 +166,7 @@ class Topbar extends Component {
                                 src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
                             />
                         </a>
-                        {/* <!-- Dropdown - User Information --> */}
+
                         <div
                             className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown"

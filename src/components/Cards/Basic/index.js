@@ -8,14 +8,7 @@ class CardBasic extends Component {
         };
     }
 
-    // componentDidMount() {
-    //     this.setState({
-    //         title: this.props.title ? this.props.title : 'Basic Card Example',
-    //     });
-    // //}
-
     render() {
-        console.log('card basic')
         return (
             <div className="card shadow mb-4">
                 <div className="card-header py-4">
@@ -27,8 +20,6 @@ class CardBasic extends Component {
             </div>
         );
     }
-
-    
 }
 
 export default CardBasic;

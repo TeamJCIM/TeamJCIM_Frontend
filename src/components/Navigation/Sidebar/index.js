@@ -6,24 +6,6 @@ import { bindActionCreators } from 'redux';
 import { clickMenuOpen } from '../../../redux/actions';
 
 class Sidebar extends Component {
-    // componentDidMount() {
-    //   document.getElementById('body').className = 'page-top';
-    // }
-    // state = {
-    //   sidebarToggled: false,
-    // }
-
-    // handleSideBarToggle() {
-    //   if (this.sidebarToogled === true) {
-    //     this.setState({ sidebarToggled: !this.state.sidebarToggled });
-    //     document.getElementById('body').className = 'page-top sidebar-toggled';
-    //   } else {
-    //     this.setState({ sidebarToggled: !this.state.sidebarToggled });
-    //     document.getElementById('body').className = 'page-top';
-    //   }
-
-    // }
-
     render() {
         const { clickMenuOpen, toggled } = this.props;
         return (
@@ -35,7 +17,6 @@ class Sidebar extends Component {
                 }
                 id="accordionSidebar"
             >
-                {/* <!-- Sidebar - Brand --> */}
                 <Link
                     className="sidebar-brand d-flex align-items-center justify-content-center"
                     to="/dashboard"
@@ -48,10 +29,8 @@ class Sidebar extends Component {
                     </div>
                 </Link>
 
-                {/* <!-- Divider --> */}
                 <hr className="sidebar-divider my-0" />
 
-                {/* <!-- Nav Item - Dashboard --> */}
                 <li className="nav-item">
                     <Link className="nav-link" to="/dashboard">
                         <i className="fas fa-fw fa-tachometer-alt"></i>
@@ -59,10 +38,8 @@ class Sidebar extends Component {
                     </Link>
                 </li>
 
-                {/* <!-- Divider --> */}
                 <hr className="sidebar-divider" />
 
-                {/* <!-- Nav Item - Pages Collapse Menu --> */}
                 <li className="nav-item">
                     <a
                         className="nav-link collapsed"
@@ -92,19 +69,10 @@ class Sidebar extends Component {
                             <Link className="collapse-item" to="/yearusage">
                                 연간 전력 조회
                             </Link>
-                            {/*
-                            <div className="collapse-item" href="month.html">
-                                당월/전월 전력 조회
-                            </div>
-                            <div className="collapse-item" href="year.html">
-                                연간 전력 조회
-                            </div>
-                            */}
                         </div>
                     </div>
                 </li>
 
-                {/* <!-- Nav Item - Charts --> */}
                 <li className="nav-item">
                     <Link className="nav-link" to="/predict">
                         <i className="fas fa-fw fa-chart-area"></i>
@@ -112,7 +80,6 @@ class Sidebar extends Component {
                     </Link>
                 </li>
 
-                {/* <!-- Nav Item - Tables --> */}
                 <li className="nav-item">
                     <Link className="nav-link" to="/safety">
                         <i className="fas fa-fw fa-chart-area"></i>
@@ -120,10 +87,8 @@ class Sidebar extends Component {
                     </Link>
                 </li>
 
-                {/* <!-- Divider --> */}
                 <hr className="sidebar-divider d-none d-md-block" />
 
-                {/* <!-- Sidebar Toggler (Sidebar) --> */}
                 <div className="text-center d-none d-md-inline">
                     <button
                         onClick={() => {

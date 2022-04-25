@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Chart from 'chart.js';
 import axios from 'axios';
 
@@ -10,33 +10,22 @@ Chart.defaults.global.defaultFontColor = '#858796';
 export default function NextMonth(props) {
     const chartRef = React.createRef();
 
-    const [nextData, setNextData] = useState({
-        predData: '',
-        iotData: '',
-    });
-
-    var predData = [];
-    var iotData = [];
-
     useEffect(() => {
         axios
             .get(`api/safety/PowerAnalysis/1227564000/2021`)
             .then(function (response) {
-                response['data']['data'][0].forEach((element) => {
-                    const idx = element['Month'] - 1;
-                    predData[idx] = element['PredictData'];
-                });
-                response['data']['data'][1].forEach((element) => {
-                    const idx = element['Month'] - 1;
-                    iotData[idx] = element['IotData'];
-                });
+                // response['data']['data'][0].forEach((element) => {
+                //     const idx = element['Month'] - 1;
+                //     predData[idx] = element['PredictData'];
+                // });
+                // response['data']['data'][1].forEach((element) => {
+                //     const idx = element['Month'] - 1;
+                //     iotData[idx] = element['IotData'];
+                // });
             })
             .catch(function (error) {
                 console.log(error);
             });
-
-        console.log(predData);
-        console.log(iotData);
 
         const nextMonthChartLine = chartRef.current.getContext('2d');
 

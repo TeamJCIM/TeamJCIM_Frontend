@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Chart from 'chart.js';
 import axios from 'axios';
 
@@ -9,29 +9,21 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 export default function AnalizeChart(props) {
     const chartRef = React.createRef();
-    const test = [3000, 3500, 4000, 4592, 5285];
-
-    const [iotData, setIotData] = useState([]);
-    const [predData, setPredData] = useState([]);
 
     useEffect(() => {
         axios
             .get(`/api/safety/PowerAnalysis/1227564000/2021`)
             .then(function (response) {
                 response['data']['data'][0].forEach((element) => {
-                    const idx = element['Month'] - 1;
-                    setPredData((predData[idx] = element['PredictData']));
+                    // const idx = element['Month'] - 1;
                 });
                 response['data']['data'][1].forEach((element) => {
-                    const idx = element['Month'] - 1;
-                    setIotData((iotData[idx] = element['IotData']));
+                    // const idx = element['Month'] - 1;
                 });
             })
             .catch(function (error) {
                 console.log(error);
             });
-
-        console.log(iotData);
 
         const myChartRef = chartRef.current.getContext('2d');
         const data = {
@@ -53,7 +45,7 @@ export default function AnalizeChart(props) {
                 {
                     label: '실제 전력 사용량',
                     axis: 'y',
-                    data: iotData,
+                    data: '',
                     fill: false,
                     backgroundColor: [
                         'rgba(75, 192, 192, 0.2)',
@@ -96,14 +88,14 @@ export default function AnalizeChart(props) {
         };
         new Chart(myChartRef, {
             type: 'horizontalBar',
-            data: predData,
+            data: data,
             options: {
                 scales: {
                     indexAxis: 'y',
                 },
             },
         });
-    }, []);
+    });
 
     return (
         <CardBasic title={props.title}>
@@ -111,10 +103,5 @@ export default function AnalizeChart(props) {
                 <canvas id="ChartTody" ref={chartRef}></canvas>
             </div>
         </CardBasic>
-        // <CardBasic title={this.props.title}>
-        //     <div className="chart-body ">
-        //         <canvas id="ChartToday" ref={this.chartRef}></canvas>
-        //     </div>
-        // </CardBasic>
     );
 }
