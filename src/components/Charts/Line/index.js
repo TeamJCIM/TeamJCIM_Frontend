@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chart } from 'chart.js';
 import CardBasic from '../../Cards/Basic';
 import axios from 'axios';
@@ -9,33 +9,42 @@ Chart.defaults.global.defaultFontColor = '#858796';
 export default function ChartLine(props) {
     const chartRef = React.createRef();
 
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
+    var lastDay = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0
+    ).getDate();
+
+    var thisMonthDay = [];
+    for (var i = firstDay; i <= lastDay; i++) {
+        thisMonthDay.push(i);
+    }
+
+    const [thisData, setThisData] = useState({
+        predData: [],
+        iotData: [],
+    });
+
     useEffect(() => {
-        axios
-            .get(`api/predict/predictThisMonth_test/1227564000`)
-            .then(function (response) {})
-            .catch(function (error) {
-                console.log(error);
-            });
+        async function fetch() {
+            await axios
+                .get(`api/predict/predictThisMonth_test/1227564000`)
+                .then(function (response) {
+                    console.log(response['data']['message'][1]);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        fetch();
 
         const thisMonthChartLine = chartRef.current.getContext('2d');
         new Chart(thisMonthChartLine, {
             type: 'line',
             data: {
-                labels: [
-                    '1월',
-                    '2월',
-                    '3월',
-                    '4월',
-                    '5월',
-                    '6월',
-                    '7월',
-                    '8월',
-                    '9월',
-                    '10월',
-                    '11월',
-                    '12월',
-                ],
-
+                labels: thisMonthDay,
                 datasets: [
                     {
                         label: '예측전력량',
@@ -51,8 +60,8 @@ export default function ChartLine(props) {
                         pointHitRadius: 5,
                         pointBorderWidth: 2,
                         data: [
-                            0, 10000, 5000, 15000, 10000, 20000, 15000, 25000,
-                            2000, 15000, 22000, 30000,
+                            0, 1000, 5000, 1500, 1000, 2000, 1500, 2500, 2000,
+                            1500, 2200, 3000,
                         ],
                     },
                     {
@@ -145,7 +154,7 @@ export default function ChartLine(props) {
                 },
             },
         });
-    });
+    }, []);
 
     return (
         <CardBasic title={props.title}>
