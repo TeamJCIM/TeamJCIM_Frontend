@@ -31,9 +31,7 @@ export default function ChartLine(props) {
         async function fetch() {
             await axios
                 .get(`api/predict/predictThisMonth_test/1227564000`)
-                .then(function (response) {
-                    console.log(response['data']['message'][1]);
-                })
+                .then(function (response) {})
                 .catch(function (error) {
                     console.log(error);
                 });
