@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js';
 import axios from 'axios';
 
@@ -9,6 +9,22 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 export default function AnalizeChart(props) {
     const chartRef = React.createRef();
+
+    const today = new Date();
+    var thisMonth = today.getMonth();
+    var prevMonth = thisMonth - 1;
+
+    const [data, setData] = useState({
+        thisMonth_IotData: '',
+        thisMonth_predData: '',
+        prevMonth_IotData: '',
+        changeMessage: '',
+        errorRate: '',
+    });
+
+    if (thisMonth === 0) {
+        prevMonth = 11;
+    }
 
     const pArray = [];
     const iArray = [];
@@ -28,12 +44,52 @@ export default function AnalizeChart(props) {
                     const idx = element['Month'] - 1;
                     iArray[idx] = element['IotData'];
                 });
+                setData({
+                    ...data,
+                    thisMonth_IotData: iArray[thisMonth],
+                    thisMonth_predData: pArray[thisMonth],
+                    prevMonth_IotData: iArray[prevMonth],
+                });
+
+                var change =
+                    ((iArray[thisMonth] - iArray[prevMonth]) /
+                        iArray[prevMonth]) *
+                    100;
+
+                if (change > 0) {
+                    setData({
+                        changeMessage: `이번 달은(${
+                            thisMonth + 1
+                        }월) 사용량은 저번 달(${
+                            prevMonth + 1
+                        }월) 보다 ${Math.abs(change)} (%)가량 증가 하였습니다`,
+                    });
+                } else {
+                    setData({
+                        changeMessage: `이번 달(${
+                            thisMonth + 1
+                        }월) 사용량은 저번 달(${
+                            prevMonth + 1
+                        }월) 보다 ${Math.abs(change)} (%)가량 감소 하였습니다`,
+                    });
+                }
+
+                //오차율 = (|실제값 - 측정값|) / (실제값) * 100
+                setData({
+                    ...data,
+                    errorRate: `이번달은 ${
+                        (Math.abs(iArray[thisMonth] - pArray[thisMonth]) /
+                            iArray[thisMonth]) *
+                        100
+                    }(%) 의 오차율로 전력예측을 했습니다.`,
+                });
             } catch (error) {
                 console.log(error);
             }
             drawGraph();
         }
         fetch();
+
         function drawGraph() {
             const data = {
                 labels: [
@@ -133,13 +189,15 @@ export default function AnalizeChart(props) {
                 },
             });
         }
-    });
+    }, []);
 
     return (
         <CardBasic title={props.title}>
             <div className="chart-body">
                 <canvas id="ChartTody" ref={chartRef}></canvas>
             </div>
+            <div>{data.changeMessage} </div>
+            {/* <div>{data.errorRate} </div> */}
         </CardBasic>
     );
 }
