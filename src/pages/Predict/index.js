@@ -16,9 +16,11 @@ export default function Predict() {
     });
 
     useEffect(() => {
-        axios
-            .get(`api/predict/predictThisMonth_test/1227564000`)
-            .then(function (response) {
+        async function fetch() {
+            const response = await axios.get(
+                `api/predict/predictThisMonth_test/1227564000`
+            );
+            try {
                 setData({
                     fee: response['data']['message'][4] + '(원)',
                     usage:
@@ -26,10 +28,12 @@ export default function Predict() {
                             .toFixed()
                             .replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '(kWh)',
                 });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                console.log(data.fee);
+            } catch (error) {
+                console.log(error + response['data']['message'][4]);
+            }
+        }
+        fetch();
     }, []);
 
     return (
