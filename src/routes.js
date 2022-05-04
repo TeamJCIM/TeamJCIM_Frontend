@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 //Pages
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Predict from './pages/Predict';
@@ -21,7 +22,7 @@ const Routes = () => (
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/changepassword" component={ChangePassword} />
             <Route path="/changeprofile" component={ChangeProfile} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/profile" component={SignUp} />
             <Route path="/predict" component={Predict} />
             <Route path="/todayusage" component={TodayUsage} />
             <Route path="/monthusage" component={MonthUsage} />
