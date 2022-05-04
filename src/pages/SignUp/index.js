@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const id = 'daum-postcode'; // script가 이미 rending 되어 있는지 확인하기 위한 ID
+const src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+
 export default function SignUp() {
     //회원가입 필요한 변수객체
     const [inputs, setInputs] = useState({
@@ -122,8 +125,11 @@ export default function SignUp() {
         if (inputs.phone.length !== 11) {
             alert('전화번호 형식을 체크해 주세요!');
         } else {
+            const body = {
+                phone: inputs.phone,
+            };
             axios
-                .post('api/auth/signup_phone_auth', inputs.phone)
+                .post('api/auth/signup_phone_auth', body)
                 .then(function (response) {
                     console.log(response);
                     console.log(response.data);
@@ -158,9 +164,7 @@ export default function SignUp() {
         const body = {
             Iotnum: inputs.iotNum,
         };
-        axios.post('auth' + '/checkIot', body).then(function (response) {
-            console.log(response);
-            console.log(response.data);
+        axios.post(`api/auth/checkIot`, body).then(function (response) {
             if (response.data['success'] === true) {
                 alert('IoT 기기가 인증 되었습니다! ');
                 checkState('iotNumState', true);
@@ -183,8 +187,6 @@ export default function SignUp() {
             states.phoneState === true &&
             states.addressState === true
         ) {
-            console.log('asldfjalskdjf;laskdjf;alksjdf;alk');
-
             console.log(inputs.email);
             console.log(inputs.password);
             console.log(inputs.cPassword);
@@ -214,7 +216,7 @@ export default function SignUp() {
                 Iotnum: inputs.iotNum,
             };
 
-            axios.post('auth' + '/signup', body).then(function (response) {
+            axios.post(`api/auth/signup`, body).then(function (response) {
                 console.log(response);
                 console.log(response.data);
                 if (response.data['success'] === true) {
@@ -248,17 +250,13 @@ export default function SignUp() {
         }
     };
 
-    var curr = new Date();
-    curr.setDate(curr.getDate() + 3);
-    var date = curr.toISOString().substring(0, 10);
-
     const loadLayout = (e) => {
         window.daum.postcode.load(() => {
             const postcode = new window.daum.Postcode({
                 oncomplete: function (data) {
                     setInputs({
                         ...inputs,
-                        address: data.address,
+                        address: data['address'],
                     });
                     console.log(inputs.address);
                 },
@@ -269,6 +267,14 @@ export default function SignUp() {
 
     useEffect(() => {
         document.getElementById('body').className = 'bg-gradient-primary';
+        const isAlready = document.getElementById(id);
+
+        if (!isAlready) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.id = id;
+            document.body.append(script);
+        }
     }, []);
 
     return (
@@ -392,6 +398,7 @@ export default function SignUp() {
                                             type="text"
                                             className="form-control form-control-user"
                                             placeholder="주소"
+                                            defaultValue={inputs.address}
                                             name="address"
                                             onClick={loadLayout}
                                         />
