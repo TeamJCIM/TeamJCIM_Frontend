@@ -16,7 +16,7 @@ class CardBasic extends Component {
                         {this.state.title}
                     </h6>
                 </div>
-                <div className="iot-card-body">{this.props.children}</div>
+                <div className="card-body">{this.props.children}</div>
             </div>
         );
     }

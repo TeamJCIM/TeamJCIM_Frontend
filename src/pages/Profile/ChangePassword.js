@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,111 +11,43 @@ import CardBasic from '../../components/Cards/Basic';
 export default function ChangePassword() {
     const [password, setPassword] = useState({
         curPassword: '',
-        getCurPassword: 'abc12345',
         changePassword: '',
         confirmPassword: '',
     });
 
-    const [state, setState] = useState({
-        curState: '',
-        changeState: '',
-        confirmState: '',
-        checkState: '',
-    });
-
-    const checkCurPassword = (e) => {
+    const setState = (e) => {
         const { name, value } = e.target;
         setPassword({
             ...password,
             [name]: value,
         });
-
-        if (password.curPassword === password.getCurPassword) {
-            setState({
-                curState: 'true',
-            });
-        } else {
-            setState({
-                curState: 'false',
-            });
-        }
     };
 
-    //비밀번호 유효성 체크 함수
-    const checkChangePassword = (e) => {
-        const { name, value } = e.target;
-        setPassword({
-            ...password,
-            [name]: value,
-        });
-
-        // 8 ~15자 영무, 숫자 조합
+    const request = (e) => {
+        // 8 ~15자 영문, 숫자 조합
         var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
         // 맞는 형식이면 true를 리턴
-        if (regExp.test(e.target.value)) {
-            setState({
-                changeState: 'true',
-            });
+        if (!regExp.test(password.changePassword)) {
+            alert('비밀번호 형식을 확인해주세요!');
         } else {
-            setState({
-                changeState: 'false',
-            });
+            if (password.changePassword === password.confirmPassword) {
+                const body = {
+                    OldPassword: password.curPassword,
+                    NewPassword: password.changePassword,
+                };
+                axios
+                    .post(`api/auth/change_pw/52`, body)
+                    .then(function (response) {
+                        alert(response['data']['message']);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            } else {
+                alert('변경 비밀번호가 일치하지 않습니다!');
+            }
         }
     };
-
-    //비밀번호 확인 체크함수
-    const checkConfirmPassword = (e) => {
-        const { value, name } = e.target;
-        setPassword({
-            ...password,
-            [name]: value,
-        });
-
-        if (e.target.value === password.changePassword) {
-            console.log('비밀번호 일치');
-            setState({
-                confirmState: 'true',
-            });
-        } else {
-            console.log('비밀번호 불일치');
-            setState({
-                confirmState: 'false',
-            });
-        }
-    };
-
-    const checkState = (e) => {
-        if (state.curState && state.changeState && state.confirmState) {
-            axios
-                .post(`api/auth/change_pw/3`, password.changePassword)
-                .then(function (response) {
-                    console.log('success');
-                })
-                .catch(function (error) {
-                    console.log('error');
-                });
-            alert('비밀번호 변경 완료!');
-        } else if (!state.curState) {
-            alert('현재비밀번호를 확인해주세요!');
-        } else if (!state.changeState) {
-            alert('변경 비밀번호를 확인해주세요!');
-        } else if (!state.confirmState) {
-            alert('변경비밀번호와 변경비밀번호 확인이 일치하지 않습니다!');
-        }
-    };
-
-    useEffect(() => {
-        axios
-            .get(`api/auth/change_pw/get_pw/3`)
-            .then(function (response) {
-                setPassword({
-                    getCurPassword: response.data['data'][0]['Password'],
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
 
     return (
         <div>
@@ -133,7 +65,7 @@ export default function ChangePassword() {
                                 className="form-control bg-light border-0 small"
                                 type="password"
                                 name="curPassword"
-                                onChange={checkCurPassword}
+                                onChange={setState}
                             />
 
                             <div className="small mb-1">변경 비밀번호</div>
@@ -141,7 +73,7 @@ export default function ChangePassword() {
                                 className="form-control bg-light border-0 small"
                                 type="password"
                                 name="changePassword"
-                                onChange={checkChangePassword}
+                                onChange={setState}
                             />
 
                             <div className="small mb-1">변경 비밀번호확인</div>
@@ -149,13 +81,13 @@ export default function ChangePassword() {
                                 className="form-control bg-light border-0 small"
                                 type="password"
                                 name="confirmPassword"
-                                onChange={checkConfirmPassword}
+                                onChange={setState}
                             />
 
                             <div>
                                 <Link
                                     className="btn btn-secondary"
-                                    onClick={checkState}
+                                    onClick={request}
                                     to="/ChangePassword"
                                 >
                                     확인

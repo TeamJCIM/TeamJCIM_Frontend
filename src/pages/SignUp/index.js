@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { isNull } from 'lodash';
 
 const id = 'daum-postcode'; // script가 이미 rending 되어 있는지 확인하기 위한 ID
 const src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
