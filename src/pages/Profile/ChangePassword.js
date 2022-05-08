@@ -15,26 +15,8 @@ export default function ChangePassword() {
         confirmPassword: '',
     });
 
-    const checkCurPassword = (e) => {
+    const setState = (e) => {
         const { name, value } = e.target;
-        setPassword({
-            ...password,
-            [name]: value,
-        });
-    };
-
-    //비밀번호 유효성 체크 함수
-    const checkChangePassword = (e) => {
-        const { name, value } = e.target;
-        setPassword({
-            ...password,
-            [name]: value,
-        });
-    };
-
-    //비밀번호 확인 체크함수
-    const setConfirmPassword = (e) => {
-        const { value, name } = e.target;
         setPassword({
             ...password,
             [name]: value,
@@ -44,9 +26,6 @@ export default function ChangePassword() {
     const request = (e) => {
         // 8 ~15자 영문, 숫자 조합
         var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
-        console.log(password.curPassword);
-        console.log(password.changePassword);
-        console.log(password.confirmPassword);
         // 맞는 형식이면 true를 리턴
         if (!regExp.test(password.changePassword)) {
             alert('비밀번호 형식을 확인해주세요!');
@@ -86,7 +65,7 @@ export default function ChangePassword() {
                                 className="form-control bg-light border-0 small"
                                 type="password"
                                 name="curPassword"
-                                onChange={checkCurPassword}
+                                onChange={setState}
                             />
 
                             <div className="small mb-1">변경 비밀번호</div>
@@ -94,7 +73,7 @@ export default function ChangePassword() {
                                 className="form-control bg-light border-0 small"
                                 type="password"
                                 name="changePassword"
-                                onChange={checkChangePassword}
+                                onChange={setState}
                             />
 
                             <div className="small mb-1">변경 비밀번호확인</div>
@@ -102,7 +81,7 @@ export default function ChangePassword() {
                                 className="form-control bg-light border-0 small"
                                 type="password"
                                 name="confirmPassword"
-                                onChange={setConfirmPassword}
+                                onChange={setState}
                             />
 
                             <div>
