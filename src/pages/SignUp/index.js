@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { isNull } from 'lodash';
 
 const id = 'daum-postcode'; // script가 이미 rending 되어 있는지 확인하기 위한 ID
 const src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
@@ -125,11 +126,22 @@ export default function SignUp() {
         // 8 ~15자 영무, 숫자 조합
         var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
         // 맞는 형식이면 true를 리턴
-        if (regExp.test(inputs.password)) {
+        if (!regExp.test(inputs.password)) {
             alert('비밀번호형식에 맞게 입력해주세요!');
+            console.log(inputs.password);
         } else if (inputs.password !== inputs.cPassword) {
             alert('비밀번호가 일치하지 않습니다!');
-        } else {
+            console.log(inputs.password);
+            console.log(inputs.cPassword);
+        } else if (
+            inputs.email !== '' &&
+            inputs.password !== '' &&
+            inputs.phone !== '' &&
+            inputs.name !== '' &&
+            inputs.birth !== '' &&
+            inputs.address !== '' &&
+            inputs.Iotnum !== ''
+        ) {
             const body = {
                 email: inputs.email,
                 password: inputs.password,
@@ -145,9 +157,11 @@ export default function SignUp() {
                     alert('회원가입 성공!');
                 } else {
                     // 오류 창 출력
-                    alert('입력을 다시 확인해 주세요!');
+                    alert('입력란을 제대로 기입했는지 다시 확인해 주세요!');
                 }
             });
+        } else {
+            alert('입력란을 제대로 기입했는지 다시 확인해 주세요!!!');
         }
     };
 
@@ -200,6 +214,7 @@ export default function SignUp() {
                                             placeholder="이름"
                                             name="name"
                                             onChange={handleChange}
+                                            autoFocus
                                             required
                                         />
                                     </div>
