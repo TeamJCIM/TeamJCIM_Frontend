@@ -58,6 +58,7 @@ export default function AnalizeChart(props) {
 
                 if (change > 0) {
                     setData({
+                        ...data,
                         changeMessage: `이번 달은(${
                             thisMonth + 1
                         }월) 사용량은 저번 달(${
@@ -66,6 +67,7 @@ export default function AnalizeChart(props) {
                     });
                 } else {
                     setData({
+                        ...data,
                         changeMessage: `이번 달(${
                             thisMonth + 1
                         }월) 사용량은 저번 달(${
@@ -77,7 +79,7 @@ export default function AnalizeChart(props) {
                 //오차율 = (|실제값 - 측정값|) / (실제값) * 100
                 setData({
                     ...data,
-                    errorRate: `이번달은 ${
+                    errorRate: `지난달에 ${
                         (Math.abs(iArray[thisMonth] - pArray[thisMonth]) /
                             iArray[thisMonth]) *
                         100
@@ -190,14 +192,13 @@ export default function AnalizeChart(props) {
             });
         }
     }, []);
-
     return (
         <CardBasic title={props.title}>
             <div className="chart-body">
-                <canvas id="ChartTody" ref={chartRef}></canvas>
+                <canvas id="ChartBody" ref={chartRef}></canvas>
             </div>
-            <div>{data.changeMessage} </div>
-            {/* <div>{data.errorRate} </div> */}
+            {/* <div>{data.changeMessage} </div> */}
+            <div>{data.errorRate} </div>
         </CardBasic>
     );
 }
