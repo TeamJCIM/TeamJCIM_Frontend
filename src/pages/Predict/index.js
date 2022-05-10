@@ -16,11 +16,9 @@ export default function Predict() {
     });
 
     useEffect(() => {
-        async function fetch() {
-            const response = await axios.get(
-                `api/predict/predictThisMonth_test/1227564000`
-            );
-            try {
+        axios
+            .get(`api/predict/predictThisMonth_test/1227564000`)
+            .then(function (response) {
                 setData({
                     fee: response['data']['message'][4] + '(원)',
                     usage:
@@ -28,12 +26,10 @@ export default function Predict() {
                             .toFixed()
                             .replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '(kWh)',
                 });
-                console.log(data.fee);
-            } catch (error) {
-                console.log(error + response['data']['message'][4]);
-            }
-        }
-        fetch();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -44,26 +40,28 @@ export default function Predict() {
                     <Topbar />
                     <div className="container-fluid">
                         <PageHeading title="전력예측" />
-                    </div>
-                    <div className="container-fluid">
-                        <ChartLine title="이번달 전력예측"></ChartLine>
-                    </div>
-
-                    <div className="container-fluid">
                         <div className="row">
-                            <PredictInfo
-                                title="예상요금액"
-                                icon="won"
-                                color="primary"
-                                value={data.fee}
-                            />
-
-                            <PredictInfo
-                                title="예상전력사용량"
-                                icon=""
-                                color="primary"
-                                value={data.usage}
-                            />
+                            <div className="col-9">
+                                <ChartLine title="이번달 전력예측"></ChartLine>
+                            </div>
+                            <div className="col-3">
+                                <div className="px-2">
+                                    <PredictInfo
+                                        title="예상요금액"
+                                        icon="coins"
+                                        color="primary"
+                                        value={data.fee}
+                                    />
+                                </div>
+                                <div className="px-2">
+                                    <PredictInfo
+                                        title="예상전력사용량"
+                                        icon="bolt"
+                                        color="primary"
+                                        value={data.usage}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 

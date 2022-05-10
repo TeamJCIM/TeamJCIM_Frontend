@@ -18,7 +18,13 @@ export default function ChartLine(props) {
     ).getDate();
 
     var thisMonthDay = [];
-    for (var i = firstDay; i <= lastDay; i++) {
+    // //동적으로 구하는 방식
+    // for (var i = firstDay; i <= lastDay; i++) {
+    //     thisMonthDay.push(i);
+    // }
+
+    //데이터가 1월까지 밖에 없음 현재 2월 1일이라고 가정.
+    for (var i = firstDay; i <= 28; i++) {
         thisMonthDay.push(i);
     }
 
@@ -27,16 +33,20 @@ export default function ChartLine(props) {
         iotData: [],
     });
 
+    const pArray = [];
+
     useEffect(() => {
-        async function fetch() {
-            await axios
-                .get(`api/predict/predictThisMonth_test/1227564000`)
-                .then(function (response) {})
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
-        fetch();
+        // async function fetch() {
+        //     await axios
+        //         .get(`api/predict/predictNextMonth/1227564000`)
+        //         .then(function (response) {
+        //             console.log(response);
+        //         })
+        //         .catch(function (error) {
+        //             console.log(error);
+        //         });
+        // }
+        // fetch();
 
         const thisMonthChartLine = chartRef.current.getContext('2d');
         new Chart(thisMonthChartLine, {
@@ -57,10 +67,7 @@ export default function ChartLine(props) {
                         pointHoverBorderColor: 'rgba(78, 115, 223, 1)',
                         pointHitRadius: 5,
                         pointBorderWidth: 2,
-                        data: [
-                            0, 1000, 5000, 1500, 1000, 2000, 1500, 2500, 2000,
-                            1500, 2200, 3000,
-                        ],
+                        data: [],
                     },
                     {
                         label: '실제사용량',
@@ -75,10 +82,7 @@ export default function ChartLine(props) {
                         pointHoverBorderColor: 'rgba(102, 250, 156,1)',
                         pointHitRadius: 5,
                         pointBorderWidth: 2,
-                        data: [
-                            0, 1000, 15000, 25000, 40000, 15000, 15000, 25000,
-                            20000, 30000, 25000, 45000,
-                        ],
+                        data: [],
                     },
                 ],
             },
