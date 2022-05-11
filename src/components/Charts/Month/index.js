@@ -12,23 +12,14 @@ Chart.defaults.global.defaultFontColor = '#858796';
 const ChartMonth = (props) => {
 
     const chartRef = useRef()
-
-
-    const [thisData, setThisData] = useState([])
-    // props.thisMonthData
-    const [lastData, setLastData] = useState([])
-        // props.lastMonthData
-    
+    /*
     const [count, setCount] = useState()
 
     setInterval(function () {
         setCount(count + 1)
-    }, 1000)
+    }, 1000)*/
 
     useEffect(() => {
-
-        setThisData(props.thisMonthData)
-        setLastData(props.lastMonthData)
 
         const myChartRef = chartRef.current.getContext("2d");
 
@@ -38,13 +29,13 @@ const ChartMonth = (props) => {
                 labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
                 datasets: [{
                     label: "전월 사용량",
-                    data: lastData,
+                    data: props.lastMonthData,
                     borderColor: 'rgba(75, 192, 192)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
 
                 }, {
                     label: "당월 사용량",
-                    data: thisData,
+                    data: props.thisMonthData,
                     borderColor: 'rgba(54, 162, 235)',
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 }]
