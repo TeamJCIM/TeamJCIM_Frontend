@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import Sidebar from '../../components/Navigation/Sidebar';
 import Topbar from '../../components/Navigation/Topbar';
@@ -6,40 +7,14 @@ import PageHeading from '../../components/PageHeading';
 
 import ChartYear from '../../components/Charts/Year';
 
-import axios from 'axios'
-
 const YearUsage = () => {
-    const [yearData, setYearData] = useState(Array.from({length:12}, () => 0))
-    
-    // console.log('page component', yearData)
-
-    const post = 1227564000
-    
-    
     useEffect(()=> {
-        console.log('page component use effect', yearData)
-        
-        axios.get(`/api/lookup_elec/${post}`,)
-            .then((res) => {
-                // console.log(res.data.data[3])
-
-                const newYearData = yearData
-                for (let i = 0; i < res.data.data[3].length; i++) {
-                    const day = res.data.data[3][i].Month - 1
-                    newYearData[day] = Number(res.data.data[3][i].IotData)
-                    
-
-                }
-                setYearData(newYearData)
-
-                // console.log('page year data', yearData)
-            })
-            .catch((err) => {
-
-            })
-
     })
-        
+
+
+    const data = useSelector(state => state)
+
+    const yearData = data.usageState.yearData
 
     return (
         <div>

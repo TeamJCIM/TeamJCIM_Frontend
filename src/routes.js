@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 //Pages
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import ForgotId from './pages/ForgotId';
+import ForgotPw from './pages/ForgotPw';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Predict from './pages/Predict';
@@ -20,6 +22,9 @@ const Routes = () => (
         <Switch>
             <Route exact path="/" component={SignIn} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/forgotid" component={ForgotId} />
+            <Route path="/forgotpw" component={ForgotPw} />
             <Route path="/changepassword" component={ChangePassword} />
             <Route path="/signup" component={SignUp} />
             <Route path="/changeprofile" component={ChangeProfile} />

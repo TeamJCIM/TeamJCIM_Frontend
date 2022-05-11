@@ -9,24 +9,19 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 const ChartToday = (props) => {
     const chartRef = useRef(); // useRef : ref object( { current :  } )를 반환
-    // When ? 저장공간으로 사용, No rendering
-    const [count, setCount] = useState()
-
-    setInterval(function () {
-        setCount(count + 1)
-    }, 1000)
-
 
     const todayData = props.electricData
-
+    
     let maxValue = 0
     if (Math.max(...todayData) === 0) {
-        maxValue = 1000
+        maxValue = 2000
     } else { maxValue = Math.max(... todayData)
         maxValue = maxValue / 100
         maxValue = Math.floor(maxValue)
         maxValue = 100 * maxValue
     }
+    
+    
 
     useEffect(() => {
         const myChartRef = chartRef.current.getContext("2d");
@@ -86,7 +81,7 @@ const ChartToday = (props) => {
                 angleLines: { display: true, center: true },
                 ticks: {
                     min: Math.min(... todayData),
-                    max: maxValue,
+                    // max: maxValue,
                 },
             },
             legend: {
