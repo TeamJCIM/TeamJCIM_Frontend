@@ -8,7 +8,25 @@ import IotStateChart from '../../components/Charts/IotState';
 import IotRecord from '../../components/Cards/IotRecord';
 import AnalizeChart from '../../components/AnalizeChart';
 
+import { useSelector } from 'react-redux';
+
 const Safety = () => {
+    const data = useSelector(state=>state)
+    const stateName = data.cardState.stateName
+    let radius = 0
+    switch (stateName) {
+        case 'Safety':
+            radius = -150;
+            break;
+        case 'Warning':
+            radius = -90;
+            break;
+        case 'Danger':
+            radius = -30;
+            break;
+        default:
+            break;
+    }
 
     return (
         <div>
@@ -20,11 +38,11 @@ const Safety = () => {
                         <Topbar />
 
                         <div className="container-fluid">
-                            <PageHeading title="전력 조회" />
+                            <PageHeading title="안전 페이지" />
 
                             <div className="row">
                                 <div className="col-xl">
-                                    <IotStateChart />
+                                    <IotStateChart radius={radius}/>
                                 </div>
 
                                 <div className="col-xl">

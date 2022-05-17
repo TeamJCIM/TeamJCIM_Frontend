@@ -6,7 +6,7 @@ import { Table } from 'react-bootstrap';
 const IotRecord = (props) => {
 
         return (
-            <CardBasic  title="IOT Record">
+            <CardBasic title="IOT Record">
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -22,7 +22,7 @@ const IotRecord = (props) => {
                             <td>55℃</td>
                             <td>2022/01/25</td>
                             <td>
-                                <button type="button" class="btn btn-success btn-sm">
+                                <button type="button" className="btn btn-success btn-sm">
                                     Safety
                                 </button>
                             </td>
@@ -32,7 +32,7 @@ const IotRecord = (props) => {
                             <td>60℃</td>
                             <td>2022/01/27</td>
                             <td>
-                                <button type="button" class="btn btn-warning btn-sm">
+                                <button type="button" className="btn btn-warning btn-sm">
                                     Caution
                                 </button>
                             </td>
@@ -42,7 +42,7 @@ const IotRecord = (props) => {
                             <td>55℃</td>
                             <td>2022/01/29</td>
                             <td>
-                                <button type="button" class="btn btn-danger btn-sm">
+                                <button type="button" className="btn btn-danger btn-sm">
                                     Danger
                                 </button>
                             </td>

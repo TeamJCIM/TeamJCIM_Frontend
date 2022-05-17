@@ -9,7 +9,7 @@ import CardInfo from '../../components/Cards/Info';
 import ChartNow from '../../components/Charts/Now';
 import PageHeading from '../../components/PageHeading';
 
-// axios
+// redux
 import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
