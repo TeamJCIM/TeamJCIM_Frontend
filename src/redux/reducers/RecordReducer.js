@@ -10,6 +10,7 @@ export const RecordReducer = (state = initialState, action) => {
     switch (action.type) {
         case RECORD_DATA:
             return {
+                
             };
         default:
             return state;

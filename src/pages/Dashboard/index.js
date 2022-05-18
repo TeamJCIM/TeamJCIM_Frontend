@@ -21,9 +21,7 @@ const Dashboard = () => {
   const iotStatus = data.cardState.iotStatus  
   const stateName = data.cardState.stateName
   const electricData = data.cardState.electricData
-
-  console.log('iot num', iotNum)
-
+  
   // 렌더링 될 때마다 실행
   useEffect(() => {
     document.getElementById('body').className = 'page-top';

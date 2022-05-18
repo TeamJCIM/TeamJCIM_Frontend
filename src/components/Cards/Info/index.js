@@ -5,7 +5,6 @@ function CardInfo(props) {
     const [cardClass, setCardClass] = useState();
     const [icon, setIcon] = useState();
     const [titleClass, setTitleClass] = useState();
-    console.log('props value', props.value)
     useEffect(() => {
         setCardClass(`card border-left-${props.color} shadow h-60 py-4`);
         setIcon(`fas fa-${props.icon} fa-2x text-${props.color}`);

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Chart from "chart.js";
+import { Chart } from "chart.js";
 
 import CardBasic from '../../Cards/Basic';
 
@@ -69,7 +69,7 @@ const ChartToday = (props) => {
             scales: {
                 r: {
                     pointLabels: {
-                        display: false,
+                        display: true,
                         centerPointLabel: true,
                         font: {
                             size : 10,
@@ -100,7 +100,7 @@ const ChartToday = (props) => {
     
     return (
         <CardBasic title="당일 전력 사용량">
-            <div className="chart-body">
+            <div className="chart-body pt-4 pb-4 mt-4 mb-4">
                 <canvas id="ChartToday" ref={chartRef}></canvas>
             </div>
         </CardBasic>
