@@ -7,9 +7,10 @@ const initialState = {
 
 export const IotNumReducer = (state = initialState, action) => {
 
-    console.log('iot num reducer', action.iotNum)
     switch (action.type) {
         case POST_IOT_NUM:
+            console.log('iot num reducer', action.iotNum)
+
             return {
                 ...state,
                 userId: action.userId,
