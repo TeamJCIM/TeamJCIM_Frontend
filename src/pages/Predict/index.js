@@ -40,26 +40,28 @@ export default function Predict() {
                     <Topbar />
                     <div className="container-fluid">
                         <PageHeading title="전력예측" />
-                    </div>
-                    <div className="container-fluid">
-                        <ChartLine title="이번달 전력예측"></ChartLine>
-                    </div>
-
-                    <div className="container-fluid">
                         <div className="row">
-                            <PredictInfo
-                                title="예상요금액"
-                                icon="won"
-                                color="primary"
-                                value={data.fee}
-                            />
-
-                            <PredictInfo
-                                title="예상전력사용량"
-                                icon=""
-                                color="primary"
-                                value={data.usage}
-                            />
+                            <div className="col-9">
+                                <ChartLine title="이번달 전력예측"></ChartLine>
+                            </div>
+                            <div className="col-3">
+                                <div className="px-2">
+                                    <PredictInfo
+                                        title="예상요금액"
+                                        icon="coins"
+                                        color="primary"
+                                        value={data.fee}
+                                    />
+                                </div>
+                                <div className="px-2">
+                                    <PredictInfo
+                                        title="예상전력사용량"
+                                        icon="bolt"
+                                        color="primary"
+                                        value={data.usage}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 

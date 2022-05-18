@@ -1,55 +1,41 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-class PredictInfo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: this.props.value,
-            title: this.props.title,
-            icon: 'fas fa-calendar fa-2x text-gray-300',
-            color: 'primary',
-            cardClass: '',
-            titleClass: '',
-        };
-    }
-
-    componentDidMount() {
-        this.setState({
-            cardClass: `card border-left-${this.props.color} shadow h-60 py-4`,
+export default function PredictInfo(props) {
+    const [state, setState] = useState({
+        value: props.value,
+        title: props.title,
+        icon: 'fas fa-calendar fa-2x text-gray-300',
+        color: 'primary',
+        cardClass: '',
+        titleClass: '',
+    });
+    useEffect(() => {
+        setState({
+            cardClass: `card border-left-${props.color} shadow h-60 py-4`,
+            icon: `fas fa-${props.icon} fa-2x text-${props.color}`,
+            titleClass: `text-xs font-weight-bold text-${props.color} text-uppercase mb-1`,
         });
-        this.setState({
-            icon: `fas fa-${this.props.icon} fa-2x text-${this.props.color}`,
-        });
-        this.setState({
-            titleClass: `text-xs font-weight-bold text-${this.props.color} text-uppercase mb-1`,
-        });
-    }
-
-    render() {
-        return (
-            <div>
-                <div className={this.state.titleClass}>{this.state.title}</div>
-
-                <div className={this.state.cardClass}>
-                    <div className="card-body">
-                        <div className="row no-gutters align-items-center">
-                            <div className="col mr-2">
-                                <div className={this.state.titleClass}>
-                                    {this.props.title}
-                                </div>
-                                <div className="h5 mb-0 font-weight-bold text-gray-800">
-                                    {this.state.value}
-                                </div>
+    }, [props]);
+    return (
+        <div>
+            <div className={state.titleClass}>{state.title}</div>
+            <div className={state.cardClass}>
+                <div className="card-body">
+                    <div className="row no-gutters align-items-center">
+                        <div className="col mr-2">
+                            <div className={state.titleClass}>
+                                {props.title}
                             </div>
-                            <div className="col-auto">
-                                <i className={this.state.icon}></i>
+                            <div className="h5 mb-0 font-weight-bold text-gray-800">
+                                {props.value}
                             </div>
+                        </div>
+                        <div className="col-auto">
+                            <i className={state.icon}></i>
                         </div>
                     </div>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
-
-export default PredictInfo;
