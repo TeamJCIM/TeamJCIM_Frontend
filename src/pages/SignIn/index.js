@@ -80,7 +80,8 @@ const SignIn = ({history}) => {
                                     console.log('reponse data >>', response.data)
 
                                     const iotNum = response.data.data.IotNum
-                                    dispatch(postIotNum(iotNum))
+                                    const userId = response.data.data.UserId
+                                    dispatch(postIotNum(userId, iotNum))
                                     dispatch(getCardDataAsync(iotNum), CardReducer)
                                     dispatch(getUsageDataAsync(iotNum), UsageReducer)
                                     dispatch(getRecordDataAsync(iotNum), RecordReducer)
