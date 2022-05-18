@@ -17,11 +17,11 @@ const Dashboard = () => {
 
   const iotData = data.cardState.iotData
   const predictData = data.cardState.predictData
-  const iotNum = data.iotNumState.IotNum
+  const iotNum = data.iotNumState.iotNum
   const iotStatus = data.cardState.iotStatus  
   const stateName = data.cardState.stateName
   const electricData = data.cardState.electricData
-
+  
   // 렌더링 될 때마다 실행
   useEffect(() => {
     document.getElementById('body').className = 'page-top';

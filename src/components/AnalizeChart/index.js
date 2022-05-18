@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Chart from 'chart.js';
+import { Chart } from 'chart.js';
 import axios from 'axios';
 
 import CardBasic from '../Cards/Basic';

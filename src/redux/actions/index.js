@@ -6,8 +6,9 @@ export const clickMenuOpen = value => ({
     newValue: value
 });
 
-export const postIotNum = iotNum => ({
+export const postIotNum = (userId, iotNum) => ({
     type: POST_IOT_NUM,
+    userId: userId,
     iotNum: iotNum,
 })
 
