@@ -7,10 +7,16 @@ import Topbar from '../../components/Navigation/Topbar';
 import Sidebar from '../../components/Navigation/Sidebar';
 import PageHeading from '../../components/PageHeading';
 import CardBasic from '../../components/Cards/Basic';
-
 import TextBox from './TextBox';
 
+import { useSelector } from 'react-redux';
+
 export default function Profile() {
+    const data = useSelector((state) => state);
+
+    const userId = data.iotNumState.userId;
+    const iotNum = data.iotNumState.iotNum;
+
     const [profile, setProfile] = useState({
         name: '',
         phone: '',
@@ -25,20 +31,23 @@ export default function Profile() {
 
     useEffect(() => {
         axios
-            .get(`api/auth/profile/3`)
+            .get(`api/auth/profile/${userId}`)
             .then(function (response) {
+                console.log(response);
+                console.log(response.data['data'][0]['Address']);
                 setProfile({
                     name: response.data['data'][0]['Name'],
                     phone: response.data['data'][0]['Phone'],
                     email: response.data['data'][0]['Email'],
-                    location: response.data['data'][0]['Location'],
-                    iotNum: response.data['data'][0]['Iotnum'],
+                    location: response.data['data'][0]['Address'],
+                    iotNum: iotNum,
                 });
             })
             .catch(function (error) {
                 console.log('error');
             });
     }, []);
+    console.log(profile.iotNum);
 
     return (
         <div>
@@ -83,7 +92,7 @@ export default function Profile() {
                                 <div class="small mb-1">IoT Number</div>
                                 <TextBox
                                     img="fas fa-tablet"
-                                    text={profile.iotNum}
+                                    text={iotNum}
                                     state={modifiable.state}
                                 />
 

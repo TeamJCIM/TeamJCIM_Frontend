@@ -8,27 +8,32 @@ import PageHeading from '../../components/PageHeading';
 import NextMonth from '../../components/NextMonth';
 import PredictInfo from '../../components/Cards/PredictInfo';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export default function Predict() {
-    const [data, setData] = useState({
+    const data = useSelector((state) => state);
+    const iotNum = data.iotNumState.iotNum;
+
+    const [state, setState] = useState({
         fee: '',
         usage: '',
     });
 
     useEffect(() => {
         axios
-            .get(`api/predict/predictThisMonth_test/1227564000`)
+            .get(`api/predict/predictNextMonth_tmp/1232713263`)
             .then(function (response) {
-                setData({
-                    fee: response['data']['message'][4] + '(원)',
+                console.log(response);
+                setState({
+                    // fee: response['data']['message'][] + '(원)',
                     usage:
-                        response['data']['message'][3]
+                        response.data['message'][2]['PredictData']
                             .toFixed()
                             .replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '(kWh)',
                 });
             })
             .catch(function (error) {
-                console.log(error);
+                console.log('error: ', error);
             });
     }, []);
 
@@ -50,7 +55,7 @@ export default function Predict() {
                                         title="예상요금액"
                                         icon="coins"
                                         color="primary"
-                                        value={data.fee}
+                                        value={state.fee}
                                     />
                                 </div>
                                 <div className="px-2">
@@ -58,16 +63,11 @@ export default function Predict() {
                                         title="예상전력사용량"
                                         icon="bolt"
                                         color="primary"
-                                        value={data.usage}
+                                        value={state.usage}
                                     />
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="container-fluid">
-                        <NextMonth title="다음달 전력예측"></NextMonth>
-                        <div></div>
                     </div>
                 </div>
             </div>

@@ -361,6 +361,7 @@ export default function SignUp() {
                                         href="login.html"
                                         className="btn btn-primary btn-user btn-block"
                                         onClick={reqSignUp}
+                                        to="/SignIn"
                                     >
                                         회원가입
                                     </div>

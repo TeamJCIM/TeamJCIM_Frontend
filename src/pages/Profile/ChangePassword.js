@@ -7,8 +7,12 @@ import Topbar from '../../components/Navigation/Topbar';
 import Sidebar from '../../components/Navigation/Sidebar';
 import PageHeading from '../../components/PageHeading';
 import CardBasic from '../../components/Cards/Basic';
+import { useSelector } from 'react-redux';
 
 export default function ChangePassword() {
+    const data = useSelector((state) => state);
+    const userId = data.iotNumState.userId;
+
     const [password, setPassword] = useState({
         curPassword: '',
         changePassword: '',
@@ -24,28 +28,21 @@ export default function ChangePassword() {
     };
 
     const request = (e) => {
-        // 8 ~15자 영문, 숫자 조합
-        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
-        // 맞는 형식이면 true를 리턴
-        if (!regExp.test(password.changePassword)) {
-            alert('비밀번호 형식을 확인해주세요!');
+        if (password.changePassword === password.confirmPassword) {
+            const body = {
+                OldPassword: password.curPassword,
+                NewPassword: password.changePassword,
+            };
+            axios
+                .post(`api/auth/change_pw/${userId}`, body)
+                .then(function (response) {
+                    alert(response['data']['message']);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         } else {
-            if (password.changePassword === password.confirmPassword) {
-                const body = {
-                    OldPassword: password.curPassword,
-                    NewPassword: password.changePassword,
-                };
-                axios
-                    .post(`api/auth/change_pw/52`, body)
-                    .then(function (response) {
-                        alert(response['data']['message']);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            } else {
-                alert('변경 비밀번호가 일치하지 않습니다!');
-            }
+            alert('변경 비밀번호가 일치하지 않습니다!');
         }
     };
 
@@ -88,7 +85,7 @@ export default function ChangePassword() {
                                 <Link
                                     className="btn btn-secondary"
                                     onClick={request}
-                                    to="/ChangePassword"
+                                    to="/Profile"
                                 >
                                     확인
                                 </Link>

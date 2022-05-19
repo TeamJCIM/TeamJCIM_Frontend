@@ -7,8 +7,12 @@ import Topbar from '../../components/Navigation/Topbar';
 import Sidebar from '../../components/Navigation/Sidebar';
 import PageHeading from '../../components/PageHeading';
 import CardBasic from '../../components/Cards/Basic';
+import { useSelector } from 'react-redux';
 
 export default function ResetProfile() {
+    const data = useSelector((state) => state);
+    const userId = data.iotNumState.userId;
+
     const [profile, setProfile] = useState({
         Name: '',
         Phone: '',
@@ -24,19 +28,12 @@ export default function ResetProfile() {
             ...profile,
             [name]: value,
         });
-        console.log(value, name);
-        console.log(profile.Name);
     }
 
     function requestChange() {
         axios
             .post(`api/auth/ChangeProfile`, profile)
             .then(function (response) {
-                console.log(profile.Name);
-                console.log(profile.Phone);
-                console.log(profile.Email);
-                console.log(profile.Location);
-                console.log(profile.UserId);
                 console.log('success');
             })
             .catch(function (error) {
@@ -46,7 +43,7 @@ export default function ResetProfile() {
 
     useEffect(() => {
         axios
-            .get(`api/auth/profile/3`)
+            .get(`api/auth/profile/${userId}`)
             .then(function (response) {
                 setProfile({
                     Name: response.data['data'][0]['Name'],
@@ -54,7 +51,7 @@ export default function ResetProfile() {
                     Email: response.data['data'][0]['Email'],
                     Location: response.data['data'][0]['Location'],
                     Iotnum: response.data['data'][0]['IotNum'],
-                    UserId: 3,
+                    UserId: userId,
                 });
             })
             .catch(function (error) {
@@ -136,7 +133,6 @@ export default function ResetProfile() {
                                         <i class="fas fa-tablet"></i>
                                     </div>
                                     <input
-                                        onChange={handleChange}
                                         type="text"
                                         name="Iotnum"
                                         class="form-control bg-light border-0"
