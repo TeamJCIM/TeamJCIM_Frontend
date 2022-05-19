@@ -20,9 +20,9 @@ export const getCardData = data => ({
 export const getCardDataAsync = (iotNum) => {
 
     return (dispatch) => {
-        axios.get(`/api/overview/${iotNum}/2021-09-05`,)
+        axios.get(`/api/overview/${iotNum}/2022-05-20`,)
             .then((response) => {
-                console.log('card data async >>', response.data.data)
+                console.log('card data async >>', response)
 
                 dispatch(getCardData(response.data.data))
             })

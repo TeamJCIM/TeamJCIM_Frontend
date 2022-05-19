@@ -41,9 +41,9 @@ const ForgotId = ({ history }) => {
         <>
             <div className="container">
                 {/* <!-- Outer Row --> */}
-                <div className="row justify-content-center">
+                <div className="row justify-content-center my-5">
 
-                    <div className="col-xl-10 col-lg-12 col-md-9">
+                    <div className="col-xl-10 col-lg-12 col-md-9 justify-content-center align-self-center my-5">
 
                         <div className="card o-hidden border-0 shadow-lg my-5">
                             <div className="card-body p-0">
@@ -55,25 +55,27 @@ const ForgotId = ({ history }) => {
                                             <div className="text-center">
                                                 <h1 className="h4 text-gray-900 mb-4">아이디 찾기</h1>
                                             </div>
+                                            
                                             <form className="user">
-                                                <div className="form-group">
-                                                    <div className="text-left text-primary">
+                                                <div className="form-group"> {/* name, phone number box */}
+                                                    
+                                                    {/* name box start */}
+                                                    <><div className="text-left text-primary">
                                                         name
                                                     </div>
                                                     <input type="text" className="form-control form-control-user" id="inputName" aria-describedby="nameHelp" placeholder="Enter Name..."
                                                         onChange={(e) => {
                                                             e.preventDefault()
-                                                            setFindIdInfo({ ...findIdInfo, name: e.target.value })
-                                                        }} />
-                                                </div>
-                                                <div className="form-group">
-                                                    <div className="text-left text-primary">
+                                                            setFindIdInfo({ ...findIdInfo, name:e.target.value })
+                                                    }}/></> {/* name box finish */}
+
+                                                    {/* phone number box start */}
+                                                    <> <div className="text-left text-primary">
                                                         phone number
                                                     </div>
                                                     <div className='row'>
                                                         <div className='col-4'>
-                                                            <input type='text' className='form-control form-control-user' placeholder='        010' readOnly>
-                                                                
+                                                            <input type='text' className='form-control form-control-user' placeholder='      010' readOnly>
                                                             </input>
                                                         </div>
                                                         <div className='col-4'>
@@ -82,7 +84,8 @@ const ForgotId = ({ history }) => {
                                                                     e.preventDefault()
                                                                     setPhoneFirst(e.target.value)
                                                                     setFindIdInfo({
-                                                                        ...findIdInfo, phone: `010${e.target.value}${phoneSecond}` })
+                                                                        ...findIdInfo, phone: `010${e.target.value}${phoneSecond}`
+                                                                    })
                                                                 }
                                                             }>
                                                             </input>
@@ -99,8 +102,10 @@ const ForgotId = ({ history }) => {
                                                             }>
                                                             </input>
                                                         </div>
-                                                    </div>
+                                                    </div> </> {/* phone number box finish */}
                                                 </div>
+                                                
+                                                {/* 아이디 찾기 button start */}
                                                 <Button className="btn btn-primary btn-user btn-block mt-4"
                                                     onClick={(e) => {
                                                         e.preventDefault()
@@ -108,6 +113,8 @@ const ForgotId = ({ history }) => {
                                                         setFindIdInfo({
                                                             ...findIdInfo, phone: `010${phoneFirst}${phoneSecond}`
                                                         })
+
+                                                        console.log('find id info', findIdInfo)
                                                         axios.post(`/api/auth/findId`, findIdInfo)
                                                             .then((response) => {
                                                                 console.log('find id info in axios', response.data)
@@ -122,15 +129,18 @@ const ForgotId = ({ history }) => {
                                                             })
                                                     }}>
                                                     아이디 찾기
-                                                </Button>
+                                                </Button> {/* 아이디 찾기 button finish */}
+                                                
                                                 {show && confirm &&
+                                                <><hr/>            
                                                 <div className='alert alert-info mt-4 mb-4' role="alert" >
                                                     성공, {email}
-                                                </div>}
+                                                </div></>}
                                                 {show && !confirm &&
+                                                <><hr/>
                                                 <div className='alert alert-danger mt-4 mb-4' role="alert" >
                                                     실패, 이름과 전화번호를 다시 확인하세요
-                                                </div>}
+                                                </div></>}
                                             </form>
                                             <hr/>
                                             <div className="text-center">

@@ -9,7 +9,6 @@ import ChartToday from '../../components/Charts/Today';
 import CardInfo from '../../components/Cards/Info';
 
 const TodayUsage = () => {
-    // const [electricData, setElectricData] = useState(Array.from({ length: 24 }, () => 0))
     
     useEffect(()=>{
         
@@ -17,7 +16,7 @@ const TodayUsage = () => {
         
     const data = useSelector(state => state)
 
-    // const electricData = data.cardState.electricData
+    const electricData = data.cardState.electricData
 
     return (
         <div>
@@ -66,8 +65,9 @@ const TodayUsage = () => {
                             
                             <div className="row pt-4">
                                 <div className="col">
-                                    <ChartToday />
-                                        {/*electricData = {electricData}*/}
+                                    <ChartToday 
+                                        electricData={electricData} />
+                                        
                                 </div>
                             </div>
 

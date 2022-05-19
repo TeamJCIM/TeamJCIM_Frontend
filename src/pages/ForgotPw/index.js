@@ -25,11 +25,11 @@ const ForgotPw = ({ history }) => {
 
     return (
         <>
-            <div className="container">
+            <div className="container my-5">
                 {/* <!-- Outer Row --> */}
-                <div className="row justify-content-center">
+                <div className="row justify-content-center my-5">
 
-                    <div className="col-xl-10 col-lg-12 col-md-9">
+                    <div className="col-xl-10 col-lg-12 col-md-9 my-5">
 
                         <div className="card o-hidden border-0 shadow-lg my-5">
                             <div className="card-body p-0">
@@ -41,8 +41,15 @@ const ForgotPw = ({ history }) => {
                                             <div className="text-center">
                                                 <h1 className="h4 text-gray-900 mb-4">전력예측 프로그램</h1>
                                             </div>
-                                            {!show && <form className="user">
+
+                                            {/* email, phone number, confirm number box start */}
+                                            {!show && 
+                                            <form className="user">
+
+                                                {/* email, phone number box start */}
                                                 <div className="form-group">
+                                                    
+                                                    {/* email box start */}
                                                     <div className="text-left text-primary">
                                                         email
                                                     </div>
@@ -50,14 +57,15 @@ const ForgotPw = ({ history }) => {
                                                         onChange={(e) => {
                                                             e.preventDefault()
                                                             setInfo({ ...info, email: e.target.value })
-                                                        }} />
+                                                    }} /> {/* email box finish */}
 
+                                                    {/* phone number box start */}
                                                     <div className="text-left text-primary">
                                                         phone number
                                                     </div>
                                                     <div className='row'>
                                                         <div className='col-3'>
-                                                            <input type='text' className='form-control form-control-user' placeholder='   010' readOnly>
+                                                            <input type='text' className='form-control form-control-user' placeholder=' 010' readOnly>
 
                                                             </input>
                                                         </div>
@@ -105,8 +113,10 @@ const ForgotPw = ({ history }) => {
                                                                 전송
                                                             </Button>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                    </div> {/* phone number box finish */}
+                                                </div> {/* email, phone number box finish */}
+
+                                                {/* confirm number box start */}
                                                 <div className="form-group">
                                                     <div className="text-left text-primary">
                                                         인증번호 확인
@@ -137,29 +147,33 @@ const ForgotPw = ({ history }) => {
                                                                             })
                                                                         
                                                                         handleShow()
+                                                                    } else {
+                                                                         
                                                                     }
                                                                 }}>
                                                                 확인
                                                             </Button>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> {/* confirm number box finish */}
                                                 
-                                            </form>}
+                                            </form>} {/* email, phone number, confirm number box finish */}
+                                            
+                                            {/* 임시번호  */}
                                             {show &&
-                                                <form className="user">
-                                                    <div className="form-group">
-                                                        <div className="text-left text-primary">
-                                                            email
-                                                        </div>
-                                                        <input type="text" className="form-control form-control-user" placeholder={info.email} readOnly/>
+                                            <form className="user">
+                                                <div className="form-group">
+                                                    <div className="text-left text-primary">
+                                                        email
+                                                    </div>
+                                                    <input type="text" className="form-control form-control-user" placeholder={info.email} readOnly/>
 
-                                                            
-                                                    </div>
-                                                    <div className='alert alert-warning mt-4 mb-4' role="alert" >
-                                                        이메일로 임시 비밀번호를 전송했습니다.
-                                                    </div>
-                                                </form>}
+                                                        
+                                                </div>
+                                                <div className='alert alert-warning mt-4 mb-4' role="alert" >
+                                                    이메일로 임시 비밀번호를 전송했습니다.
+                                                </div>
+                                            </form>}
                                             <hr />
                                             <div className="text-center">
                                                 <Link className="small" to="/">Login !</Link>

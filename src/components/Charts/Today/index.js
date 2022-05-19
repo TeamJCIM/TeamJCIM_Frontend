@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Chart } from "chart.js";
 
 import CardBasic from '../../Cards/Basic';
@@ -13,87 +13,81 @@ const ChartToday = (props) => {
     const todayData = props.electricData
     
     let maxValue = 0
-    if (Math.max(...todayData) === 0) {
+    /*if (Math.max(...todayData) === 0) {
         maxValue = 2000
     } else { maxValue = Math.max(... todayData)
         maxValue = maxValue / 100
         maxValue = Math.floor(maxValue)
         maxValue = 100 * maxValue
-    }
+    }*/
     
-    
+    console.log('props electric data >>', props.electricData)
 
     useEffect(() => {
         const myChartRef = chartRef.current.getContext("2d");
-        // console.log('myChartRef :', myChartRef);
-        // console.log('charRef : ', chartRef)
-        // todayData = props.electricData
-        const data = { labels: [
-                '0-1h',
-                '1-2h',
-                '2-3h',
-                '3-4h',
-                '4-5h',
-                '5-6h',
-                '6-7h',
-                '7-8h',
-                '8-9h',
-                '9-10h',
-                '10-11h',
-                '11-12h',
-                '12-13h',
-                '13-14h',
-                '14-15h',
-                '15-16h',
-                '16-17h',
-                '17-18h',
-                '18-19h',
-                '19-20h',
-                '20-21h',
-                '21-22h',
-                '22-23h',
-                '23-24h',
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: todayData,
-                backgroundColor: 'rgb(54, 162, 235, 0.5)',
-                
-            }]
-        };
-
-        const options = {
-            // responsive : 반응형
-            responsive: true,
-            // Axes 축
-            scales: {
-                r: {
-                    pointLabels: {
-                        display: true,
-                        centerPointLabel: true,
-                        font: {
-                            size : 10,
-                        },
-                    },
-                },
-            },
-            scale: { 
-                angleLines: { display: true, center: true },
-                ticks: {
-                    min: Math.min(... todayData),
-                    // max: maxValue,
-                },
-            },
-            legend: {
-                display: false,
-                position: 'bottom',
-            },
-        }
 
         new Chart(myChartRef, {
             type: 'polarArea',
-            data: data,
-            options: options,
+            data: {
+                labels: [
+                    '0-1h',
+                    '1-2h',
+                    '2-3h',
+                    '3-4h',
+                    '4-5h',
+                    '5-6h',
+                    '6-7h',
+                    '7-8h',
+                    '8-9h',
+                    '9-10h',
+                    '10-11h',
+                    '11-12h',
+                    '12-13h',
+                    '13-14h',
+                    '14-15h',
+                    '15-16h',
+                    '16-17h',
+                    '17-18h',
+                    '18-19h',
+                    '19-20h',
+                    '20-21h',
+                    '21-22h',
+                    '22-23h',
+                    '23-24h',
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: props.electricData,
+                    backgroundColor: 'rgb(54, 162, 235, 0.5)',
+                }]
+            },
+            options: {
+                // responsive : 반응형
+                responsive: true,
+                // Axes 축
+                scales: {
+                    r: {
+                        pointLabels: {
+                            display: true,
+                            centerPointLabel: true,
+                            font: {
+                                size: 10,
+                            },
+                        },
+                    },
+                },
+                scale: {
+                    angleLines: { display: true, center: true },
+                    ticks: {
+                        // min: Math.min(... todayData),
+                        // max: maxValue,
+                    },
+                },
+                legend: {
+                    display: false,
+                    position: 'bottom',
+                },
+            },
         });
     })
 
