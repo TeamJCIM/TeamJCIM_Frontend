@@ -21,12 +21,11 @@ const Routes = () => (
     <BrowserRouter>
         <Switch>
             <Route exact path="/" component={SignIn} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route path="/signup" component={SignUp} />
             <Route path="/forgotid" component={ForgotId} />
             <Route path="/forgotpw" component={ForgotPw} />
-            <Route path="/changepassword" component={ChangePassword} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/changepassword" component={ChangePassword} />
             <Route path="/changeprofile" component={ChangeProfile} />
             <Route path="/profile" component={Profile} />
             <Route path="/predict" component={Predict} />
