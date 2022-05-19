@@ -77,7 +77,7 @@ const SignIn = ({history}) => {
                                 axios.post(`/api/auth/signin`,signinInfo)
                                 .then((response)=>{
                                   if (response.data.message === '로그인 성공') {
-                                    console.log('reponse data >>', response.data)
+                                    console.log('reponse data >>', response)
 
                                     const iotNum = response.data.data.IotNum
                                     const userId = response.data.data.UserId

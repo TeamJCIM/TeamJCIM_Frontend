@@ -4,35 +4,32 @@ import Modal from 'react-bootstrap/Modal'
 import { Button } from 'react-bootstrap';
 
 import axios from 'axios'
-import { useDispatch } from 'react-redux';
-import { postIotNum, getCardDataAsync, getUsageDataAsync, getRecordDataAsync } from '../../redux/actions';
-import { IotNumReducer } from '../../redux/reducers/IotNumReducer';
-import { CardReducer } from '../../redux/reducers/CardReducer';
-import { UsageReducer } from '../../redux/reducers/UsageReducer';
-import { RecordReducer } from '../../redux/reducers/RecordReducer';
-
 
 const ForgotPw = ({ history }) => {
-    const [signinInfo, setSigninInfo] = useState({ email: '', password: '' })
+    const [info, setInfo] = useState({ email: '', phone: '' })
+
+    const [phoneFirst, setPhoneFirst] = useState()
+    const [phoneSecond, setPhoneSecond] = useState()
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const [check, setCheck] = useState();
+    const [auth, setAuth] = useState();
+
     useEffect(() => {
         document.getElementById('body').className = 'bg-gradient-primary'
     })
 
-    const dispatch = useDispatch()
-
     return (
         <>
-            <div className="container">
+            <div className="container my-5">
                 {/* <!-- Outer Row --> */}
-                <div className="row justify-content-center">
+                <div className="row justify-content-center my-5">
 
-                    <div className="col-xl-10 col-lg-12 col-md-9">
+                    <div className="col-xl-10 col-lg-12 col-md-9 my-5">
 
                         <div className="card o-hidden border-0 shadow-lg my-5">
                             <div className="card-body p-0">
@@ -44,57 +41,142 @@ const ForgotPw = ({ history }) => {
                                             <div className="text-center">
                                                 <h1 className="h4 text-gray-900 mb-4">전력예측 프로그램</h1>
                                             </div>
+
+                                            {/* email, phone number, confirm number box start */}
+                                            {!show && 
+                                            <form className="user">
+
+                                                {/* email, phone number box start */}
+                                                <div className="form-group">
+                                                    
+                                                    {/* email box start */}
+                                                    <div className="text-left text-primary">
+                                                        email
+                                                    </div>
+                                                    <input type="email" className="form-control form-control-user" placeholder="Enter Email Address..."
+                                                        onChange={(e) => {
+                                                            e.preventDefault()
+                                                            setInfo({ ...info, email: e.target.value })
+                                                    }} /> {/* email box finish */}
+
+                                                    {/* phone number box start */}
+                                                    <div className="text-left text-primary">
+                                                        phone number
+                                                    </div>
+                                                    <div className='row'>
+                                                        <div className='col-3'>
+                                                            <input type='text' className='form-control form-control-user' placeholder=' 010' readOnly>
+
+                                                            </input>
+                                                        </div>
+                                                        <div className='col-3'>
+                                                            <input type='text' className='form-control form-control-user' onChange={
+                                                                (e) => {
+                                                                    e.preventDefault()
+                                                                    setPhoneFirst(e.target.value)
+                                                                    setInfo({
+                                                                        ...info, phone: `010${e.target.value}${phoneSecond}`
+                                                                    })
+
+                                                                }
+                                                            }>
+                                                            </input>
+                                                        </div>
+                                                        <div className='col-3'>
+                                                            <input type='text' className='form-control form-control-user' onChange={
+                                                                (e) => {
+                                                                    e.preventDefault()
+                                                                    setPhoneSecond(e.target.value)
+                                                                    setInfo({
+                                                                        ...info, phone: `010${phoneFirst}${e.target.value}`
+                                                                    })
+                                                                }
+                                                            }>
+                                                            </input>
+                                                        </div>
+                                                        <div className='col-3'>
+                                                            <Button className="btn btn-primary btn-user btn-block"
+                                                                onClick={() => {
+                                                                    setInfo({
+                                                                        ...info, phone: `010${phoneFirst}${phoneSecond}`
+                                                                    })
+                                                                    console.log('info >>', info)
+                                                                    axios.post(`/api/auth/find_password`, info)
+                                                                        .then((response) => {
+                                                                            console.log(response.data)
+                                                                            if (response.data.message === '인증번호 전송 완료') {
+                                                                                setAuth(response.data.data)
+                                                                            } else {
+                                                                            }
+                                                                        })
+                                                                }}>
+                                                                전송
+                                                            </Button>
+                                                        </div>
+                                                    </div> {/* phone number box finish */}
+                                                </div> {/* email, phone number box finish */}
+
+                                                {/* confirm number box start */}
+                                                <div className="form-group">
+                                                    <div className="text-left text-primary">
+                                                        인증번호 확인
+                                                    </div>
+                                                    <div className='row'>
+                                                        <div className='col-9'>
+                                                            <input type='text' className='form-control form-control-user' placeholder='' onChange={(e)=>{
+                                                                e.preventDefault()
+
+                                                                setCheck(e.target.value)
+                                                            }}>
+
+                                                            </input>
+                                                        </div>
+                                                        <div className='col-3'>
+                                                            <Button className="btn btn-primary btn-user btn-block"
+                                                                onClick={() => {
+                                                                    console.log('auth check >>', auth, check)
+                                                                    
+                                                                    if (auth === check) {
+                                                                        axios.post(`/api/auth/find_password/phone_auth`, info.email)
+                                                                            .then((response) => {
+                                                                                console.log('find password auth phone')
+                                                                                
+                                                                            })
+                                                                            .catch((error) => {
+                                                                                console.log('error >>', error)
+                                                                            })
+                                                                        
+                                                                        handleShow()
+                                                                    } else {
+                                                                         
+                                                                    }
+                                                                }}>
+                                                                확인
+                                                            </Button>
+                                                        </div>
+                                                    </div>
+                                                </div> {/* confirm number box finish */}
+                                                
+                                            </form>} {/* email, phone number, confirm number box finish */}
+                                            
+                                            {/* 임시번호  */}
+                                            {show &&
                                             <form className="user">
                                                 <div className="form-group">
                                                     <div className="text-left text-primary">
                                                         email
                                                     </div>
-                                                    <input type="email" className="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..."
-                                                        onChange={(e) => {
-                                                            e.preventDefault()
-                                                            setSigninInfo({ ...signinInfo, email: e.target.value })
-                                                        }} />
-                                                </div>
-                                                <div className="form-group">
-                                                    <div className="text-left text-primary">
-                                                        password
-                                                    </div>
-                                                    <input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password"
-                                                        onChange={(e) => {
-                                                            e.preventDefault()
-                                                            setSigninInfo({ ...signinInfo, password: e.target.value })
-                                                        }} />
-                                                </div>
-                                                <div className="form-group">
-                                                    <div className="custom-control custom-checkbox small">
-                                                        <input type="checkbox" className="custom-control-input" id="customCheck" />
-                                                        <label className="custom-control-label" htmlFor="customCheck">Remember Me</label>
-                                                    </div>
-                                                </div>
-                                                <Button className="btn btn-primary btn-user btn-block"
-                                                    onClick={() => {
-                                                        console.log('sigin info >>', signinInfo)
-                                                        axios.post(`/api/auth/signin`, signinInfo)
-                                                            .then((response) => {
-                                                                if (response.data.message === '로그인 성공') {
+                                                    <input type="text" className="form-control form-control-user" placeholder={info.email} readOnly/>
 
-                                                                } else {
-                                                                    handleShow()
-                                                                }
-                                                            })
-                                                    }}>
-                                                    Login
-                                                </Button>
-                                            </form>
+                                                        
+                                                </div>
+                                                <div className='alert alert-warning mt-4 mb-4' role="alert" >
+                                                    이메일로 임시 비밀번호를 전송했습니다.
+                                                </div>
+                                            </form>}
                                             <hr />
                                             <div className="text-center">
-                                                <Link className="small" to="/forgotid">Forgot ID?</Link>
-                                            </div>
-                                            <div className="text-center">
-                                                <Link className="small" to="/forgotpw">Forgot Password?</Link>
-                                            </div>
-                                            <div className="text-center">
-                                                <Link className="small" to="/signup">Create an Account!</Link>
+                                                <Link className="small" to="/">Login !</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -109,18 +191,6 @@ const ForgotPw = ({ history }) => {
 
 
             </div>
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header>
-                    <Modal.Title>로그인 실패</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>아이디, 비밀번호를 확인해주세요 ! ! !</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </>
     )
 

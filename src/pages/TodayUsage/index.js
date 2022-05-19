@@ -8,18 +8,16 @@ import PageHeading from '../../components/PageHeading';
 import ChartToday from '../../components/Charts/Today';
 import CardInfo from '../../components/Cards/Info';
 
-import axios from 'axios'
-
 const TodayUsage = () => {
-    // const [electricData, setElectricData] = useState(Array.from({ length: 24 }, () => 0))
     
-    const data = useSelector(state=>state)
-
-    const electricData = data.cardState.electricData
     useEffect(()=>{
         
     })
         
+    const data = useSelector(state => state)
+
+    const electricData = data.cardState.electricData
+
     return (
         <div>
             {/* <!-- Page Wrapper --> */}
@@ -48,27 +46,29 @@ const TodayUsage = () => {
 
                             {/* <!-- Content Row --> */}
                             
-                            <div className="row">
-                                <div className="col-9">
+                            
+                            <div className='row'>
+                                <div className='col-6'>
+                                    <CardInfo title="요금액"
+                                        icon="coins"
+                                        color="primary"
+                                        value="W 10,000" />
+                                </div>
+
+                                <div className='col-6'>
+                                    <CardInfo title="전력량"
+                                        icon="bolt"
+                                        color="primary"
+                                        value="100 Kw" />
+                                </div>
+                            </div>
+                            
+                            <div className="row pt-4">
+                                <div className="col">
                                     <ChartToday 
-                                        electricData = {electricData}/>
+                                        electricData={electricData} />
+                                        
                                 </div>
-                                <div className='col-3'>
-                                    <div className='px-2'>
-                                        <CardInfo title="요금액"
-                                            icon="coins"
-                                            color="primary"
-                                            value="W 10,000" />
-                                    </div>
-                                    
-                                    <div className='px-2'>
-                                        <CardInfo title="전력량"
-                                            icon="bolt"
-                                            color="primary"
-                                            value="100 Kw" />
-                                    </div>
-                                </div>
-                                
                             </div>
 
                         </div>
