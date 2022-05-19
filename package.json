@@ -1,15 +1,17 @@
 {
-    "name": "sb-admin-2-react",
+    "name": "kyolim",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
         "axios": "^0.26.1",
         "bootstrap": "^4.3.1",
-        "chart.js": "^3.0.2",
+        "chart.js": "2.8.0",
+        "fsevents": "^2.3.2",
         "http-proxy-middleware": "^2.0.4",
         "jquery": "^3.4.1",
         "lodash.template": "^4.5.0",
         "mixin-deep": "^2.0.1",
+        "node-sass": "4.14.1",
         "popper.js": "^1.15.0",
         "process": "^0.11.10",
         "prop-types": "^15.7.2",
@@ -53,5 +55,9 @@
         "http-proxy-middleware": "^2.0.4",
         "react-redux": "^7.0.3",
         "redux": "^4.0.1"
-    }
+    },
+    "main": "index.js",
+    "repository": "https://github.com/TeamJCIM/TeamJCIM_Frontend.git",
+    "author": "안윤철 <anchul@hanmail.net>",
+    "license": "MIT"
 }

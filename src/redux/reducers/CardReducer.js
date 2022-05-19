@@ -8,7 +8,7 @@ export const CardReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case CARD_DATA:
-            console.log('card reducer', action)
+            console.log('card reducer', action.data)
 
             let iotData = action.data[0][0].IotData
             let predictData = action.data[1]

@@ -13,7 +13,7 @@ import { RecordReducer } from '../../redux/reducers/RecordReducer';
 
 
 const ForgotId = ({ history }) => {
-    const [signinInfo, setSigninInfo] = useState({ email: '', password: '' })
+    const [findIdInfo, setFindIdInfo] = useState({ name: '', phone: '' })
 
     const [show, setShow] = useState(false);
 
@@ -24,7 +24,7 @@ const ForgotId = ({ history }) => {
         document.getElementById('body').className = 'bg-gradient-primary'
     })
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     return (
         <>
@@ -42,39 +42,50 @@ const ForgotId = ({ history }) => {
                                     <div className="col-lg-6">
                                         <div className="p-5">
                                             <div className="text-center">
-                                                <h1 className="h4 text-gray-900 mb-4">전력예측 프로그램</h1>
+                                                <h1 className="h4 text-gray-900 mb-4">아이디 찾기</h1>
                                             </div>
                                             <form className="user">
                                                 <div className="form-group">
                                                     <div className="text-left text-primary">
-                                                        email
+                                                        name
                                                     </div>
-                                                    <input type="email" className="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..."
+                                                    <input type="text" className="form-control form-control-user" id="inputName" aria-describedby="nameHelp" placeholder="Enter Name..."
                                                         onChange={(e) => {
                                                             e.preventDefault()
-                                                            setSigninInfo({ ...signinInfo, email: e.target.value })
+                                                            setFindIdInfo({ ...findIdInfo, name: e.target.value })
+                                                            console.log(findIdInfo)
                                                         }} />
                                                 </div>
                                                 <div className="form-group">
                                                     <div className="text-left text-primary">
-                                                        password
+                                                        phone number
                                                     </div>
-                                                    <input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password"
+                                                    <div className='row'>
+                                                        <div className='col-4'>
+                                                            <input type='text' className='form-control form-control-user'>
+
+                                                            </input>
+                                                        </div>
+                                                        <div className='col-4'>
+                                                            <input type='text' className='form-control form-control-user'>
+
+                                                            </input>
+                                                        </div>
+                                                        <div className='col-4'>
+                                                            <input type='text' className='form-control form-control-user'>
+
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    {/*<input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password"
                                                         onChange={(e) => {
                                                             e.preventDefault()
-                                                            setSigninInfo({ ...signinInfo, password: e.target.value })
-                                                        }} />
-                                                </div>
-                                                <div className="form-group">
-                                                    <div className="custom-control custom-checkbox small">
-                                                        <input type="checkbox" className="custom-control-input" id="customCheck" />
-                                                        <label className="custom-control-label" htmlFor="customCheck">Remember Me</label>
-                                                    </div>
+                                                            // setSigninInfo({ ...findIdInfo, phone: e.target.value })
+                                                        }} />*/}
                                                 </div>
                                                 <Button className="btn btn-primary btn-user btn-block"
                                                     onClick={() => {
-                                                        console.log('sigin info >>', signinInfo)
-                                                        axios.post(`/api/auth/signin`, signinInfo)
+                                                        axios.post(`/api/auth/signin`, )
                                                             .then((response) => {
                                                                 if (response.data.message === '로그인 성공') {
 
@@ -83,7 +94,7 @@ const ForgotId = ({ history }) => {
                                                                 }
                                                             })
                                                     }}>
-                                                    Login
+                                                    아이디 찾기
                                                 </Button>
                                             </form>
                                             <hr />
