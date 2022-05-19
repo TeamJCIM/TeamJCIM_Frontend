@@ -15,10 +15,21 @@ import { RecordReducer } from '../../redux/reducers/RecordReducer';
 const ForgotId = ({ history }) => {
     const [findIdInfo, setFindIdInfo] = useState({ name: '', phone: '' })
 
+    const [phoneFirst, setPhoneFirst] = useState()
+    const [phoneSecond, setPhoneSecond] = useState()
+
     const [show, setShow] = useState(false);
+
+    const [email, setEmail] = useState()
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [confirm, setConfirm] = useState(false)
+
+    const confirmFalse = () => setConfirm(false);
+    const confirmTrue = () => setConfirm(true);
+
 
     useEffect(() => {
         document.getElementById('body').className = 'bg-gradient-primary'
@@ -53,7 +64,6 @@ const ForgotId = ({ history }) => {
                                                         onChange={(e) => {
                                                             e.preventDefault()
                                                             setFindIdInfo({ ...findIdInfo, name: e.target.value })
-                                                            console.log(findIdInfo)
                                                         }} />
                                                 </div>
                                                 <div className="form-group">
@@ -62,44 +72,69 @@ const ForgotId = ({ history }) => {
                                                     </div>
                                                     <div className='row'>
                                                         <div className='col-4'>
-                                                            <input type='text' className='form-control form-control-user'>
-
+                                                            <input type='text' className='form-control form-control-user' placeholder='        010' readOnly>
+                                                                
                                                             </input>
                                                         </div>
                                                         <div className='col-4'>
-                                                            <input type='text' className='form-control form-control-user'>
-
+                                                            <input type='text' className='form-control form-control-user' onChange={
+                                                                (e) => {
+                                                                    e.preventDefault()
+                                                                    setPhoneFirst(e.target.value)
+                                                                    setFindIdInfo({
+                                                                        ...findIdInfo, phone: `010${e.target.value}${phoneSecond}` })
+                                                                }
+                                                            }>
                                                             </input>
                                                         </div>
                                                         <div className='col-4'>
-                                                            <input type='text' className='form-control form-control-user'>
-
+                                                            <input type='text' className='form-control form-control-user' onChange={
+                                                                (e) => {
+                                                                    e.preventDefault()
+                                                                    setPhoneSecond(e.target.value)
+                                                                    setFindIdInfo({
+                                                                        ...findIdInfo, phone: `010${phoneFirst}${e.target.value}`
+                                                                    })
+                                                                }
+                                                            }>
                                                             </input>
                                                         </div>
                                                     </div>
-                                                    {/*<input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password"
-                                                        onChange={(e) => {
-                                                            e.preventDefault()
-                                                            // setSigninInfo({ ...findIdInfo, phone: e.target.value })
-                                                        }} />*/}
                                                 </div>
-                                                <Button className="btn btn-primary btn-user btn-block"
-                                                    onClick={() => {
-                                                        axios.post(`/api/auth/signin`, )
-                                                            .then((response) => {
-                                                                if (response.data.message === '로그인 성공') {
+                                                <Button className="btn btn-primary btn-user btn-block mt-4"
+                                                    onClick={(e) => {
+                                                        e.preventDefault()
 
+                                                        setFindIdInfo({
+                                                            ...findIdInfo, phone: `010${phoneFirst}${phoneSecond}`
+                                                        })
+                                                        axios.post(`/api/auth/findId`, findIdInfo)
+                                                            .then((response) => {
+                                                                console.log('find id info in axios', response.data)
+                                                                handleShow()
+                                                                if (response.data.message === '이메일을 찾았습니다') {
+                                                                    console.log('success')
+                                                                    setEmail(response.data.email.email)
+                                                                    confirmTrue()
                                                                 } else {
-                                                                    handleShow()
+                                                                    confirmFalse()
                                                                 }
                                                             })
                                                     }}>
                                                     아이디 찾기
                                                 </Button>
+                                                {show && confirm &&
+                                                <div className='alert alert-info mt-4 mb-4' role="alert" >
+                                                    성공, {email}
+                                                </div>}
+                                                {show && !confirm &&
+                                                <div className='alert alert-danger mt-4 mb-4' role="alert" >
+                                                    실패, 이름과 전화번호를 다시 확인하세요
+                                                </div>}
                                             </form>
-                                            <hr />
+                                            <hr/>
                                             <div className="text-center">
-                                                <Link className="small" to="/forgotid">Forgot ID?</Link>
+                                                <Link className="small" to="/">Login</Link>
                                             </div>
                                             <div className="text-center">
                                                 <Link className="small" to="/forgotpw">Forgot Password?</Link>
@@ -120,18 +155,6 @@ const ForgotId = ({ history }) => {
 
 
             </div>
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header>
-                    <Modal.Title>로그인 실패</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>아이디, 비밀번호를 확인해주세요 ! ! !</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </>
     )
 
