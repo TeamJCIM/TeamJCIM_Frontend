@@ -10,8 +10,11 @@ Chart.defaults.global.defaultFontColor = '#858796';
 export default function AnalizeChart(props) {
     const chartRef = React.createRef();
 
-    const today = new Date();
-    var thisMonth = today.getMonth();
+    // const today = new Date();
+    // var thisMonth = today.getMonth();
+    // var prevMonth = thisMonth - 1;
+
+    var thisMonth = 2;
     var prevMonth = thisMonth - 1;
 
     const [data, setData] = useState({
@@ -31,10 +34,12 @@ export default function AnalizeChart(props) {
 
     useEffect(() => {
         const analizeChartRef = chartRef.current.getContext('2d');
+
         async function fetch() {
             const response = await axios.get(
-                `/api/safety/PowerAnalysis/1227564000/2021`
+                `/api/safety/PowerAnalysis/1232713263/2022`
             );
+            console.log(response);
             try {
                 response['data']['data'][0].forEach((element) => {
                     const idx = element['Month'] - 1;
@@ -85,6 +90,8 @@ export default function AnalizeChart(props) {
                         100
                     }(%) 의 오차율로 전력예측을 했습니다.`,
                 });
+                console.log(iArray[thisMonth]);
+                console.log(pArray[thisMonth]);
             } catch (error) {
                 console.log(error);
             }

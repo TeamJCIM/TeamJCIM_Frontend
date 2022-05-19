@@ -9,44 +9,47 @@ Chart.defaults.global.defaultFontColor = '#858796';
 export default function ChartLine(props) {
     const chartRef = React.createRef();
 
-    var date = new Date();
-    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    var lastDay = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        0
-    ).getDate();
+    // var date = new Date();
+    // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
+    // var lastDay = new Date(
+    //     date.getFullYear(),
+    //     date.getMonth() + 1,
+    //     0
+    // ).getDate();
 
+    var firstDay = 1;
+    var lastDay = 31;
     var thisMonthDay = [];
-    // //동적으로 구하는 방식
-    // for (var i = firstDay; i <= lastDay; i++) {
-    //     thisMonthDay.push(i);
-    // }
-
-    //데이터가 1월까지 밖에 없음 현재 2월 1일이라고 가정.
-    for (var i = firstDay; i <= 28; i++) {
+    //동적으로 구하는 방식
+    for (var i = firstDay; i <= lastDay; i++) {
         thisMonthDay.push(i);
     }
 
-    const [thisData, setThisData] = useState({
-        predData: [],
-        iotData: [],
-    });
-
     const pArray = [];
+    const iArray = [];
 
     useEffect(() => {
-        // async function fetch() {
-        //     await axios
-        //         .get(`api/predict/predictNextMonth/1227564000`)
-        //         .then(function (response) {
-        //             console.log(response);
-        //         })
-        //         .catch(function (error) {
-        //             console.log(error);
-        //         });
-        // }
-        // fetch();
+        async function fetch() {
+            const response = await axios.get(
+                `api/predict/predictNextMonth_tmp/1232713263`
+            );
+            try {
+                const pData = response['data']['message'][1];
+                const iData = response['data']['message'][3];
+                console.log(iData);
+
+                for (var p in pData) {
+                    pArray.push(pData[p]['PredictData']);
+                }
+
+                for (var i in iData) {
+                    iArray.push(iData[i]['IotData']);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetch();
 
         const thisMonthChartLine = chartRef.current.getContext('2d');
         new Chart(thisMonthChartLine, {
@@ -67,7 +70,7 @@ export default function ChartLine(props) {
                         pointHoverBorderColor: 'rgba(78, 115, 223, 1)',
                         pointHitRadius: 5,
                         pointBorderWidth: 2,
-                        data: [],
+                        data: pArray,
                     },
                     {
                         label: '실제사용량',
@@ -82,7 +85,7 @@ export default function ChartLine(props) {
                         pointHoverBorderColor: 'rgba(102, 250, 156,1)',
                         pointHitRadius: 5,
                         pointBorderWidth: 2,
-                        data: [],
+                        data: iArray,
                     },
                 ],
             },

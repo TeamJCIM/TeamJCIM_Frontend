@@ -20,21 +20,26 @@ export default function Predict() {
     });
 
     useEffect(() => {
-        axios
-            .get(`api/predict/predictNextMonth_tmp/1232713263`)
-            .then(function (response) {
-                console.log(response);
+        // var input = prompt('계약 전력량을 입력하세요');
+
+        async function fetch() {
+            const response = await axios.get(
+                // `api/predict/predictNextMonth_tmp/${iotNum}`
+                `api/predict/predictNextMonth_tmp/1232713263`
+            );
+            try {
                 setState({
-                    // fee: response['data']['message'][] + '(원)',
                     usage:
-                        response.data['message'][2]['PredictData']
-                            .toFixed()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '(kWh)',
+                        Math.ceil(
+                            response['data']['message'][2][0]['PredictData']
+                        ) + '(kWh)',
+                    fee: '3000',
                 });
-            })
-            .catch(function (error) {
-                console.log('error: ', error);
-            });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetch();
     }, []);
 
     return (
