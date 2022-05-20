@@ -11,9 +11,9 @@ import AnalizeChart from '../../components/AnalizeChart';
 import { useSelector } from 'react-redux';
 
 const Safety = () => {
-    const data = useSelector(state=>state)
-    const stateName = data.cardState.stateName
-    let radius = 0
+    const data = useSelector((state) => state);
+    const stateName = data.cardState.stateName;
+    let radius = 0;
     switch (stateName) {
         case 'Safety':
             radius = -150;
@@ -42,12 +42,11 @@ const Safety = () => {
 
                             <div className="row">
                                 <div className="col-xl">
-                                    <IotStateChart radius={radius}/>
+                                    <IotStateChart radius={radius} />
                                 </div>
 
                                 <div className="col-xl">
                                     <IotRecord />
-
                                 </div>
                             </div>
                             <AnalizeChart title="전력분석" />

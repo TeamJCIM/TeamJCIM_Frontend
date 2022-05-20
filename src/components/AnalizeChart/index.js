@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Chart } from 'chart.js';
 import axios from 'axios';
-
 import CardBasic from '../Cards/Basic';
+import { useSelector } from 'react-redux';
 
 Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
@@ -10,24 +10,11 @@ Chart.defaults.global.defaultFontColor = '#858796';
 export default function AnalizeChart(props) {
     const chartRef = React.createRef();
 
-    // const today = new Date();
-    // var thisMonth = today.getMonth();
-    // var prevMonth = thisMonth - 1;
+    const data = useSelector((state) => state);
+    const iotNum = data.iotNumState.iotNum;
 
-    var thisMonth = 2;
-    var prevMonth = thisMonth - 1;
-
-    const [data, setData] = useState({
-        thisMonth_IotData: '',
-        thisMonth_predData: '',
-        prevMonth_IotData: '',
-        changeMessage: '',
-        errorRate: '',
-    });
-
-    if (thisMonth === 0) {
-        prevMonth = 11;
-    }
+    const [message, setMessage] = useState('');
+    const [errorRate, setErrorRate] = useState('');
 
     const pArray = [];
     const iArray = [];
@@ -37,61 +24,50 @@ export default function AnalizeChart(props) {
 
         async function fetch() {
             const response = await axios.get(
-                `/api/safety/PowerAnalysis/1232713263/2022`
+                `/api/safety/PowerAnalysis/${iotNum}/2022`
             );
             console.log(response);
             try {
                 response['data']['data'][0].forEach((element) => {
-                    const idx = element['Month'] - 1;
-                    pArray[idx] = element['PredictData'];
-                });
-                response['data']['data'][1].forEach((element) => {
-                    const idx = element['Month'] - 1;
-                    iArray[idx] = element['IotData'];
-                });
-                setData({
-                    ...data,
-                    thisMonth_IotData: iArray[thisMonth],
-                    thisMonth_predData: pArray[thisMonth],
-                    prevMonth_IotData: iArray[prevMonth],
+                    pArray.push(element['PredictData']);
                 });
 
-                var change =
-                    ((iArray[thisMonth] - iArray[prevMonth]) /
-                        iArray[prevMonth]) *
-                    100;
+                response['data']['data'][1].forEach((element) => {
+                    iArray.push(element['IotData']);
+                });
+
+                var change = Math.ceil(
+                    ((iArray[iArray.length - 1] - iArray[iArray.length - 2]) /
+                        iArray[iArray.length - 2]) *
+                        100
+                );
 
                 if (change > 0) {
-                    setData({
-                        ...data,
-                        changeMessage: `이번 달은(${
-                            thisMonth + 1
-                        }월) 사용량은 저번 달(${
-                            prevMonth + 1
-                        }월) 보다 ${Math.abs(change)} (%)가량 증가 하였습니다`,
-                    });
+                    setMessage(
+                        `이번 달은(${iArray.length}월) 사용량은 저번 달(${
+                            pArray.length - 1
+                        }월) 보다 ${Math.abs(change)} (%)가량 증가 하였습니다`
+                    );
                 } else {
-                    setData({
-                        ...data,
-                        changeMessage: `이번 달(${
-                            thisMonth + 1
-                        }월) 사용량은 저번 달(${
-                            prevMonth + 1
-                        }월) 보다 ${Math.abs(change)} (%)가량 감소 하였습니다`,
-                    });
+                    setMessage(
+                        `이번 달(${iArray.length}월) 사용량은 저번 달(${
+                            pArray.length - 1
+                        }월) 보다 ${Math.abs(change)} (%)가량 감소 하였습니다`
+                    );
                 }
 
                 //오차율 = (|실제값 - 측정값|) / (실제값) * 100
-                setData({
-                    ...data,
-                    errorRate: `지난달에 ${
-                        (Math.abs(iArray[thisMonth] - pArray[thisMonth]) /
-                            iArray[thisMonth]) *
-                        100
-                    }(%) 의 오차율로 전력예측을 했습니다.`,
-                });
-                console.log(iArray[thisMonth]);
-                console.log(pArray[thisMonth]);
+
+                setErrorRate(
+                    `지난달에 ${Math.ceil(
+                        (Math.abs(
+                            iArray[iArray.length - 2] -
+                                pArray[pArray.length - 2]
+                        ) /
+                            iArray[iArray.length - 2]) *
+                            100
+                    )}(%) 의 오차율로 전력예측을 했습니다.`
+                );
             } catch (error) {
                 console.log(error);
             }
@@ -204,8 +180,9 @@ export default function AnalizeChart(props) {
             <div className="chart-body">
                 <canvas id="ChartBody" ref={chartRef}></canvas>
             </div>
-            {/* <div>{data.changeMessage} </div> */}
-            <div>{data.errorRate} </div>
+            <div>{message} </div>
+            <br></br>
+            <div>{errorRate} </div>
         </CardBasic>
     );
 }
