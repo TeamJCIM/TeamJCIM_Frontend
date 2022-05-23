@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Chart } from 'chart.js';
 import CardBasic from '../../Cards/Basic';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+
 
 Chart.defaults.global.defaultFontFamily = 'Nunito';
 Chart.defaults.global.defaultFontColor = '#858796';
@@ -9,6 +11,10 @@ Chart.defaults.global.defaultFontColor = '#858796';
 export default function ChartLine(props) {
     const chartRef = React.createRef();
 
+    const data = useSelector(state=>state)
+    const pArray = data.predictState.pArray
+    const iArray = data.predictState.iArray
+    
     // var date = new Date();
     // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
     // var lastDay = new Date(
@@ -25,10 +31,10 @@ export default function ChartLine(props) {
         thisMonthDay.push(i);
     }
 
-    const pArray = [];
-    const iArray = [];
+    // const pArray = [];
+    // const iArray = [];
 
-    useEffect(() => {
+    useEffect(() => {/*
         async function fetch() {
             const response = await axios.get(
                 `api/predict/predictNextMonth_tmp/1232713263`
@@ -49,7 +55,7 @@ export default function ChartLine(props) {
                 console.log(error);
             }
         }
-        fetch();
+        fetch();*/
 
         const thisMonthChartLine = chartRef.current.getContext('2d');
         new Chart(thisMonthChartLine, {

@@ -37,13 +37,13 @@ export const CardReducer = (state = initialState, action) => {
 
             // electric data
             for (let i = 0; i < action.data[3].length; i++) {
-                electricData[Math.floor(Number(action.data[3][i].Date.substr(11, 2)) / 2)] += Math.floor(action.data[3][i].VoltageAvg)
+                electricData[Math.floor(Number(action.data[3][i].Date.substr(11, 2)) / 2)] += Math.floor(action.data[3][i].VoltageAvg) / 1000
             }
 
             return {
                 ...state,
-                iotData: iotData,
-                predictData: predictData,
+                iotData: iotData / 1000,
+                predictData: predictData / 1000,
                 iotStatus: iotStatus,
                 stateName: stateName,
                 electricData: electricData,

@@ -151,8 +151,8 @@ const IotStateChart = (props) => {
         },)
 
     return (
-        <CardBasic title="IOT">
-            <div className="chart-pie pt-4 pb-4">
+        <CardBasic className='pb-4' title="IOT">
+            <div className="chart-pie pt-4 pb-4 mb-3">
                 <canvas id="myPieChart" ref={chartRef}></canvas>
                 {/*<p className='percent'> Safety </p>*/}
             </div>

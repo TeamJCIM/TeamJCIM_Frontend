@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLICK_OPEN_MENU, POST_IOT_NUM, CARD_DATA, USAGE_DATA, RECORD_DATA  } from "./ActionTypes";
+import { CLICK_OPEN_MENU, POST_IOT_NUM, CARD_DATA, USAGE_DATA, RECORD_DATA, PREDICT_DATA } from "./ActionTypes";
 
 export const clickMenuOpen = value => ({
     type: CLICK_OPEN_MENU,
@@ -20,7 +20,7 @@ export const getCardData = data => ({
 export const getCardDataAsync = (iotNum) => {
 
     return (dispatch) => {
-        axios.get(`/api/overview/${iotNum}/2022-05-20`,)
+        axios.get(`/api/overview/${iotNum}/2022-05-23`,)
             .then((response) => {
                 console.log('card data async >>', response)
 
@@ -61,6 +61,24 @@ export const getRecordDataAsync = iotNum => {
         .then((response) => {
             console.log('record async >>', response.data)
             dispatch(getRecordData(response.data))
+        })
+        .catch((error) => {
+            console.log('error >>', error)
+        })
+    }
+}
+
+export const getPredictData = data => ({
+    type: PREDICT_DATA,
+    data: data,
+})
+
+export const getPredictDataAsync = iotNum => {
+    return (dispatch) => {
+        axios.get(`/api/predict/predictNextMonth_tmp/${iotNum}`)
+        .then((response) => {
+            console.log('predict async >>', response.data)
+            dispatch(getPredictData(response.data))
         })
         .catch((error) => {
             console.log('error >>', error)

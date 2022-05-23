@@ -4,7 +4,7 @@ import CardBasic from '../Basic';
 import { Table } from 'react-bootstrap';
 
 const IotRecord = (props) => {
-
+        console.log('time', props.time)
         return (
             <CardBasic title="IOT Record">
                 <Table striped bordered hover>
@@ -12,25 +12,15 @@ const IotRecord = (props) => {
                         <tr>
                             <th>Iot Number</th>
                             <th>Temperature</th>
-                            <th>Date</th>
+                            <th>Time</th>
                             <th>Statics</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>90008501</td>
-                            <td>55℃</td>
-                            <td>2022/01/25</td>
-                            <td>
-                                <button type="button" className="btn btn-success btn-sm">
-                                    Safety
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>90008502</td>
-                            <td>60℃</td>
-                            <td>2022/01/27</td>
+                            <td>{props.iotnum}</td>
+                            <td>{Math.floor(Math.random() * (60 - 40)) + 40 + '℃'}</td>
+                            <td>{props.time[3]}</td>
                             <td>
                                 <button type="button" className="btn btn-warning btn-sm">
                                     Caution
@@ -38,12 +28,32 @@ const IotRecord = (props) => {
                             </td>
                         </tr>
                         <tr>
-                            <td>90008503</td>
-                            <td>55℃</td>
-                            <td>2022/01/29</td>
+                            <td>{props.iotnum}</td>
+                            <td>{Math.floor(Math.random() * (60 - 40)) + 40 + '℃'}</td>
+                            <td>{props.time[2]}</td>
                             <td>
-                                <button type="button" className="btn btn-danger btn-sm">
-                                    Danger
+                                <button type="button" className="btn btn-warning btn-sm">
+                                    Caution
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{props.iotnum}</td>
+                            <td>{Math.floor(Math.random() * (60 - 40)) + 40 + '℃'}</td>
+                            <td>{props.time[1]}</td>
+                            <td>
+                                <button type="button" className="btn btn-warning btn-sm">
+                                    Caution
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{props.iotnum}</td>
+                            <td>{Math.floor(Math.random() * (60 - 40)) + 40 + '℃'}</td>
+                            <td>{props.time[0]}</td>
+                            <td>
+                                <button type="button" className="btn btn-warning btn-sm">
+                                    Caution
                                 </button>
                             </td>
                         </tr>

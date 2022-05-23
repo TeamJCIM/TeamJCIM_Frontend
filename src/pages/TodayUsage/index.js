@@ -17,6 +17,14 @@ const TodayUsage = () => {
     const data = useSelector(state => state)
 
     const electricData = data.cardState.electricData
+    console.log('사용량 ', electricData)
+    const total = electricData.reduce(function add(sum, currValue) {
+        return sum + currValue;
+    }, 0);
+    console.log(total)
+    
+    const fee = 40 /** 6160*/ + total * 60.2 + total * 5.3;
+
 
     return (
         <div>
@@ -52,14 +60,14 @@ const TodayUsage = () => {
                                     <CardInfo title="요금액"
                                         icon="coins"
                                         color="primary"
-                                        value="W 10,000" />
+                                        value={`${fee}` + " (원)"} />
                                 </div>
 
                                 <div className='col-6'>
                                     <CardInfo title="전력량"
                                         icon="bolt"
                                         color="primary"
-                                        value="100 Kw" />
+                                        value={`${total}` + " (kWh)"} />
                                 </div>
                             </div>
                             

@@ -13,6 +13,10 @@ import { useSelector } from 'react-redux';
 const Safety = () => {
     const data = useSelector((state) => state);
     const stateName = data.cardState.stateName;
+    const iotnum = data.iotNumState.iotNum;
+    const time = data.recordState.time;
+
+    console.log('iot num', iotnum)
     let radius = 0;
     switch (stateName) {
         case 'Safety':
@@ -41,12 +45,12 @@ const Safety = () => {
                             <PageHeading title="안전 페이지" />
 
                             <div className="row">
-                                <div className="col-xl">
+                                <div className="col-md-6">
                                     <IotStateChart radius={radius} />
                                 </div>
 
-                                <div className="col-xl">
-                                    <IotRecord />
+                                <div className="col-md-6">
+                                    <IotRecord iotnum={iotnum} time={time}/>
                                 </div>
                             </div>
                             <AnalizeChart title="전력분석" />
