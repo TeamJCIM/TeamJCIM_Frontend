@@ -61,7 +61,7 @@ class Topbar extends Component {
                             </form>
                         </div>
                     </li>
-
+                    {/*
                     <li className="nav-item dropdown no-arrow mx-1">
                         <a
                             className="nav-link dropdown-toggle"
@@ -73,7 +73,7 @@ class Topbar extends Component {
                             aria-expanded="false"
                         >
                             <i className="fas fa-bell fa-fw"></i>
-                            {/* <!-- Counter - Alerts --> */}
+
                             <span className="badge badge-danger badge-counter">
                                 3+
                             </span>
@@ -145,8 +145,9 @@ class Topbar extends Component {
                             </a>
                         </div>
                     </li>
+                     */}
 
-                    <div className="topbar-divider d-none d-sm-block"></div>
+                    {/* <div className="topbar-divider d-none d-sm-block"></div> */}
 
                     <li className="nav-item dropdown no-arrow">
                         <a

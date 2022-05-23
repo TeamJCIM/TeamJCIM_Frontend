@@ -22,7 +22,7 @@ class Sidebar extends Component {
                     to="/dashboard"
                 >
                     <div className="sidebar-brand-icon rotate-n-15">
-                        <i className="fas fa-laugh-wink"></i>
+                        <i className="fas fa-bolt"></i>
                     </div>
                     <div className="sidebar-brand-text mx-3">
                         전력예측 프로그램
@@ -48,7 +48,7 @@ class Sidebar extends Component {
                         data-target="#collapseTwo"
                         aria-controls="collapseTwo"
                     >
-                        <i className="fas fa-fw fa-cog"></i>
+                        <i className="fas fa-fw fa-clock"></i>
                         <span>전력조회</span>
                     </a>
                     <div
@@ -75,14 +75,14 @@ class Sidebar extends Component {
 
                 <li className="nav-item">
                     <Link className="nav-link" to="/predict">
-                        <i className="fas fa-fw fa-chart-area"></i>
+                        <i className="fas fa-fw fa-chart-bar"></i>
                         <span>전력예측</span>
                     </Link>
                 </li>
 
                 <li className="nav-item">
                     <Link className="nav-link" to="/safety">
-                        <i className="fas fa-fw fa-chart-area"></i>
+                        <i className="fas fa-fw fa-exclamation-circle"></i>
                         <span>안전기능</span>
                     </Link>
                 </li>
