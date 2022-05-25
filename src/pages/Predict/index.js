@@ -39,7 +39,9 @@ export default function Predict() {
 
                 var usage = str.slice(0, str.length - 9);
                 var fee = input * base_fee + usage * 60.2 + usage * 5.3;
-                fee = Math.ceil(fee);
+                var tax1 = fee * 0.1;
+                var tax2 = fee * 0.037;
+                fee = Math.ceil(fee + tax1 + tax2);
                 fee = fee.toLocaleString() + '(원)';
 
                 setState({
