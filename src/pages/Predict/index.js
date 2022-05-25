@@ -7,6 +7,7 @@ import ChartLine from '../../components/Charts/Line';
 import PageHeading from '../../components/PageHeading';
 import PredictInfo from '../../components/Cards/PredictInfo';
 import axios from 'axios';
+import AnalizeChart from '../../components/AnalizeChart';
 import { useSelector } from 'react-redux';
 
 export default function Predict() {
@@ -87,6 +88,9 @@ export default function Predict() {
                         <div className="row pt-4">
                             <div className="col">
                                 <ChartLine title="이번달 전력예측"></ChartLine>
+                            </div>
+                            <div className="container-fluid">
+                                <AnalizeChart title="전력분석" />
                             </div>
                         </div>
                     </div>

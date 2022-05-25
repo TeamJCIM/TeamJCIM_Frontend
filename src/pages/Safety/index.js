@@ -16,7 +16,7 @@ const Safety = () => {
     const iotnum = data.iotNumState.iotNum;
     const time = data.recordState.time;
 
-    console.log('iot num', iotnum)
+    console.log('iot num', iotnum);
     let radius = 0;
     switch (stateName) {
         case 'Safety':
@@ -50,10 +50,9 @@ const Safety = () => {
                                 </div>
 
                                 <div className="col-md-6">
-                                    <IotRecord iotnum={iotnum} time={time}/>
+                                    <IotRecord iotnum={iotnum} time={time} />
                                 </div>
                             </div>
-                            <AnalizeChart title="전력분석" />
                         </div>
                     </div>
                 </div>
