@@ -45,7 +45,7 @@ const Dashboard = () => {
                                         title="전력 조회"
                                         icon="clock"
                                         color="info"
-                                        value={Math.floor(iotData)}
+                                        value={`${Math.floor(iotData)}` + ' (kWh)'}
                                     />
                                 </Link>
 
@@ -57,7 +57,7 @@ const Dashboard = () => {
                                         title="전력 예측"
                                         icon="chart-bar"
                                         color="warning"
-                                        value={Math.floor(predictData)}
+                                        value={`${Math.floor(predictData)}` + ' (kWh)'}
                                     />
                                 </Link>
 

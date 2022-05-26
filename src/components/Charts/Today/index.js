@@ -25,9 +25,9 @@ function drawTime(needleRadius) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.9)'
     ctx.fill();
 
-    ctx.beginPath();
-    ctx.arc(0, 0, 7, 0, Math.PI * 2);
-    ctx.fill();
+    // ctx.beginPath();
+    // ctx.arc(0, 0, 7, 0, Math.PI * 2);
+    // ctx.fill();
 
     ctx.font = '24px serif'
 
@@ -193,6 +193,9 @@ const ChartToday = (props) => {
                     },
                     animateRotate: false,
                 },
+                events: {
+                    events: ['mouseup', 'click'],
+                }
             },
         });
     })

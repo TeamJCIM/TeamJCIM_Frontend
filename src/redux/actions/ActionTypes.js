@@ -5,3 +5,4 @@ export const GET_IOT_NUM = 'GET_IOT_NUM';
 export const USAGE_DATA = 'USAGE_DATA';
 export const RECORD_DATA = 'RECORD_DATA';
 export const PREDICT_DATA = 'PREDICT_DATA';
+export const CARD_DATA_YEST = 'CARD_DATA_YEST'

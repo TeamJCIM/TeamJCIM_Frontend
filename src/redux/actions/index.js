@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLICK_OPEN_MENU, POST_IOT_NUM, CARD_DATA, USAGE_DATA, RECORD_DATA, PREDICT_DATA } from "./ActionTypes";
+import { CLICK_OPEN_MENU, POST_IOT_NUM, CARD_DATA, USAGE_DATA, RECORD_DATA, PREDICT_DATA, CARD_DATA_YEST,  } from "./ActionTypes";
 
 export const clickMenuOpen = value => ({
     type: CLICK_OPEN_MENU,
@@ -18,11 +18,29 @@ export const getCardData = data => ({
 })
 
 export const getCardDataAsync = (iotNum) => {
-
     return (dispatch) => {
-        axios.get(`/api/overview/${iotNum}/2022-05-23`,)
+        axios.get(`/api/overview/${iotNum}/2022-05-26`,)
             .then((response) => {
                 console.log('card data async >>', response)
+
+                dispatch(getCardData(response.data.data))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
+export const getCardDataYest = data => ({
+    type: CARD_DATA_YEST,
+    data: data,
+})
+
+export const getCardDataYestAsync = (iotNum) => {
+    return (dispatch) => {
+        axios.get(`/api/overview/${iotNum}/2022-05-25`,)
+            .then((response) => {
+                console.log('card data yesterday async >>', response)
 
                 dispatch(getCardData(response.data.data))
             })

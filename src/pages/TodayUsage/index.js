@@ -20,10 +20,10 @@ const TodayUsage = () => {
     console.log('사용량 ', electricData)
     const total = electricData.reduce(function add(sum, currValue) {
         return sum + currValue;
-    }, 0);
+    }, 0) / 1000
     console.log(total)
     
-    const fee = 40 /** 6160*/ + total * 60.2 + total * 5.3;
+    const fee = Math.floor(10 * 6160 / 3 + total * 60.2 + total * 5.3)
 
 
     return (

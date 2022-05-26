@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
-import { postIotNum, getCardDataAsync, getUsageDataAsync, getRecordDataAsync, getPredictDataAsync } from '../../redux/actions';
+import { postIotNum, getCardDataAsync, getUsageDataAsync, getRecordDataAsync, getPredictDataAsync, getCardDataYestAsync } from '../../redux/actions';
 import { IotNumReducer } from '../../redux/reducers/IotNumReducer';
 import { CardReducer } from '../../redux/reducers/CardReducer';
 import { UsageReducer } from '../../redux/reducers/UsageReducer';
@@ -87,6 +87,7 @@ const SignIn = ({history}) => {
                                     dispatch(getUsageDataAsync(iotNum), UsageReducer)
                                     dispatch(getRecordDataAsync(iotNum), RecordReducer)
                                     dispatch(getPredictDataAsync(iotNum), PredictReducer)
+                                    dispatch(getCardDataYestAsync(iotNum), CardReducer)
 
                                     setTimeout(()=>{
                                       history.push('Dashboard')

@@ -16,16 +16,17 @@ function ChartNow (props) {
         new Chart(myChartRef, {
             type: 'line',
             data: {
-                labels: ["0h", "2h", "4h", "6h", "8h", "10h", "12h", "14h", "16h", "18h", "20h", "22h", "24h"],
+                labels: ["0h", "1h", "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h", "10h", "11h", "12h", "13h", "14h", 
+                "15h", "16h", "17h", "18h", "19h", "20h", "21h", "22h", "23h", "24h"],
                 datasets: [{
-                    label: "Kwh",
+                    label: "wh",
                     lineTension: 0.5, // 곡선의 장력
                     backgroundColor: "rgba(78, 115, 223, 0.1)",
                     borderColor: "rgba(78, 115, 223, 1)",   // 선 색상
                     pointRadius: 0,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
-                    pointBorderWidth: 2,
+                    pointBorderWidth: 1,
                     fill: true,
                     data: data
                 }],
@@ -51,7 +52,7 @@ function ChartNow (props) {
                             drawBorder: false
                         },
                         ticks: {
-                            maxTicksLimit: 12
+                            maxTicksLimit: 24
                         }
                     }],
                     yAxes: [{
